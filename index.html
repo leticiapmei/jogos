@@ -149,7 +149,7 @@ function render(){
     if (!items.length) continue;
     shown += items.length;
     html += `<section><h2 class="lang-title">${code==="fr"?"🇫🇷":"🇷🇺"} ${name} <span class="count">${items.length}</span></h2><div class="grid">` +
-      items.map(j => `<a class="card c-${j.color}" href="jogos/${j.file}">
+      items.map(j => `<a class="card c-${j.color}" href="${j.file}">
         <div class="top"><span class="emoji" aria-hidden="true">${j.emoji}</span><span class="level">${esc(j.level)}</span></div>
         <h3>${esc(j.title)}</h3><p>${esc(j.desc)}</p><span class="play">Jogar →</span></a>`).join("") +
       `</div></section>`;
