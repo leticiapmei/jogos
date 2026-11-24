@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rizoma · Conjugaison jusqu’au B1</title>
+<style>
+:root{--bg:#f4efe3;--ink:#161616;--card:#fffaf0;--red:#e8412b;--yel:#f5b800;--blu:#1f4e9c;--grn:#5f7f3a;--ok:#2f7d32;--ko:#c62828;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161412;--ink:#f4efe3;--card:#221f1b;--blu:#6f9be0;--grn:#9dbf74}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Century Gothic",Futura,"Trebuchet MS",Arial,sans-serif}
+header{border-bottom:5px solid var(--ink);padding:18px 16px 12px;position:relative;overflow:hidden}
+.shapes{position:absolute;right:10px;top:8px;display:flex;gap:8px}
+.shapes i{display:block;width:34px;height:34px;border:3px solid var(--ink)}
+.s1{background:var(--red);border-radius:50%}.s2{background:var(--yel)}.s3{background:var(--blu);clip-path:polygon(50% 0,100% 100%,0 100%);border:0!important}
+h1{margin:0;font:900 clamp(24px,6vw,42px)/1 "Arial Black",Impact,sans-serif;text-transform:uppercase;letter-spacing:-1px;max-width:70%}
+h1 b{color:var(--red)}header p{margin:6px 0 0;font-weight:700}
+nav{display:flex;flex-wrap:wrap;gap:0;border-bottom:5px solid var(--ink);position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
+nav button{flex:1 1 90px;font:800 13px/1.2 inherit;font-family:inherit;text-transform:uppercase;padding:12px 6px;border:0;border-right:3px solid var(--ink);background:var(--bg);color:var(--ink);cursor:pointer}
+nav button.on{background:var(--yel);color:#161616}
+.score{padding:6px 16px;font-weight:800;background:var(--ink);color:var(--bg);display:flex;justify-content:space-between}
+main{max-width:860px;margin:0 auto;padding:16px}
+section{display:none}section.on{display:block}
+.card{background:var(--card);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:14px;margin:0 0 18px}
+.card h3{margin:0 0 6px;font:900 19px "Arial Black",sans-serif;text-transform:uppercase}
+.tag{display:inline-block;padding:2px 10px;color:#fff;font-weight:800;font-size:12px;text-transform:uppercase;margin-right:6px}
+.ex{border-left:6px solid var(--red);padding-left:10px;font-style:italic;margin:6px 0}
+table{border-collapse:collapse;width:100%;font-size:14px}td,th{border:2px solid var(--ink);padding:5px 7px;text-align:left}th{background:var(--yel);color:#161616}
+.opt,.btn,.tok{font:700 15px inherit;font-family:inherit;display:block;width:100%;text-align:left;margin:7px 0;padding:10px 12px;background:var(--card);color:var(--ink);border:3px solid var(--ink);cursor:pointer}
+.btn{width:auto;display:inline-block;background:var(--red);color:#fff;text-transform:uppercase;box-shadow:4px 4px 0 var(--ink)}
+.opt:hover,.tok:hover{background:var(--yel);color:#161616}
+.opt.ok,.tok.ok{background:var(--ok);color:#fff}.opt.ko{background:var(--ko);color:#fff}
+.fb{margin-top:8px;font-weight:700}.bar{height:14px;border:3px solid var(--ink);margin-bottom:12px}.bar div{height:100%;background:var(--red);width:0;transition:width .3s}
+input[type=text]{font:700 16px inherit;font-family:inherit;padding:8px;border:3px solid var(--ink);background:var(--card);color:var(--ink);width:min(260px,100%)}
+.toks{display:flex;flex-wrap:wrap;gap:6px;min-height:46px;border:3px dashed var(--ink);padding:6px;margin:8px 0}.tok{width:auto;margin:0;padding:6px 10px}
+.pairs{display:grid;grid-template-columns:1fr 1fr;gap:8px}.pairs .opt{margin:0}.pairs .opt.sel{background:var(--blu);color:#fff}.pairs .opt.done{background:var(--ok);color:#fff;pointer-events:none}
+@media(max-width:560px){.pairs{grid-template-columns:1fr}h1{max-width:62%}}
+footer{text-align:center;padding:20px;font-size:13px;border-top:5px solid var(--ink)}
+</style></head><body>
+<header><div class="shapes"><i class="s1"></i><i class="s2"></i><i class="s3"></i></div>
+<h1>Rizoma <b>·</b> La conjugaison<br>jusqu’au B1</h1><p>Leçons, quiz et jeux — du présent au subjonctif.</p></header>
+<nav id="nav"></nav>
+<div class="score"><span id="lv">Niveau : Graine</span><span>Points : <b id="pts">0</b></span></div>
+<main>
+<section id="lecons"></section>
+<section id="quiz"><div class="card"><div class="bar"><div id="qb"></div></div><div id="qa"></div></div></section>
+<section id="conj"><div class="card"><div class="bar"><div id="cb"></div></div><div id="ca"></div></div></section>
+<section id="ordre"><div class="card"><div class="bar"><div id="ob"></div></div><div id="oa"></div></div></section>
+<section id="paires"><div class="card"><h3>Reconstitue les phrases</h3><p>Choisis un début, puis sa fin.</p><div class="pairs" id="pa"></div><div class="fb" id="pf"></div></div></section>
+</main>
+<footer>Rizoma · escola de linguagem — d’après « Les Zexos – Conjugaison B1 » (B. Delvern, Les Experts FLE)</footer>
+<script>
+const $=s=>document.querySelector(s),sh=a=>[...a].sort(()=>Math.random()-.5);
+const norm=s=>s.toLowerCase().replace(/[’']/g,"'").replace(/\s+/g," ").trim();
+let pts=0;function add(n){pts+=n;$("#pts").textContent=pts;$("#lv").textContent="Niveau : "+(pts>=80?"Caju mûr":pts>=40?"Pousse":"Graine")}
+const L=[
+["Présent","var(--red)","Action en cours, habitudes, vérités générales.","Verbes en -ER : radical + <b>-e, -es, -e, -ons, -ez, -ent</b>.","Le matin, je mange des céréales."],
+["Imparfait","var(--yel)","Souvenirs, habitudes passées, décor d’une histoire.","Radical de <i>nous</i> au présent + <b>-ais, -ais, -ait, -ions, -iez, -aient</b>.","Quand j’étais jeune, j’habitais avec mes parents."],
+["Passé composé","var(--blu)","Actions successives, rupture, durée déterminée, résultat présent.","<b>avoir</b> ou <b>être</b> + participe passé. Avec <i>être</i> : verbes pronominaux et verbes de changement d’état (aller, partir, venir, mourir, descendre…).","J’ai bu mon café, puis je suis sorti."],
+["Plus-que-parfait","var(--grn)","Action antérieure à une autre action passée ; regret.","<b>avoir/être à l’imparfait</b> + participe passé.","Quand Max est arrivé, le train était déjà parti."],
+["Futur simple","var(--red)","Projets, prévisions, promesses, consignes.","Infinitif + <b>-ai, -as, -a, -ons, -ez, -ont</b> (les verbes en -re perdent le e). Irréguliers : ser-, aur-, devr-, voudr-, fer-, ir-.","L’année prochaine, je serai médecin."],
+["Conditionnel présent","var(--yel)","Conseil, demande polie, information non confirmée, situation imaginaire.","Radical du futur + <b>-ais, -ais, -ait, -ions, -iez, -aient</b>.","Tu devrais faire plus de sport."],
+["Conditionnel passé","var(--blu)","Regret, reproche, situation irréelle du passé.","<b>avoir/être au conditionnel présent</b> + participe passé.","Tu aurais dû m’en parler plus tôt !"],
+["Subjonctif présent","var(--grn)","Doute, souhait, émotion, obligation, jugement ; but (<i>pour que</i>), concession (<i>bien que</i>).","Radical de <i>ils</i> (je, tu, il, ils) ou de <i>nous</i> (nous, vous) + <b>-e, -es, -e, -ions, -iez, -ent</b>. Irréguliers : être, avoir, aller, faire, savoir, pouvoir.","Il faut que tu prennes ce médicament."],
+["Impératif","var(--red)","Ordre, conseil, invitation (tu, nous, vous).","Présent sans sujet. Irréguliers : <i>Ayez, Soyez, Va, Sachez</i>. Pronoms après le verbe : <i>Promets-moi</i>.","Faites attention !"]];
+$("#lecons").innerHTML=L.map(l=>`<div class="card"><h3><span class="tag" style="background:${l[1]}">${l[0]}</span></h3><p><b>On l’emploie pour :</b> ${l[2]}</p><p><b>Formation :</b> ${l[3]}</p><div class="ex">${l[4]}</div></div>`).join("")+
+`<div class="card"><h3>Les hypothèses avec <i>si</i></h3><table><tr><th>Si…</th><th>Résultat</th><th>Exemple</th></tr>
+<tr><td>présent</td><td>futur / impératif / présent</td><td>Si tu viens demain, maman sera contente.</td></tr>
+<tr><td>imparfait</td><td>conditionnel présent</td><td>Si j’étais riche, je voyagerais plus.</td></tr>
+<tr><td>plus-que-parfait</td><td>conditionnel passé</td><td>Si tu m’avais écouté, tu ne serais pas allé là.</td></tr></table></div>
+<div class="card"><h3>Le discours rapporté au passé</h3><table><tr><th>Paroles</th><th>Discours rapporté</th></tr>
+<tr><td>présent</td><td>imparfait</td></tr><tr><td>passé composé</td><td>plus-que-parfait</td></tr><tr><td>futur simple</td><td>conditionnel présent</td></tr><tr><td>futur antérieur</td><td>conditionnel passé</td></tr><tr><td>impératif</td><td>de + infinitif / que + subjonctif</td></tr></table>
+<div class="ex">« Je dois partir. » → Elle a annoncé qu’elle devait partir.</div></div>`;
+const Q=[
+["Marcello ___ cinq ans au Venezuela.",["a vécu","vivait","vivra","vivrait"],0,"Durée déterminée → passé composé."],
+["L’année prochaine, les clients fidèles ___ une offre.",["reçoivent","recevront","recevaient","ont reçu"],1,"Avenir → futur simple."],
+["Je crois que vous ___ faire plus de sport.",["devez","devriez","devrez","deviez"],1,"Conseil → conditionnel présent."],
+["Le livre que je ___ pendant nos vacances, il me l’a offert.",["lisais","lirai","avais lu","lis"],2,"Action antérieure → plus-que-parfait."],
+["Marcus a promis qu’il ___ une carte postale.",["enverra","enverrait","envoie","enverrais"],1,"Futur → conditionnel au discours rapporté."],
+["Je préférerais que nous ___ un hôtel rustique.",["choisirons","choisissons","choisissions","choisirions"],2,"Souhait → subjonctif."],
+["Si vous roulez la nuit, ___ prudents !",["êtes","serez","soyez","seriez"],2,"Impératif irrégulier d’être."],
+["Si tu ___ plus souvent, tu aurais moins de mal.",["écrivais","écrirais","écriras","écrivis"],0,"si + imparfait → conditionnel présent."],
+["Il nous a dit qu’il ___ dans la forêt.",["se perd","s’est perdu","s’était perdu","se perdrait"],2,"Passé composé → plus-que-parfait."],
+["J’ai peur qu’ils ___ que nous avons menti.",["savent","sachent","sauront","savaient"],1,"Émotion → subjonctif de savoir."],
+["Si vous deviez annuler, vous nous ___ ?",["préviendriez","préviendrez","préveniez","préviez"],0,"si + imparfait → conditionnel présent."],
+["Je ___ de ta décision (douter) : il faut que tu ___ prudent.",["sois","es","seras","serais"],0,"« il faut que » → subjonctif d’être."]];
+const C=[
+["Cette entreprise ___ des maisons en bois. (construire, présent)",["construit"]],
+["Marcello ___ cinq ans au Venezuela. (vivre, passé composé)",["a vécu"]],
+["Les clients ___ une offre. (recevoir, futur simple)",["recevront"]],
+["Je crois que vous ___ faire plus de sport. (devoir, conditionnel)",["devriez"]],
+["Si tu ___ l’itinéraire, tu ne te perdras pas. (suivre)",["suis"]],
+["Il faut que tu ___ ce médicament. (prendre, subjonctif)",["prennes"]],
+["Ma mère n’aime pas que nous ___ du vin. (boire, subjonctif)",["buvions"]],
+["Les passagers ___ à ne plus pouvoir respirer. (se serrer, imparfait)",["se serraient"]],
+["Nous ne ___ jamais acheter ici. (pouvoir, futur simple)",["pourrons"]],
+["Tu n’as visité aucun appartement que je t’___ . (recommander, plus-que-parfait)",["avais recommandés","avais recommandé"]]];
+const O=["Si Max faisait moins de bruit, je pourrais me concentrer sur mon travail.","Ils ne s’étaient pas vus depuis son départ à la retraite l’année dernière.","Si nos conditions de travail étaient meilleures, nous travaillerions mieux.","La nouvelle comptable est contente que ses horaires soient flexibles.","Si tu ne veux pas être licencié, tu dois travailler plus efficacement.","Mon assistante a avoué qu’elle avait menti dans son CV."];
+const P=[["Nous ne croyons pas","que ce contrat soit avantageux pour nous."],["Ils ne savaient pas","ce que « intérimaire » signifiait."],["Si tu travaillais mieux,","tu aurais plus de chances d’être promu."],["Si votre décision est définitive,","nous la respecterons."],["Le délégué syndical a affirmé","que les propositions de la direction laissaient à désirer."],["Il faut absolument","que la direction prenne une décision."]];
+// QUIZ
+let qi=0,qs=0,qd=[];
+function quiz(){qd=sh(Q);qi=0;qs=0;qn()}
+function qn(){$("#qb").style.width=qi/qd.length*100+"%";const a=$("#qa");
+if(qi>=qd.length){a.innerHTML=`<h3>Résultat : ${qs}/${qd.length}</h3><button class="btn" onclick="quiz()">Rejouer</button>`;return}
+const q=qd[qi],o=sh(q[1].map((t,i)=>[t,i]));
+a.innerHTML=`<h3>Question ${qi+1}/${qd.length}</h3><p>${q[0]}</p>`+o.map(x=>`<button class="opt" data-i="${x[1]}">${x[0]}</button>`).join("")+`<div class="fb" id="qf"></div>`;
+a.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const r=+b.dataset.i===q[2];a.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(+x.dataset.i===q[2])x.classList.add("ok")});if(!r)b.classList.add("ko");else{qs++;add(2)}
+$("#qf").innerHTML=(r?"✔ Bravo ! ":"✘ ")+q[3]+`<br><button class="btn" onclick="qi++;qn()">Suivant</button>`})}
+// CONJ
+let ci=0,cd=[],cs=0;
+function conj(){cd=sh(C);ci=0;cs=0;cn()}
+function cn(){$("#cb").style.width=ci/cd.length*100+"%";const a=$("#ca");
+if(ci>=cd.length){a.innerHTML=`<h3>Score : ${cs}/${cd.length}</h3><button class="btn" onclick="conj()">Rejouer</button>`;return}
+a.innerHTML=`<h3>Conjugue le verbe</h3><p>${cd[ci][0]}</p><input type="text" id="ci" autocomplete="off" autocapitalize="off"> <button class="btn" id="cv">Vérifier</button><div class="fb" id="cf"></div>`;
+const chk=()=>{const v=norm($("#ci").value),ok=cd[ci][1].some(x=>norm(x)===v);if(ok){cs++;add(3)}
+$("#cf").innerHTML=(ok?"✔ Exact ! ":"✘ Réponse : <b>"+cd[ci][1][0]+"</b> ")+`<br><button class="btn" onclick="ci++;cn()">Suivant</button>`;$("#cv").disabled=true};
+$("#cv").onclick=chk;$("#ci").onkeydown=e=>{if(e.key==="Enter"&&!$("#cv").disabled)chk()};$("#ci").focus()}
+// ORDRE
+let oi=0,od=[],os=0;
+function ordre(){od=sh(O);oi=0;os=0;on()}
+function on(){$("#ob").style.width=oi/od.length*100+"%";const a=$("#oa");
+if(oi>=od.length){a.innerHTML=`<h3>Score : ${os}/${od.length}</h3><button class="btn" onclick="ordre()">Rejouer</button>`;return}
+const s=od[oi],w=s.split(" ");let pick=[];
+a.innerHTML=`<h3>Remets les mots dans l’ordre</h3><div class="toks" id="bank"></div><div class="toks" id="ans"></div><button class="btn" id="ov">Vérifier</button> <button class="btn" id="orst" style="background:var(--blu)">Effacer</button><div class="fb" id="of"></div>`;
+const draw=()=>{$("#bank").innerHTML="";$("#ans").innerHTML="";sh(w.map((t,i)=>i)).forEach(i=>{if(!pick.includes(i)){const b=document.createElement("button");b.className="tok";b.textContent=w[i];b.onclick=()=>{pick.push(i);draw()};$("#bank").appendChild(b)}});pick.forEach(i=>{const b=document.createElement("button");b.className="tok";b.textContent=w[i];b.onclick=()=>{pick=pick.filter(x=>x!==i);draw()};$("#ans").appendChild(b)})};
+draw();$("#orst").onclick=()=>{pick=[];draw()};
+$("#ov").onclick=()=>{const ok=pick.map(i=>w[i]).join(" ")===s;if(ok){os++;add(3)}$("#of").innerHTML=(ok?"✔ Parfait !":"✘ Bonne phrase : <b>"+s+"</b>")+`<br><button class="btn" onclick="oi++;on()">Suivant</button>`;$("#ov").disabled=true}}
+// PAIRES
+function paires(){let sel=null,done=0;$("#pf").textContent="";const l=sh(P.map((p,i)=>[p[0],i])),r=sh(P.map((p,i)=>[p[1],i]));
+$("#pa").innerHTML="";const mk=(t,i,side)=>{const b=document.createElement("button");b.className="opt";b.textContent=t;b.dataset.i=i;b.dataset.s=side;b.onclick=()=>{
+if(!sel||sel.dataset.s===side){if(sel)sel.classList.remove("sel");sel=b;b.classList.add("sel");return}
+const ok=sel.dataset.i===b.dataset.i;sel.classList.remove("sel");if(ok){sel.classList.add("done");b.classList.add("done");add(2);done++;if(done===P.length){$("#pf").innerHTML="✔ Bravo ! <button class='btn' onclick='paires()'>Rejouer</button>"}}else{b.classList.add("ko");setTimeout(()=>b.classList.remove("ko"),500)}sel=null};$("#pa").appendChild(b)};
+l.forEach((x,k)=>{mk(x[0],x[1],"l");mk(r[k][0],r[k][1],"r")})}
+// NAV
+const T=[["lecons","Leçons"],["quiz","Quiz"],["conj","Conjugue"],["ordre","Ordre"],["paires","Paires"]],init={quiz,conj,ordre,paires};
+$("#nav").innerHTML=T.map(t=>`<button data-t="${t[0]}">${t[1]}</button>`).join("");
+function go(t){document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id===t));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));if(init[t])init[t]();scrollTo(0,0)}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>go(b.dataset.t));go("lecons");
+</script></body></html>

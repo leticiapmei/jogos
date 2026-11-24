@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Вид глагола · Rizoma</title>
+<style>
+:root{
+  --bg:#f4ecd8; --card:#fffdf6; --ink:#16161a; --muted:#55524a;
+  --main:#16161a; --accent:#e03a2b; --gold:#f4b223; --leaf:#2a8c4a; --ok:#2a8c4a; --bad:#e03a2b; --line:#16161a;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#17171b; --card:#222228; --ink:#f4ecd8; --muted:#b5b0a2; --main:#f4ecd8; --accent:#ff6a55; --gold:#f4b223; --leaf:#4fbf76; --ok:#4fbf76; --bad:#ff6a55; --line:#f4ecd8;}}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Futura,"Century Gothic","Avenir Next",Avenir,"Trebuchet MS",system-ui,sans-serif;line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px 60px}
+header{position:relative;padding:48px 0 28px;overflow:hidden}
+header svg{position:absolute;right:-10px;top:14px;width:220px;pointer-events:none}
+.tag{font:700 12px/1 system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:clamp(30px,6vw,46px);line-height:1.1;margin:10px 0 10px;color:var(--main);font-weight:800;letter-spacing:-.02em;max-width:520px}
+h1 em{color:var(--accent);font-style:normal}
+.lead{max-width:480px;color:var(--muted);font-size:18px;margin:0}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 8px}
+nav button{font:700 14px Futura,"Century Gothic",system-ui,sans-serif;border:3px solid var(--main);background:var(--card);color:var(--main);padding:9px 14px;border-radius:0;cursor:pointer}
+nav button:nth-child(1).on{background:var(--accent);color:#fff}
+nav button:nth-child(2).on{background:var(--gold);color:#16161a}
+nav button:nth-child(3).on{background:var(--leaf);color:#fff}
+nav button:nth-child(4).on{background:var(--main);color:var(--bg)}
+nav button:nth-child(5).on{background:var(--accent);color:#fff}
+.panel{display:none;background:var(--card);border:3px solid var(--line);border-radius:0;padding:22px;margin-top:16px;box-shadow:8px 8px 0 var(--gold)}
+.panel.on{display:block}
+.panel h2{margin:0 0 4px;color:var(--main);font-size:24px;font-weight:800}
+.panel p.sub{margin:0 0 16px;color:var(--muted)}
+.q{padding:16px 0;border-top:1px dashed var(--line)}
+.q:first-of-type{border-top:0}
+.ru{font-size:23px;margin:0 0 10px;font-family:system-ui,"Segoe UI",Arial,sans-serif}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opts button{font:700 16px system-ui,sans-serif;background:var(--bg);color:var(--ink);border:2.5px solid var(--line);border-radius:0;padding:9px 15px;cursor:pointer}
+.opts button:hover:not(:disabled){background:var(--gold);color:#16161a}
+.opts button.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.opts button.bad{background:var(--bad);border-color:var(--bad);color:#fff}
+.fb{font:14px/1.45 system-ui,sans-serif;margin-top:9px;color:var(--muted)}
+.score{margin-top:18px;font:700 15px system-ui,sans-serif;color:var(--main)}
+.reset{margin-top:10px;font:700 13px system-ui,sans-serif;background:none;border:0;color:var(--accent);cursor:pointer;padding:0;text-decoration:underline}
+.tip{background:var(--card);border:3px solid var(--line);border-left:14px solid var(--accent);padding:12px 14px;font:15px/1.5 system-ui,sans-serif;margin-bottom:16px}
+.about{background:var(--card);border:3px solid var(--line);margin:0 0 18px;font:15px/1.55 system-ui,sans-serif}
+.about summary{cursor:pointer;padding:12px 16px;font:800 16px Futura,"Century Gothic",system-ui,sans-serif;list-style:none;background:var(--gold);color:#16161a}
+.about summary::-webkit-details-marker{display:none}
+.about div{padding:6px 16px 14px}
+.about p{margin:10px 0}
+.about .src{color:var(--muted);font-size:13px}
+footer{text-align:center;color:var(--muted);font:13px system-ui,sans-serif;margin-top:34px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <svg viewBox="0 0 220 220" aria-hidden="true">
+    <rect x="20" y="120" width="80" height="80" fill="var(--gold)"/>
+    <circle cx="125" cy="100" r="62" fill="var(--accent)"/>
+    <path d="M100 25c10-18 40-22 58-8-6 22-34 30-58 8z" fill="var(--leaf)"/>
+    <path d="M150 150c0-30 40-36 52-14 8 16-6 34-24 36-12 1-28-8-28-22z" fill="var(--main)"/>
+    <polygon points="20,120 60,60 100,120" fill="var(--main)"/>
+    <path d="M6 210H214" stroke="var(--main)" stroke-width="6"/>
+  </svg>
+  <div class="tag">Rizoma · Русский для начинающих</div>
+  <h1>Вид глагола: <em>процесс</em> или <em>результат</em>?</h1>
+  <p class="lead">Четыре упражнения и одно задание с песней «Наше лето». Дорога к Маяковскому начинается здесь.</p>
+</header>
+
+<div class="tip"><b>Главный вопрос:</b> действие закончилось и есть результат (<b>СВ</b>, совершенный вид) или это процесс, повтор, привычка (<b>НСВ</b>, несовершенный вид)?</div>
+
+<details class="about" open>
+<summary>▶ О том, кто поёт: «Валентин Стрыкало»</summary>
+<div>
+<p>«Наше лето» («Яхта, парус») — песня украинской группы <b>«Валентин Стрыкало»</b>. Группа появилась в 2010 году и работала до 2018 года. Солист — <b>Юрий Каплан</b>, он родился в 1988 году в Запорожье.</p>
+<p>Название пришло от персонажа: наивного парня из выдуманного села Бурильцево. Он стал известен видеообращениями к знаменитостям. Первый альбом — «Смирись и расслабься!» (2012), потом вышел более мрачный «Развлечение» (2016). «Наше лето» — один из самых известных хитов группы.</p>
+<p><b>Для урока:</b> язык песни разговорный, а автор — украинский артист. В тексте есть советские слова: <b>путёвка</b> (путёвка в дом отдыха) и <b>плацкартный вагон</b>. Вопрос для беседы: что рассказчик считает законченным фактом, а что переживает снова и снова?</p>
+<p class="src">Источники: smotrim.ru и «Циклопедия» (биографические данные).</p>
+</div>
+</details>
+
+<nav id="nav"></nav>
+<div id="panels"></div>
+<footer>Rizoma · caju + Bauhaus · вид глагола · урок 30 минут</footer>
+</div>
+
+<script>
+var A=[
+{t:"1 · Определи вид",h:"Какой это вид?",s:"Глаголы из песни. Выбери НСВ или СВ.",
+ o:["НСВ","СВ"],
+ q:[["целовались","НСВ","Длительное и повторяющееся действие."],
+    ["кончилась","СВ","Действие закончилось, есть результат: всё кончено."],
+    ["вспоминаю","НСВ","Привычка: это происходит снова и снова."],
+    ["подарила","СВ","Одно законченное действие: подарила, и открытка у него."],
+    ["покрывает","НСВ","Процесс: лёд покрывает лужи постепенно."],
+    ["не забуду","СВ","Совершенный вид, поэтому это будущее время."]]},
+{t:"2 · Пары",h:"Найди пару в совершенном виде",s:"Дан несовершенный вид. Какой глагол ему соответствует в СВ?",
+ q:[["целоваться","поцеловаться",["поцеловаться","целовывать","целоватся"],"Приставка по-."],
+    ["дарить","подарить",["подарить","одарить","дать"],"Приставка по-."],
+    ["забывать","забыть",["забыть","забывить","забудать"],"Суффикс исчезает: забывать → забыть."],
+    ["вспоминать","вспомнить",["вспомнить","вспоминить","помнить"],"Суффикс исчезает: вспоминать → вспомнить."],
+    ["говорить","сказать",["сказать","поговорить","рассказать"],"Разные корни: эту пару надо запомнить."],
+    ["делать","сделать",["сделать","издел","поделать"],"Приставка с-."]]},
+{t:"3 · Пропуски",h:"Закончи предложение",s:"Спроси себя: есть результат или это привычка?",
+ q:[["Я каждый день ___ газету.","читал",["читал","прочитал"],"«Каждый день» — привычка: НСВ."],
+    ["Вчера я ___ весь роман.","прочитал",["читал","прочитал"],"«Весь роман» — есть результат: СВ."],
+    ["Она долго ___ о лете.","вспоминала",["вспоминала","вспомнила"],"«Долго» — процесс: НСВ."],
+    ["Он ___ мне открытку.","подарил",["дарил","подарил"],"Одно законченное действие: СВ."],
+    ["Завтра я ___ письмо.","напишу",["пишу","напишу"],"«Завтра» и результат: будущее время СВ."]]},
+{t:"4 · Настоящее или будущее?",h:"Осторожно: ловушка",s:"Глагол СВ в форме «настоящего» — это всегда будущее.",
+ o:["Настоящее","Будущее"],
+ q:[["пишу","Настоящее","НСВ: действие идёт сейчас."],
+    ["напишу","Будущее","СВ: форма как у настоящего, значение — будущее."],
+    ["читаю","Настоящее","НСВ."],
+    ["прочитаю","Будущее","СВ: «прочитаю до конца»."],
+    ["сделаю","Будущее","СВ от глагола делать."],
+    ["делаю","Настоящее","НСВ."],
+    ["не забуду","Будущее","СВ: «не забуду» — это будущее."]]},
+{t:"5 · С текстом",h:"С текстом песни в руках",s:"Открой текст «Наше лето» у себя, найди каждый глагол и ответь. Предложения мои, глаголы из песни.",
+ q:[["Летом мы часто ___ на яхте.","гуляли",["гуляли","погуляли"],"«Часто» — повторение: НСВ. Сравни с «целовались» в 1-м куплете."],
+    ["Отпуск ___ в августе.","кончился",["кончался","кончился"],"Законченный факт: СВ. Сравни с «кончилась» во 2-м куплете."],
+    ["Каждый раз, когда грустно, я ___ то лето.","вспоминаю",["вспоминаю","вспомню"],"«Каждый раз» — привычка: НСВ. Глагол есть в 1-м куплете."],
+    ["Она ___ мне открытку на прощание.","подарила",["дарила","подарила"],"Одно законченное действие: СВ. Глагол есть во 2-м куплете."],
+    ["Мы ___ всю ночь у моря.","целовались",["целовались","поцеловались"],"«Всю ночь» — длительность: НСВ."],
+    ["Завтра я ___ эту песню наизусть.","запомню",["помню","запомню"],"«Завтра» и результат: будущее СВ. Сравни пару «забуду — запомню»."]]}
+];
+var nav=document.getElementById('nav'),P=document.getElementById('panels');
+A.forEach(function(a,i){
+  var b=document.createElement('button');b.textContent=a.t;b.onclick=function(){show(i)};nav.appendChild(b);
+  var d=document.createElement('section');d.className='panel';P.appendChild(d);a.el=d;a.b=b;build(a);
+});
+function show(i){A.forEach(function(a,j){a.el.classList.toggle('on',i===j);a.b.classList.toggle('on',i===j)})}
+function build(a){
+  var d=a.el,done=0,right=0;d.innerHTML='<h2>'+a.h+'</h2><p class="sub">'+a.s+'</p>';
+  var sc=document.createElement('div');sc.className='score';
+  a.q.forEach(function(it){
+    var opts=a.o||it[2],ans=it[1],why=a.o?it[2]:it[3];
+    var q=document.createElement('div');q.className='q';
+    var p=document.createElement('p');p.className='ru';p.textContent=it[0];
+    var ob=document.createElement('div');ob.className='opts';
+    var fb=document.createElement('div');fb.className='fb';
+    opts.forEach(function(o){
+      var bt=document.createElement('button');bt.textContent=o;
+      bt.onclick=function(){
+        var good=o===ans;[].forEach.call(ob.children,function(x){x.disabled=true;if(x.textContent===ans)x.classList.add('ok')});
+        if(!good)bt.classList.add('bad');
+        fb.textContent=(good?'Верно. ':'Ответ: '+ans+'. ')+why;
+        done++;if(good)right++;
+        sc.textContent=done===a.q.length?('Результат: '+right+' из '+a.q.length+(right===a.q.length?' · отлично!':' · прочитай объяснения и попробуй ещё раз.')):('Отвечено: '+done+' из '+a.q.length);
+      };ob.appendChild(bt);
+    });
+    q.appendChild(p);q.appendChild(ob);q.appendChild(fb);d.appendChild(q);
+  });
+  d.appendChild(sc);
+  var r=document.createElement('button');r.className='reset';r.textContent='Ещё раз';
+  r.onclick=function(){var was=d.classList.contains('on');build(a);if(was)d.classList.add('on')};d.appendChild(r);
+}
+show(0);
+</script>
+</body>
+</html>

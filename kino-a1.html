@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КИНО — упражнение А1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=PT+Sans:wght@400;700&family=PT+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0e10;
+    --bg-alt:#17191c;
+    --paper:#ede9e1;
+    --paper-dim:#c9c4b8;
+    --red:#c81d25;
+    --red-dim:#8f1519;
+    --blue:#4a6572;
+    --grey:#7d7d78;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--paper);
+    font-family:'PT Sans', sans-serif;
+    line-height:1.55;
+  }
+  .noise{
+    position:fixed; inset:0; pointer-events:none; opacity:.05; z-index:5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  h1,h2,h3{font-family:'Bebas Neue', sans-serif; letter-spacing:.03em; font-weight:400; margin:0;}
+  .eyebrow{
+    font-family:'PT Mono', monospace; text-transform:uppercase; letter-spacing:.18em;
+    font-size:.72rem; color:var(--red); margin-bottom:.6rem; display:block;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; overflow:hidden;
+    padding:5rem 6vw 4rem;
+    background:
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
+    border-bottom:1px solid #2a2c2f;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; top:0; left:-10%; width:140%; height:9px;
+    background:var(--red); transform:rotate(-2deg); top:2.2rem;
+  }
+  .hero-title{
+    font-size:clamp(4.5rem, 16vw, 10rem);
+    color:var(--paper);
+    line-height:.85;
+  }
+  .hero-title span{color:var(--red);}
+  .hero-sub{
+    max-width:44ch; margin-top:1.2rem; color:var(--paper-dim); font-size:1.05rem;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:.5rem 1.6rem; margin-top:2.2rem;
+    font-family:'PT Mono', monospace; font-size:.82rem; color:var(--grey);
+  }
+  .hero-meta b{color:var(--paper);}
+
+  section{padding:3.6rem 6vw; max-width:920px; margin:0 auto;}
+  section h2{font-size:2.4rem; color:var(--paper); margin-bottom:1.2rem;}
+
+  /* ---------- BAND / SONG ---------- */
+  .band p{max-width:68ch;}
+  .facts{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:1px; background:#2a2c2f; margin-top:2rem; border:1px solid #2a2c2f;
+  }
+  .fact{background:var(--bg-alt); padding:1.1rem 1.3rem;}
+  .fact .k{font-family:'PT Mono',monospace; font-size:.68rem; text-transform:uppercase; letter-spacing:.1em; color:var(--red);}
+  .fact .v{font-size:1.05rem; margin-top:.3rem;}
+
+  .song-card{
+    margin-top:2.4rem; border:1px solid var(--red-dim); background:var(--bg-alt);
+    padding:1.6rem 1.8rem; position:relative;
+  }
+  .song-card::before{
+    content:"7"; position:absolute; top:-14px; left:1.6rem; background:var(--red);
+    color:var(--paper); font-family:'PT Mono',monospace; font-size:.75rem; padding:.15rem .5rem;
+  }
+  .song-title{font-family:'Bebas Neue'; font-size:1.9rem; letter-spacing:.02em;}
+  .song-title small{display:block; font-family:'PT Sans'; font-size:.95rem; color:var(--grey); letter-spacing:0; margin-top:.2rem;}
+
+  /* ---------- STEPS ---------- */
+  .steps{background:var(--bg-alt); border-top:1px solid #2a2c2f; border-bottom:1px solid #2a2c2f;}
+  .steps ol{list-style:none; margin:0; padding:0; display:grid; gap:1rem;}
+  .steps li{
+    display:flex; gap:1rem; align-items:flex-start; font-size:1.05rem;
+  }
+  .steps li::before{
+    content: counter(s); counter-increment:s;
+    flex:none; width:2rem; height:2rem; border:1px solid var(--red); color:var(--red);
+    display:flex; align-items:center; justify-content:center; font-family:'PT Mono'; font-size:.85rem;
+  }
+  .steps ol{counter-reset:s;}
+
+  /* ---------- VOCAB ---------- */
+  .vocab-grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:1rem; margin-top:2rem;
+  }
+  .card{
+    perspective:800px; height:150px;
+  }
+  .card-inner{
+    position:relative; width:100%; height:100%; transition:transform .5s;
+    transform-style:preserve-3d; cursor:pointer;
+  }
+  .card.flipped .card-inner{transform:rotateY(180deg);}
+  .card-face{
+    position:absolute; inset:0; backface-visibility:hidden;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    border:1px solid #2a2c2f; padding:.6rem; text-align:center;
+  }
+  .card-front{background:var(--bg-alt);}
+  .card-front .emoji{font-size:2rem; margin-bottom:.4rem;}
+  .card-front .word{font-family:'PT Mono'; font-size:1rem;}
+  .card-back{background:var(--red); color:var(--paper); transform:rotateY(180deg); font-size:1.05rem;}
+  .hint{font-size:.78rem; color:var(--grey); margin-top:1rem; font-family:'PT Mono',monospace;}
+
+  /* ---------- EXERCISE 1 ---------- */
+  .sentence{
+    display:flex; flex-wrap:wrap; align-items:center; gap:.4rem;
+    padding:.9rem 0; border-bottom:1px solid #2a2c2f; font-size:1.08rem;
+  }
+  .sentence select{
+    background:var(--bg-alt); color:var(--paper); border:1px solid var(--blue);
+    padding:.35rem .5rem; font-family:'PT Sans'; font-size:1rem; border-radius:2px;
+  }
+  .sentence.correct select{border-color:#5fa864; background:#173319;}
+  .sentence.wrong select{border-color:var(--red); background:#331717;}
+  .btn{
+    margin-top:1.6rem; background:var(--red); color:var(--paper); border:none;
+    padding:.75rem 1.6rem; font-family:'PT Mono',monospace; letter-spacing:.05em;
+    text-transform:uppercase; font-size:.85rem; cursor:pointer;
+  }
+  .btn:hover{background:var(--red-dim);}
+  #score1{margin-top:1rem; font-family:'PT Mono',monospace; color:var(--blue);}
+
+  /* ---------- BINGO ---------- */
+  .bingo-grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:.7rem; margin-top:2rem;
+  }
+  .bingo-cell{
+    border:1px solid var(--blue); padding:1rem .5rem; text-align:center;
+    font-family:'PT Mono',monospace; cursor:pointer; user-select:none; position:relative;
+    background:var(--bg-alt);
+  }
+  .bingo-cell.marked{background:var(--red); border-color:var(--red); color:var(--paper);}
+  .bingo-cell.marked::after{content:"✓"; position:absolute; top:2px; right:6px; font-size:.8rem;}
+
+  footer{
+    padding:2.5rem 6vw; text-align:center; color:var(--grey); font-size:.85rem;
+    border-top:1px solid #2a2c2f;
+  }
+  a{color:var(--blue);}
+
+  @media (prefers-reduced-motion: reduce){
+    .card-inner{transition:none;}
+  }
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<header class="hero">
+  <span class="eyebrow">Урок · Русский язык А1</span>
+  <h1 class="hero-title">КИН<span>О</span></h1>
+  <p class="hero-sub">Ленинградский рок-клуб. 1980-е годы. Музыка, которая изменила русский рок.</p>
+  <div class="hero-meta">
+    <div>Лидер: <b>Виктор Цой</b></div>
+    <div>Город: <b>Ленинград</b></div>
+    <div>Годы: <b>1982–1990</b></div>
+  </div>
+</header>
+
+<section class="band">
+  <span class="eyebrow">О группе</span>
+  <h2>Кто такие «КИНО»?</h2>
+  <p>«КИНО» — это советская рок-группа. Группа играла в Ленинграде в 1980-е годы. Лидер группы — Виктор Цой. Он писал песни и пел.</p>
+  <p>Виктор Цой погиб в 1990 году. Но его песни популярны до сих пор.</p>
+  <div class="facts">
+    <div class="fact"><div class="k">Альбом</div><div class="v">«Группа крови»</div></div>
+    <div class="fact"><div class="k">Год</div><div class="v">1988</div></div>
+    <div class="fact"><div class="k">Трек №</div><div class="v">7</div></div>
+    <div class="fact"><div class="k">Стиль</div><div class="v">Рок / Пост-панк</div></div>
+  </div>
+
+  <div class="song-card">
+    <div class="song-title">«В наших глазах»
+      <small>«Nos nossos olhos» — песня о ожидании и надежде</small>
+    </div>
+  </div>
+</section>
+
+<section class="steps">
+  <span class="eyebrow">Инструкция</span>
+  <h2>Что делать?</h2>
+  <ol>
+    <li>Прочитай новые слова. Переверни карточку — узнай перевод.</li>
+    <li>Сделай упражнение: выбери правильное слово.</li>
+    <li>Найди песню «КИНО — В наших глазах» и слушай.</li>
+    <li>Отмечай слова, которые ты слышишь.</li>
+  </ol>
+</section>
+
+<section class="vocab">
+  <span class="eyebrow">Шаг 1</span>
+  <h2>Новые слова</h2>
+  <p>Нажми на карточку, чтобы увидеть перевод.</p>
+  <div class="vocab-grid" id="vocabGrid"></div>
+  <div class="hint">👆 клик = перевод</div>
+</section>
+
+<section class="exercise1">
+  <span class="eyebrow">Шаг 2</span>
+  <h2>Выбери слово</h2>
+  <div id="sentences"></div>
+  <button class="btn" onclick="checkSentences()">Проверить</button>
+  <div id="score1"></div>
+</section>
+
+<section class="bingo">
+  <span class="eyebrow">Шаг 3</span>
+  <h2>Слушай и отмечай</h2>
+  <p>Включи песню «КИНО — В наших глазах». Отмечай слово, когда слышишь его.</p>
+  <div class="bingo-grid" id="bingoGrid"></div>
+</section>
+
+<footer>
+  Материал подготовлен для урока русского языка (А1). Текст песни не воспроизводится — только слова из словаря и оригинальные примеры.
+</footer>
+
+<script>
+const vocab = [
+  {ru:"лето", emoji:"☀️", pt:"verão"},
+  {ru:"зима", emoji:"❄️", pt:"inverno"},
+  {ru:"дом", emoji:"🏠", pt:"casa"},
+  {ru:"снег", emoji:"🌨️", pt:"neve"},
+  {ru:"вода", emoji:"💧", pt:"água"},
+  {ru:"дверь", emoji:"🚪", pt:"porta"},
+  {ru:"ночь", emoji:"🌙", pt:"noite"},
+  {ru:"день", emoji:"🌞", pt:"dia"},
+  {ru:"звезда", emoji:"⭐", pt:"estrela"},
+  {ru:"дождь", emoji:"🌧️", pt:"chuva"},
+];
+
+const vocabGrid = document.getElementById('vocabGrid');
+vocab.forEach(w=>{
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <div class="card-inner">
+      <div class="card-face card-front">
+        <div class="emoji">${w.emoji}</div>
+        <div class="word">${w.ru}</div>
+      </div>
+      <div class="card-face card-back">${w.pt}</div>
+    </div>`;
+  card.addEventListener('click', ()=> card.classList.toggle('flipped'));
+  vocabGrid.appendChild(card);
+});
+
+const sentences = [
+  {text:"Зимой идёт ___.", answer:"снег"},
+  {text:"Мне нужна ___.", answer:"вода"},
+  {text:"Это мой ___.", answer:"дом"},
+  {text:"После лета приходит ___.", answer:"зима"},
+  {text:"На небе одна ___.", answer:"звезда"},
+  {text:"На улице идёт ___, у меня нет зонта.", answer:"дождь"},
+  {text:"Закрой, пожалуйста, ___!", answer:"дверь"},
+  {text:"Утром начинается ___.", answer:"день"},
+  {text:"Сейчас ___, все спят.", answer:"ночь"},
+  {text:"Я люблю купаться. Я жду ___.", answer:"лето"},
+];
+
+const words = vocab.map(w=>w.ru);
+const sentencesDiv = document.getElementById('sentences');
+sentences.forEach((s,i)=>{
+  const parts = s.text.split('___');
+  const row = document.createElement('div');
+  row.className = 'sentence';
+  row.id = 'sent'+i;
+  const select = `<select id="sel${i}"><option value="">—</option>${words.map(w=>`<option value="${w}">${w}</option>`).join('')}</select>`;
+  row.innerHTML = parts[0] + select + parts[1];
+  sentencesDiv.appendChild(row);
+});
+
+function checkSentences(){
+  let correct = 0;
+  sentences.forEach((s,i)=>{
+    const sel = document.getElementById('sel'+i);
+    const row = document.getElementById('sent'+i);
+    row.classList.remove('correct','wrong');
+    if(sel.value === s.answer){
+      row.classList.add('correct');
+      correct++;
+    } else if(sel.value !== ""){
+      row.classList.add('wrong');
+    }
+  });
+  document.getElementById('score1').textContent = `Результат: ${correct} из ${sentences.length}`;
+}
+
+const bingoWords = ["лето","зима","дом","снег","вода","дверь","ночь","день","звезда","дождь","ждать","хотеть"];
+const bingoGrid = document.getElementById('bingoGrid');
+bingoWords.forEach(w=>{
+  const cell = document.createElement('div');
+  cell.className = 'bingo-cell';
+  cell.textContent = w;
+  cell.addEventListener('click', ()=> cell.classList.toggle('marked'));
+  bingoGrid.appendChild(cell);
+});
+</script>
+</body>
+</html>

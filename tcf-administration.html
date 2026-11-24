@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rhizome TCF Canada · L’administration</title>
+<style>
+:root{--bg:#f5ecd7;--card:#fffaf0;--ink:#1a1a1a;--mut:#5a5246;--pri:#e4572e;--acc:#f4b41a;--ok:#2f7a4b;--ko:#b3261e;--line:#1a1a1a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141210;--card:#1f1b17;--ink:#f5ecd7;--mut:#b7ab97;--pri:#ff7a4d;--acc:#ffc83d;--ok:#6fcf97;--ko:#ff8a80;--line:#f5ecd7}}
+:root[data-theme="dark"]{--bg:#141210;--card:#1f1b17;--ink:#f5ecd7;--mut:#b7ab97;--pri:#ff7a4d;--acc:#ffc83d;--ok:#6fcf97;--ko:#ff8a80;--line:#f5ecd7}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 Futura,'Century Gothic','Avenir Next',system-ui,sans-serif;padding:14px;max-width:760px;margin:auto}
+h1{font-size:1.4rem;margin:8px 0 0;color:var(--ink);text-transform:uppercase;letter-spacing:.04em;font-weight:900;line-height:1.15}
+.brand{display:flex;align-items:center;gap:12px}
+.rz{font-weight:900;font-size:1.7rem;letter-spacing:.14em;line-height:1}
+.rzs{font-size:.78rem;text-transform:uppercase;letter-spacing:.2em;color:var(--mut)}
+.stripe{height:12px;margin:12px 0;background:linear-gradient(90deg,var(--pri) 0 25%,var(--acc) 25% 50%,var(--ok) 50% 75%,var(--ink) 75%)}
+.sub{color:var(--mut);font-size:.88rem;margin:2px 0 10px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px;font-family:system-ui,sans-serif;font-size:.85rem}
+.chip{background:var(--card);border:2px solid var(--line);border-radius:0;padding:4px 12px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.chip b{color:var(--acc)}
+svg{width:100%;height:auto;background:var(--card);border:3px solid var(--line);border-radius:0;box-shadow:6px 6px 0 var(--line);display:block}
+.edge{stroke:var(--mut);stroke-width:2;stroke-dasharray:4 5}
+.edge.on{stroke:var(--acc);stroke-width:2.5;stroke-dasharray:none}
+.edge.woven{stroke:var(--ok);stroke-width:3.5;stroke-dasharray:none}
+.node{cursor:pointer}
+.node circle,.node rect{fill:var(--card);stroke:var(--line);stroke-width:3.5;transition:.2s}
+.node.done circle,.node.done rect{fill:var(--pri)}
+.node.done .em{fill:#fff}
+.node.sel circle,.node.sel rect{stroke:var(--acc);stroke-width:6}
+.node text{font:800 11px Futura,'Century Gothic',system-ui,sans-serif;fill:var(--ink);text-anchor:middle;pointer-events:none}
+.node .em{font-size:19px}
+.bridge{cursor:pointer;fill:var(--acc);stroke:var(--card);stroke-width:2}
+.bridge.w{fill:var(--ok)}
+.pulse{animation:p 1.6s infinite}@keyframes p{50%{r:11}}
+#panel{background:var(--card);border:3px solid var(--line);border-radius:0;box-shadow:6px 6px 0 var(--acc);padding:16px;margin-top:18px;min-height:130px;font-family:Futura,'Century Gothic','Avenir Next',system-ui,sans-serif}
+#panel h2{font:900 1.05rem Futura,'Century Gothic',system-ui,sans-serif;text-transform:uppercase;letter-spacing:.04em;color:var(--pri);margin:0 0 6px}
+.q{font-size:1.1rem;font-weight:600;margin:6px 0 10px}
+button.o{display:block;width:100%;text-align:left;margin:6px 0;padding:11px 14px;border-radius:0;border:2px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-size:.95rem;cursor:pointer}
+button.o:hover{background:var(--acc);color:#1a1a1a}
+button.o.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,transparent)}
+button.o.ko{border-color:var(--ko);background:color-mix(in srgb,var(--ko) 15%,transparent)}
+button.o.sel{border-color:var(--acc)}
+button.o:disabled{opacity:.55}
+.btn{background:var(--acc);color:#1a1a1a;border:3px solid var(--line);border-radius:0;box-shadow:4px 4px 0 var(--line);padding:9px 20px;font:900 .95rem system-ui;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;margin-top:10px}
+.fb{margin-top:8px;font-size:.9rem;color:var(--mut)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+textarea{width:100%;min-height:130px;border-radius:0;border:3px solid var(--line);background:var(--bg);color:var(--ink);font:1rem/1.5 system-ui,sans-serif;padding:10px}
+.tags span{display:inline-block;margin:2px;padding:2px 9px;border-radius:0;border:2px solid var(--line);font-size:.8rem;color:var(--mut)}
+.tags span.u{background:var(--ok);color:#fff;border-color:var(--ok)}
+.badges{margin-top:12px;font-size:.85rem;font-family:system-ui;color:var(--mut)}
+.badges span{display:inline-block;margin:4px 6px 0 0;padding:4px 11px;border-radius:0;border:2px dashed var(--mut)}
+.badges span.g{border:2px solid var(--line);color:#1a1a1a;background:var(--acc);font-weight:800}
+</style>
+</head>
+<body>
+<div class="brand"><svg viewBox="0 0 64 64" aria-hidden="true" style="width:64px;flex:none;border:0;background:none;box-shadow:none"><circle cx="28" cy="38" r="22" fill="#e4572e"/><path d="M36 4a24 24 0 0 1 24 24H36z" style="fill:var(--ink)"/><rect x="4" y="4" width="14" height="14" fill="#f4b41a"/><path d="M4 62 22 44l18 18z" fill="#2f7a4b"/></svg><div><div class="rz">RIZOMA</div><div class="rzs">escola de linguagem</div></div></div>
+<div class="stripe"></div>
+<h1>Le Rhizome de l’administration</h1>
+<p class="sub">TCF Canada · B2–C1 · <i>Vocabulaire progressif, niveau avancé</i>, chap. 24. Pas d’ordre : entre par n’importe quel nœud, puis tisse des ponts ✨</p>
+<div class="bar"><span class="chip">Points <b id="sc">0</b></span><span class="chip">Nœuds <b id="nd">0</b>/12</span><span class="chip">Ponts <b id="wv">0</b></span></div>
+<svg id="g" viewBox="0 0 700 520" role="img" aria-label="Carte rhizomatique des activités"></svg>
+<div id="panel"><h2>Bienvenue 🌱</h2><p>Touche un nœud pour commencer. Quand deux nœuds liés sont terminés, un <b style="color:var(--acc)">pont doré</b> apparaît sur la ligne : touche-le pour le tisser (+15).</p></div>
+<div class="badges" id="bd"></div>
+<script>
+const N=[
+{id:'adm',t:'Image de l’administration',e:'🏛️',x:130,y:110,w:['lenteur','pesanteur','fonctionnaires','bureaucrates','usagers','complications'],s:[
+ {q:'On critique la ___ administrative : les procédures sont longues.',o:['lenteur','efficacité','allocation'],a:0,x:'« la lenteur / la pesanteur administratives ».'},
+ {q:'Les employés de l’État sont des…',o:['usagers','fonctionnaires','guichets'],a:1,x:'Les usagers, eux, sont les personnes qui utilisent le service.'},
+ {q:'On se moque des complications ___.',o:['électorales','périmées','bureaucratiques'],a:2,x:'« complications bureaucratiques » : les bureaucrates sont critiqués.'}]},
+{id:'adr',t:'S’adresser à…',e:'🗣️',x:340,y:55,w:['s’inscrire','se renseigner','bénéficier','allocation','renseignements'],s:[
+ {q:'S’inscrire ___ la Sécurité sociale.',o:['à','auprès de','de'],a:0,x:'s’inscrire à… / sur les listes électorales.'},
+ {q:'Se renseigner ___ un organisme.',o:['à','auprès d’','sur'],a:1,x:'se renseigner auprès de = demander des renseignements.'},
+ {q:'Bénéficier ___ telle ou telle allocation.',o:['à','auprès de','de'],a:2,x:'bénéficier de ; une allocation = somme d’argent versée par l’État.'}]},
+{id:'pap',t:'Papiers & documents',e:'📄',x:560,y:115,w:['attestation','carte de séjour','passeport','carte d’identité','périmé','renouveler','allocation'],s:[
+ {p:[['une attestation','certificat qui prouve quelque chose'],['une allocation','somme d’argent versée par l’État'],['une quittance','une facture'],['un justificatif de domicile','preuve qu’on habite à cette adresse']]},
+ {q:'Mon passeport est ___ : je dois le faire renouveler.',o:['périmé','imprimé','privatisé'],a:0,x:'un document périmé n’est plus valable → faire renouveler.'}]},
+{id:'for',t:'Formulaires & pièces',e:'📝',x:80,y:290,w:['formulaires','imprimés','remplir','pièces justificatives','quittance','justificatif de domicile'],s:[
+ {q:'Un formulaire est un ___ : on doit le remplir.',o:['imprimé','guichet','service'],a:0,x:'formulaires = imprimés = papiers.'},
+ {q:'Il faut fournir des pièces ___.',o:['périmées','justificatives','publiques'],a:1,x:'fournir des pièces justificatives (preuves).'},
+ {q:'Une quittance d’électricité est un justificatif de…',o:['santé','domicile','retraite'],a:1,x:'justificatif de domicile.'}]},
+{id:'gui',t:'Guichet & dossier',e:'🪟',x:270,y:255,w:['guichet','faire la queue','dossier','démarches','ouvrir','compléter','transférer','fermer'],s:[
+ {q:'Pour obtenir un papier, on fait des…',o:['allocations','démarches','usagers'],a:1,x:'faire des démarches (administratives).'},
+ {q:'On ___ la queue, puis on se présente au guichet.',o:['fait','prend','met'],a:0,x:'faire la queue.'},
+ {q:'Un dossier : on peut l’ouvrir, le modifier, le ___, le transférer ou le fermer.',o:['privatiser','compléter','renouveler'],a:1,x:'ouvrir, modifier, compléter, transférer, fermer.'}]},
+{id:'spu',t:'Le service public',e:'🏥',x:480,y:290,w:['service public','hôpital public','éducation nationale','police','transports','retraite','santé'],s:[
+ {q:'Intrus : qu’est-ce qui n’est PAS un service public ?',o:['l’hôpital public','une entreprise privée','l’éducation nationale'],a:1,x:'Santé, retraite, hôpital, éducation, police, transports publics.'},
+ {q:'Les Français sont ___ à leur service public.',o:['soumis','périmés','attachés'],a:2,x:'être attaché à = y tenir beaucoup.'}]},
+{id:'pri',t:'Public ou privé ?',e:'⚖️',x:610,y:420,w:['privatisées','secteur privé','concurrence','radios','télévision'],s:[
+ {q:'Certaines radios et chaînes de télévision publiques n’ont pas été…',o:['privatisées','renouvelées','transférées'],a:0,x:'privatiser = confier au secteur privé.'},
+ {q:'Le secteur privé est soumis à la ___.',o:['quittance','concurrence','pesanteur'],a:1,x:'soumis à la concurrence.'}]},
+{id:'sec',t:'Sécurité sociale',e:'💙',x:350,y:440,w:['Sécurité sociale','prend en charge','dépenses de santé','maladie','maternité','handicaps'],s:[
+ {q:'La Sécurité sociale prend en ___ les dépenses de santé.',o:['compte','charge','main'],a:1,x:'prendre en charge = payer, assumer.'},
+ {q:'Elle couvre la maladie, la maternité et les…',o:['handicaps','passeports','guichets'],a:0,x:'maladie, maternité, handicaps…'}]},
+{id:'vf',t:'Vrai ou faux ?',e:'🤔',x:225,y:150,w:['quittance','bureaucrates','dossier','pièce justificative','station de radio','Sécurité sociale','Éducation nationale','allocation'],s:[
+ {q:'Une quittance d’électricité peut servir de justificatif de domicile.',o:['Vrai','Faux'],a:0,x:'Vrai : c’est une facture qui prouve qu’on habite à cette adresse.'},
+ {q:'Les bureaucrates sont lourds.',o:['Vrai','Faux'],a:1,x:'Faux : c’est l’administration qui est lourde et lente. Les bureaucrates sont critiqués, mais ce ne sont pas eux qui « sont lourds ».'},
+ {q:'Un dossier est une pièce justificative.',o:['Vrai','Faux'],a:1,x:'Faux : un dossier contient des pièces justificatives ; on l’ouvre, le complète, le ferme…'},
+ {q:'Une station de radio peut être publique.',o:['Vrai','Faux'],a:0,x:'Vrai : certaines radios et télévisions font partie du service public.'},
+ {q:'La Sécurité sociale inclut l’Éducation nationale.',o:['Vrai','Faux'],a:1,x:'Faux : ce sont deux services publics distincts.'},
+ {q:'Quand on bénéficie d’une allocation, on reçoit de l’argent de l’État.',o:['Vrai','Faux'],a:0,x:'Vrai : une allocation est une somme d’argent versée par l’État.'}]},
+{id:'qui',t:'De qui ou de quoi ?',e:'🔎',x:410,y:165,w:['fonctionnaire','Sécurité sociale','listes électorales','formulaire','justificatif de domicile','guichet','formalités'],s:[
+ {q:'Il ou elle est employé(e) par l’État.',o:['un usager','un fonctionnaire','un dossier'],a:1,x:'un fonctionnaire (pluriel : les fonctionnaires).'},
+ {q:'Elle prend en charge les dépenses de santé.',o:['la Sécurité sociale','la concurrence','la quittance'],a:0,x:'la Sécurité sociale.'},
+ {q:'On s’y inscrit pour pouvoir voter.',o:['le guichet','les listes électorales','le secteur privé'],a:1,x:'s’inscrire sur les listes électorales.'},
+ {q:'C’est là que l’employé de l’administration répond aux usagers.',o:['le guichet','le dossier','l’attestation'],a:0,x:'le guichet.'},
+ {q:'Elles sont parfois compliquées.',o:['les allocations','les formalités','les radios'],a:1,x:'les formalités (administratives).'}]},
+{id:'gap',t:'Complétez',e:'✏️',x:610,y:250,w:['remplir','faire la queue','bénéficier','périmé','renouveler','compléter','s’inscrire','imprimé','démarches'],s:[
+ {q:'Intrus : on remplit… ',o:['un formulaire','un imprimé','un employé'],a:2,x:'On remplit un formulaire / un imprimé.'},
+ {q:'Intrus : on fait… ',o:['des démarches','la queue','l’administration'],a:2,x:'On fait des démarches, on fait la queue.'},
+ {q:'Stéphane doit ___ le formulaire en donnant son nom et son adresse.',o:['remplir','fournir','renouveler'],a:0,x:'remplir un formulaire.'},
+ {q:'Nous ___ la queue pour obtenir un renseignement.',o:['faisons','prenons','remplissons'],a:0,x:'faire la queue.'},
+ {q:'Florian ___ d’une allocation pour le logement.',o:['s’inscrit','bénéficie','se renseigne'],a:1,x:'bénéficier de.'},
+ {q:'Mon passeport est ___, je dois le faire ___ pour pouvoir voyager.',o:['périmé / renouveler','privatisé / transférer','imprimé / fermer'],a:0,x:'un document périmé → le faire renouveler.'},
+ {q:'Il manque quelques documents, Henri doit ___ son dossier.',o:['fermer','compléter','privatiser'],a:1,x:'compléter un dossier.'},
+ {q:'Marie doit ___ sur les listes électorales pour pouvoir voter.',o:['s’inscrire','bénéficier','se présenter'],a:0,x:'s’inscrire sur les listes électorales.'}]},
+{id:'tcf',t:'Expression écrite',e:'✍️',x:110,y:440,w:['démarches','formulaire','pièces justificatives','guichet','dossier','renseigner','allocation','lenteur','service public','Sécurité sociale'],s:[
+ {w:'Tâche TCF · Un ami s’installe en France. Écris-lui un message (80–120 mots) pour lui expliquer comment faire ses démarches administratives et ce qu’il peut attendre du service public.',min:5},
+ {w:'À vous ! Ton pays a-t-il un service public ? Décris-en les grandes lignes et dis s’il est différent du système français. Comment se passent les démarches administratives chez toi ? (80–120 mots)',min:5,words:['service public','système','santé','retraite','éducation nationale','démarches','formulaire','guichet','dossier','Internet','pièces justificatives','allocation','lenteur','concurrence']}]}
+];
+const E=[['adm','adr'],['adm','for'],['adm','gui'],['adm','tcf'],['adr','pap'],['adr','for'],['adr','gui'],['adr','sec'],['pap','for'],['pap','spu'],['pap','pri'],['for','gui'],['gui','spu'],['gui','tcf'],['spu','pri'],['spu','sec'],['pri','sec'],['sec','tcf'],['vf','adm'],['vf','pap'],['vf','sec'],['qui','adm'],['qui','adr'],['qui','gui'],['qui','spu'],['gap','pap'],['gap','for'],['gap','spu'],['gap','pri']];
+const $=id=>document.getElementById(id),by=id=>N.find(n=>n.id===id);
+let score=0,done={},woven={},cur=null,prog={};
+const svg=$('g'),NS='http://www.w3.org/2000/svg';
+function mk(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e}
+function draw(){
+ svg.innerHTML='';
+ E.forEach(([a,b])=>{const A=by(a),B=by(b),k=a+'-'+b;
+  const on=done[a]||done[b];
+  mk('line',{x1:A.x,y1:A.y,x2:B.x,y2:B.y,class:'edge'+(woven[k]?' woven':on?' on':'')});});
+ E.forEach(([a,b])=>{const A=by(a),B=by(b),k=a+'-'+b;
+  if(done[a]&&done[b]){const c=mk('circle',{cx:(A.x+B.x)/2,cy:(A.y+B.y)/2,r:9,class:'bridge'+(woven[k]?' w':' pulse')});
+   c.onclick=()=>bridge(a,b,k);}});
+ N.forEach((n,i)=>{const g=mk('g',{class:'node'+(done[n.id]?' done':'')+(cur===n.id?' sel':''),tabindex:0});
+  if(i%2)mk('rect',{x:n.x-33,y:n.y-33,width:66,height:66},g);else mk('circle',{cx:n.x,cy:n.y,r:36},g);
+  const e=mk('text',{x:n.x,y:n.y+2,class:'em'},g);e.textContent=done[n.id]?'✓':n.e;
+  const t=mk('text',{x:n.x,y:n.y+54},g);t.textContent=n.t;
+  g.onclick=()=>open(n.id);g.onkeydown=ev=>{if(ev.key==='Enter')open(n.id)};});
+ $('sc').textContent=score;$('nd').textContent=Object.keys(done).length;$('wv').textContent=Object.keys(woven).length;
+ const nd=Object.keys(done).length,wv=Object.keys(woven).length;
+ const B=[['🌱 Première racine',nd>=1],['🌿 Cinq racines',nd>=5],['🌳 Rhizome complet',nd>=12],['🕸️ Tisserand·se (3 ponts)',wv>=3],['⭐ 200 points',score>=200],['👑 400 points',score>=400]];
+ $('bd').innerHTML=B.map(b=>'<span class="'+(b[1]?'g':'')+'">'+b[0]+'</span>').join('');
+}
+function P(h){$('panel').innerHTML=h}
+function open(id){cur=id;prog[id]=prog[id]||0;if(done[id]){P('<h2>'+by(id).e+' '+by(id).t+'</h2><p>Nœud terminé ✓ Cherche un pont doré vers un nœud voisin, ou explore un autre point d’entrée.</p>');draw();return}step(id);draw();}
+function step(id){const n=by(id),s=n.s[prog[id]];
+ if(!s){done[id]=1;score+=20;P('<h2>🎉 '+n.t+' maîtrisé</h2><p>+20 bonus ! Les lignes voisines s’illuminent : choisis un nœud relié, ou tisse un pont.</p>');draw();return}
+ const hd='<h2>'+n.e+' '+n.t+' <small style="color:var(--mut);font-weight:400">('+(prog[id]+1)+'/'+n.s.length+')</small></h2>';
+ if(s.q)return qcm(id,s,hd);if(s.p)return pairs(id,s,hd);return write(id,s,hd);}
+function nxt(id){prog[id]++;step(id);draw();}
+function qcm(id,s,hd){let tries=0;
+ P(hd+'<div class="q">'+s.q+'</div><div id="os"></div><div class="fb" id="fb"></div>');
+ s.o.forEach((t,i)=>{const b=document.createElement('button');b.className='o';b.textContent=t;
+  b.onclick=()=>{if(i===s.a){b.classList.add('ok');score+=tries?5:10;$('fb').innerHTML='✅ '+s.x+'<br><button class="btn" id="nx">Suivant →</button>';
+    [...$('os').children].forEach(x=>x.disabled=true);$('nx').onclick=()=>nxt(id);$('sc').textContent=score}
+   else{tries++;b.classList.add('ko');b.disabled=true;$('fb').textContent='Pas tout à fait… réessaie !'}};
+  $('os').appendChild(b)});}
+function pairs(id,s,hd){const L=s.p.map(x=>x[0]),R=s.p.map(x=>x[1]).sort(()=>Math.random()-.5);let sel=null,ok=0;
+ P(hd+'<div class="q">Relie chaque terme à sa définition.</div><div class="cols"><div id="l"></div><div id="r"></div></div><div class="fb" id="fb"></div>');
+ const mkb=(t,box,side)=>{const b=document.createElement('button');b.className='o';b.textContent=t;b.dataset.s=side;
+  b.onclick=()=>{if(side==='l'){[...$('l').children].forEach(x=>x.classList.remove('sel'));sel=b;b.classList.add('sel')}
+   else if(sel){const i=L.indexOf(sel.textContent);if(s.p[i][1]===t){sel.classList.remove('sel');sel.classList.add('ok');b.classList.add('ok');sel.disabled=b.disabled=true;score+=5;ok++;sel=null;$('sc').textContent=score;
+     if(ok===L.length)$('fb').innerHTML='✅ Bravo !<br><button class="btn" id="nx">Suivant →</button>',$('nx').onclick=()=>nxt(id)}
+    else{b.classList.add('ko');setTimeout(()=>b.classList.remove('ko'),500)}}};
+  $(box).appendChild(b)};
+ L.forEach(t=>mkb(t,'l','l'));R.forEach(t=>mkb(t,'r','r'));}
+function norm(s){return s.toLowerCase().replace(/[’']/g,"'")}
+function write(id,s,hd,A,B){const words=s.words||by(id).w;
+ P(hd+'<div class="q">'+s.w+'</div><div class="tags">'+words.map(w=>'<span>'+w+'</span>').join('')+'</div><textarea id="ta" placeholder="Écris ici…"></textarea><div class="fb" id="fb">Utilise au moins '+s.min+' mots de la liste.</div><button class="btn" id="ck">Vérifier</button>');
+ $('ck').onclick=()=>{const t=norm($('ta').value);let u=0;
+  document.querySelectorAll('.tags span').forEach(sp=>{if(t.includes(norm(sp.textContent))){sp.classList.add('u');u++}});
+  const n=t.split(/\s+/).filter(Boolean).length;
+  if(u>=s.min&&n>=25){const g=Math.min(u*3,30);score+=g;$('fb').innerHTML='✅ '+u+' mots utilisés · '+n+' mots écrits · +'+g+' pts<br><button class="btn" id="nx">Terminer ✓</button>';$('nx').onclick=()=>nxt(id);$('ck').remove()}
+  else $('fb').textContent=u+'/'+s.min+' mots requis · '+n+' mots écrits (écris au moins 25). Continue !';draw();$('sc').textContent=score};}
+function bridge(a,b,k){if(woven[k]){return}
+ const A=by(a),B=by(b);
+ const s={w:'🌉 Pont « '+A.t+' » ↔ « '+B.t+' » : écris UNE phrase (B2) qui utilise au moins un terme de chaque nœud.',min:2,words:[...A.w,...B.w]};
+ P('<h2>🌉 Tisser un pont</h2><div class="q">'+s.w+'</div><div class="tags">'+A.w.map(w=>'<span data-g="a">'+w+'</span>').join('')+'<br>'+B.w.map(w=>'<span data-g="b">'+w+'</span>').join('')+'</div><textarea id="ta" style="min-height:70px"></textarea><div class="fb" id="fb"></div><button class="btn" id="ck">Vérifier</button>');
+ $('ck').onclick=()=>{const t=norm($('ta').value);
+  const ha=A.w.some(w=>t.includes(norm(w))),hb=B.w.some(w=>t.includes(norm(w)));
+  document.querySelectorAll('.tags span').forEach(sp=>{if(t.includes(norm(sp.textContent)))sp.classList.add('u')});
+  if(ha&&hb&&t.split(/\s+/).length>=6){woven[k]=1;score+=15;P('<h2>🕸️ Pont tissé !</h2><p>+15 points. Le rhizome grandit : chaque nœud peut se connecter à n’importe quel autre.</p>');draw()}
+  else $('fb').textContent='Il faut un terme de chaque nœud et une vraie phrase (6 mots minimum).'};}
+draw();
+</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Le lexique de Maya à la poupée</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#7CCBD0;--card:#F7F2E6;--ink:#14203A;--red:#E5553A;--grn:#3FB59A;--yel:#E0A82E;--blu:#1F3A8A;--ok:#BFE8D6;--ko:#F6C3B8;--fld:#fff;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F2A33;--card:#17363F;--ink:#F3EEDF;--ok:#1E5A45;--ko:#6B2A20;--fld:#0F2A33;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F2A33;--card:#17363F;--ink:#F3EEDF;--ok:#1E5A45;--ko:#6B2A20;--fld:#0F2A33;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Helvetica,Arial,sans-serif}
+main{max-width:920px;margin:0 auto;padding:28px 18px 60px}
+h1,h2,h3{font-family:Georgia,serif;margin:0}
+h1{font-size:clamp(34px,7vw,60px);line-height:1.02}
+.sub{font-family:Georgia,serif;font-style:italic;font-size:19px;margin:8px 0 18px}
+.hero{position:relative;padding:10px 0 6px}
+.sh{position:absolute;border:3px solid var(--ink)}
+nav{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 26px}
+nav a,button{font:inherit;font-weight:700;color:var(--ink);background:var(--yel);border:3px solid var(--ink);padding:8px 14px;cursor:pointer;text-decoration:none;box-shadow:4px 4px 0 var(--ink)}
+button:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+section{background:var(--card);border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:20px;margin:0 0 30px}
+section>h2{font-size:26px;margin-bottom:6px}
+.lead{margin:0 0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.t{border:3px solid var(--ink);background:var(--card);padding:0 14px 12px}
+.t i.bar{display:block;height:12px;margin:0 -14px 10px;border-bottom:3px solid var(--ink)}
+.t h3{font-size:19px}
+.t p{margin:6px 0;font-size:15px}
+.t .e{font-style:italic;opacity:.9}
+.row{display:grid;grid-template-columns:1fr minmax(160px,230px);gap:10px;align-items:center;padding:8px 0;border-bottom:2px dashed var(--ink)}
+.row.ok,.gap.ok{background:var(--ok)}.row.ko,.gap.ko{background:var(--ko)}
+select,input,textarea{font:inherit;color:var(--ink);background:var(--fld);border:3px solid var(--ink);padding:6px 8px;width:100%;box-sizing:border-box}
+.gap{padding:10px;border-bottom:2px dashed var(--ink)}
+.gap input{width:200px;max-width:100%;display:inline-block;margin:0 4px}
+.bank{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.bank span{border:2px solid var(--ink);border-radius:20px;padding:2px 10px;font-size:14px}
+.res{font-weight:700;margin:12px 0 0;min-height:1.5em}
+.act{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.fix{font-size:14px;margin-top:4px;opacity:.95}
+@media (max-width:560px){.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+<div class="hero">
+<div class="sh" style="right:6%;top:0;width:70px;height:70px;border-radius:50%;background:var(--grn)"></div>
+<div class="sh" style="right:0;top:46px;width:46px;height:46px;background:var(--red);transform:rotate(16deg)"></div>
+<h1>Le lexique<br>de <em>Maya à la poupée</em></h1>
+<p class="sub">Vocabulaire avancé pour parler du tableau de Picasso (1938)</p>
+</div>
+<nav aria-label="Navigation">
+<a href="#lexique">Le lexique</a><a href="#ex1">Exercice 1</a><a href="#ex2">Exercice 2</a><a href="#ex3">Exercice 3</a>
+</nav>
+
+<section id="lexique">
+<h2>Le lexique</h2>
+<p class="lead">Quatorze expressions pour décrire la peinture, l’enfance et ce qui se joue entre la fillette et sa poupée.</p>
+<div class="grid" id="gl"></div>
+</section>
+
+<section id="ex1">
+<h2>Exercice 1 · Associer</h2>
+<p class="lead">Choisissez l’expression qui correspond à chaque définition.</p>
+<div id="m"></div>
+<div class="act"><button id="mb" type="button">Vérifier</button><button id="mr" type="button">Recommencer</button></div>
+<p class="res" id="mres" aria-live="polite"></p>
+</section>
+
+<section id="ex2">
+<h2>Exercice 2 · Compléter</h2>
+<p class="lead">Complétez chaque phrase avec l’expression du lexique qui convient. Les articles sont facultatifs.</p>
+<div class="bank" id="bank"></div>
+<div id="g"></div>
+<div class="act"><button id="gb" type="button">Vérifier</button><button id="gr" type="button">Recommencer</button></div>
+<p class="res" id="gres" aria-live="polite"></p>
+</section>
+
+<section id="ex3">
+<h2>Exercice 3 · Écrire</h2>
+<p class="lead">Rédigez 4 à 6 phrases sur le tableau en utilisant au moins cinq expressions du lexique. Le compteur vous indique lesquelles vous avez employées.</p>
+<label for="tx" style="display:block;margin-bottom:6px;font-weight:700">Votre texte</label>
+<textarea id="tx" rows="7" placeholder="Dans ce tableau, la poupée pleure à la place de la fillette…"></textarea>
+<p class="res" id="cnt" aria-live="polite"></p>
+</section>
+</main>
+
+<script>
+var T=[
+{w:"le dédoublement",k:"dedoublement",d:"Fait de se partager en deux, de produire un double de soi. Ici, la poupée est comme un second personnage de l’enfant.",e:"Le dédoublement de la fillette en poupée laisse deviner une peine qu’elle ne peut pas dire."},
+{w:"le visage fragmenté",k:"visage fragmente",d:"Visage décomposé en plans, vu de face et de profil à la fois, selon l’esthétique cubiste.",e:"Le visage fragmenté de Maya oblige l’œil à reconstruire les traits."},
+{w:"les aplats",k:"aplats",d:"Zones de couleur uniforme, sans dégradé ni modelé.",e:"Les aplats turquoise donnent à la peau un aspect presque lunaire."},
+{w:"les contours cernés",k:"contours cernes",d:"Traits noirs épais qui délimitent nettement les formes.",e:"Les contours cernés rappellent les vitraux."},
+{w:"une palette acide",k:"palette acide",d:"Ensemble de couleurs vives et tranchantes, vertes ou bleues, qui piquent le regard.",e:"Une palette acide sert une scène pourtant tendre."},
+{w:"se blottir",k:"se blottir",d:"Se serrer contre quelqu’un pour chercher chaleur et protection.",e:"La poupée semble se blottir contre la joue de l’enfant."},
+{w:"joue contre joue",k:"joue contre joue",d:"Position de deux visages qui se touchent, une joue appuyée sur l’autre.",e:"Joue contre joue, les deux figures forment presque un seul visage."},
+{w:"la détresse déplacée",k:"detresse deplacee",d:"Tristesse attribuée à un autre que celui qui l’éprouve : la poupée pleure à la place de l’enfant.",e:"La détresse déplacée permet à l’enfant de rester impassible."},
+{w:"l’ambivalence",k:"ambivalence",d:"Présence simultanée de sentiments opposés, comme l’amour et l’hostilité, envers une même personne.",e:"L’ambivalence se lit dans ce visage à la fois doux et sévère."},
+{w:"le deuil",k:"deuil",d:"Douleur provoquée par une perte, et travail psychique par lequel on s’en détache peu à peu.",e:"La poupée peut figurer un deuil que l’enfant n’a pas les mots pour nommer."},
+{w:"la fragilité",k:"fragilite",d:"Caractère de ce qui peut se briser ou être blessé facilement.",e:"La fragilité de la poupée contraste avec la solidité des contours."},
+{w:"l’inquiétante étrangeté",k:"inquietante etrangete",d:"Notion de Freud : malaise ressenti devant un objet familier qui devient soudain étrange, comme une poupée trop humaine.",e:"Les larmes de la poupée créent une inquiétante étrangeté."},
+{w:"le reflet",k:"reflet",d:"Image renvoyée comme par un miroir. Ici, la ressemblance entre l’enfant et sa poupée.",e:"La poupée est un reflet de l’enfant, et peut-être du père."},
+{w:"la tendresse ambiguë",k:"tendresse ambigue",d:"Affection mêlée de malaise, d’inquiétude ou de possession.",e:"Cette tendresse ambiguë trouble le spectateur."}
+];
+var C=["var(--red)","var(--grn)","var(--yel)","var(--blu)"];
+function norm(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[’']/g," ").replace(/\s+/g," ").trim();}
+function strip(s){return norm(s).replace(/^(le|la|les|l|un|une|des|de|d) /,"");}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+
+document.getElementById("gl").innerHTML=T.map(function(t,i){
+return '<article class="t"><i class="bar" style="background:'+C[i%4]+'"></i><h3>'+esc(t.w)+'</h3><p>'+esc(t.d)+'</p><p class="e">'+esc(t.e)+'</p></article>';}).join("");
+
+/* Exercice 1 */
+var MI=[0,2,3,5,7,8,9,11,12,13];
+var opts=T.map(function(t,i){return {i:i,w:t.w};}).sort(function(a,b){return a.w.replace(/^(l’|le |la |les |une |un )/,"").localeCompare(b.w.replace(/^(l’|le |la |les |une |un )/,""),"fr");});
+function buildM(){
+var order=MI.slice().sort(function(){return Math.random()-.5;});
+document.getElementById("m").innerHTML=order.map(function(i,n){
+return '<div class="row" data-a="'+i+'"><label for="s'+n+'">'+esc(T[i].d)+'</label><select id="s'+n+'"><option value="">Choisir…</option>'+opts.map(function(o){return '<option value="'+o.i+'">'+esc(o.w)+'</option>';}).join("")+'</select></div>';}).join("");
+document.getElementById("mres").textContent="";}
+document.getElementById("mb").onclick=function(){
+var rows=document.querySelectorAll("#m .row"),ok=0;
+rows.forEach(function(r){var v=r.querySelector("select").value,good=v!==""&&+v===+r.dataset.a;
+r.className="row "+(good?"ok":"ko");if(good)ok++;});
+document.getElementById("mres").textContent=ok+" / "+rows.length+(ok===rows.length?" · Excellent !":" · Corrigez les lignes en rouge.");};
+document.getElementById("mr").onclick=buildM;buildM();
+
+/* Exercice 2 */
+var G=[
+["Le portrait montre un {} : le nez de profil, les deux yeux de face.","visage fragmente",1],
+["Les couleurs sont posées en {}, sans aucun dégradé.","aplats",2],
+["Un trait noir épais entoure chaque forme : ce sont des {}.","contours cernes",3],
+["La poupée semble vouloir {} contre la fillette pour se protéger.","se blottir",5],
+["Ce n’est pas l’enfant qui pleure mais la poupée : Picasso met en scène une {}.","detresse deplacee",7],
+["Devant ce visage de poupée trop humain, le spectateur éprouve une {}, au sens de Freud.","inquietante etrangete",11],
+["L’enfant éprouve à la fois de l’amour et de la colère envers sa poupée : c’est de l’{}.","ambivalence",8],
+["Les deux visages se touchent {} et semblent n’en former qu’un.","joue contre joue",6]
+];
+document.getElementById("bank").innerHTML=G.map(function(g){return T[g[2]].w;}).sort(function(){return Math.random()-.5;}).map(function(w){return "<span>"+esc(w)+"</span>";}).join("");
+function buildG(){
+document.getElementById("g").innerHTML=G.map(function(g,n){
+var p=g[0].split("{}");
+return '<div class="gap" data-k="'+g[1]+'" data-i="'+g[2]+'"><label for="i'+n+'">'+(n+1)+". "+esc(p[0])+'</label><input id="i'+n+'" type="text" autocomplete="off" autocapitalize="off" spellcheck="false"> '+esc(p[1])+'<div class="fix"></div></div>';}).join("");
+document.getElementById("gres").textContent="";}
+document.getElementById("gb").onclick=function(){
+var gs=document.querySelectorAll("#g .gap"),ok=0;
+gs.forEach(function(el){var v=strip(el.querySelector("input").value),good=v===strip(el.dataset.k);
+el.className="gap "+(good?"ok":"ko");el.querySelector(".fix").textContent=good?"":"Réponse attendue : "+T[+el.dataset.i].w;if(good)ok++;});
+document.getElementById("gres").textContent=ok+" / "+gs.length+(ok===gs.length?" · Bravo !":"");};
+document.getElementById("gr").onclick=buildG;buildG();
+
+/* Exercice 3 */
+var tx=document.getElementById("tx");
+function count(){
+var s=" "+norm(tx.value)+" ",used=[];
+T.forEach(function(t){var k=" "+strip(t.w)+" ";
+if(s.indexOf(k)>-1||(t.k==="se blottir"&&/ se blott/.test(s))||(t.k==="aplats"&&/ aplat/.test(s)))used.push(t.w);});
+var c=document.getElementById("cnt");
+c.textContent=used.length?used.length+" expression(s) employée(s) : "+used.join(", ")+(used.length>=5?" · Objectif atteint !":""):"Aucune expression du lexique employée pour l’instant.";}
+tx.oninput=count;count();
+</script>
+</body>
+</html>

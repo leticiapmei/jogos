@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TCF Canada B2 · Nuances</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#faf7f2;--fg:#1d2433;--card:#fff;--muted:#6b7280;--line:#e5dfd3;--accent:#c8102e;--accent2:#1f3a5f;--ok:#1a7f4b;--bad:#b42318;--okbg:#e6f4ec;--badbg:#fdecea;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141821;--fg:#eceff4;--card:#1d2230;--muted:#9aa3b2;--line:#2c3345;--accent:#ff5a70;--accent2:#8fb4e8;--ok:#5fd394;--bad:#ff8a80;--okbg:#17332a;--badbg:#3a1e1e;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141821;--fg:#eceff4;--card:#1d2230;--muted:#9aa3b2;--line:#2c3345;--accent:#ff5a70;--accent2:#8fb4e8;--ok:#5fd394;--bad:#ff8a80;--okbg:#17332a;--badbg:#3a1e1e;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 Georgia,"Times New Roman",serif}
+.wrap{max-width:760px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.6rem;margin:.2em 0 .1em}
+.sub{color:var(--muted);margin:0 0 16px;font-family:system-ui,sans-serif;font-size:.92rem}
+nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px;font-family:system-ui,sans-serif}
+nav button{flex:1;min-width:110px;padding:10px 8px;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:10px;font-size:.92rem;cursor:pointer}
+nav button.on{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.card h2{margin:0 0 2px;font-size:1.15rem}
+.pt{color:var(--muted);font-family:system-ui,sans-serif;font-size:.85rem}
+.row{display:grid;grid-template-columns:minmax(120px,1.1fr) 2fr;gap:10px;align-items:center;padding:6px 0;border-top:1px dashed var(--line)}
+.row b{font-size:1.02rem}
+.bar{height:8px;border-radius:5px;background:linear-gradient(90deg,var(--accent2),var(--accent));margin-top:4px}
+.ex{font-style:italic;margin:10px 0 0;padding:8px 10px;border-left:3px solid var(--accent)}
+.note{font-family:system-ui,sans-serif;font-size:.85rem;color:var(--accent);margin-top:8px}
+.btn{font-family:system-ui,sans-serif;padding:10px 16px;border-radius:10px;border:1px solid var(--accent2);background:var(--accent2);color:#fff;font-size:.95rem;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent2)}
+.flash{min-height:210px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;cursor:pointer;gap:8px}
+.flash .w{font-size:2rem;font-weight:bold}
+.flash .tag{font-family:system-ui,sans-serif;font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.ctl{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg);font:inherit;cursor:pointer}
+.opt.ok{background:var(--okbg);border-color:var(--ok)}
+.opt.bad{background:var(--badbg);border-color:var(--bad)}
+.fb{font-family:system-ui,sans-serif;font-size:.9rem;margin-top:10px;padding:10px;border-radius:8px;background:var(--okbg)}
+textarea{width:100%;min-height:150px;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg);font:inherit}
+.prog{font-family:system-ui,sans-serif;font-size:.85rem;color:var(--muted);margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Nuances en français · TCF Canada B2</h1>
+  <p class="sub">Adjetivos, advérbios, sinônimos e antônimos para expressar nuances. Treine 15 minutos por dia.</p>
+  <nav id="nav"></nav>
+  <main id="main"></main>
+</div>
+<script>
+const SCALES=[
+{t:"La qualité",pt:"Qualidade, do mais fraco ao mais forte",w:[["correct","aceitável"],["satisfaisant","satisfatório"],["bon","bom"],["remarquable","notável"],["excellent","excelente"],["exceptionnel","excepcional"]],ex:"Ses résultats sont remarquables, mais pas encore exceptionnels."},
+{t:"L’ampleur",pt:"Tamanho / importância",w:[["minime","mínimo"],["modeste","modesto"],["notable","notável"],["considérable","considerável"],["majeur","grande, importante"],["colossal","colossal"]],ex:"Cette réforme aura un impact considérable sur les petites entreprises."},
+{t:"La difficulté",pt:"Dificuldade",w:[["aisé","fácil, tranquilo"],["abordable","acessível"],["délicat","delicado"],["complexe","complexo"],["ardu","árduo"],["insurmontable","intransponível"]],ex:"La situation est délicate : il faut agir avec tact."},
+{t:"La surprise",pt:"Surpresa",w:[["inattendu","inesperado"],["surprenant","surpreendente"],["étonnant","espantoso"],["stupéfiant","estarrecedor"],["sidérant","de cair o queixo"]],ex:"Le résultat de l’élection est tout simplement stupéfiant."},
+{t:"L’opinion",pt:"Atitude / opinião",w:[["hostile","hostil"],["sceptique","cético"],["mitigé","dividido, misto"],["favorable","favorável"],["enthousiaste","entusiasmado"]],ex:"Les avis sont mitigés : certains applaudissent, d’autres hésitent."},
+{t:"Adverbes d’intensité",pt:"Advérbios de intensidade",w:[["légèrement","levemente"],["assez","bastante / razoavelmente"],["plutôt","até que, bem"],["très","muito"],["fortement","fortemente"],["extrêmement","extremamente"]],ex:"Le prix a légèrement baissé, mais la demande reste fortement orientée à la hausse."},
+{t:"Adverbes de fréquence",pt:"Advérbios de frequência",w:[["jamais","nunca"],["rarement","raramente"],["parfois","às vezes"],["souvent","frequentemente"],["systématiquement","sistematicamente"],["constamment","constantemente"]],ex:"Elle vérifie systématiquement ses sources avant de publier."},
+{t:"Adverbes de certitude",pt:"Advérbios de certeza",w:[["peut-être","talvez"],["éventuellement","eventualmente"],["probablement","provavelmente"],["sans doute","provavelmente (cuidado!)"],["assurément","com certeza"],["indéniablement","inegavelmente"]],ex:"Il viendra sans doute demain.",note:"Attention : « sans doute » = provavelmente, e não « sem dúvida » (que seria « sans aucun doute »)."}
+];
+const CARDS=[
+["éphémère","efêmero","fugace, passager","durable, pérenne"],
+["bénéfique","benéfico","favorable, profitable","néfaste, nuisible"],
+["flagrant","gritante, evidente","manifeste, évident","discret, imperceptible"],
+["fiable","confiável","sûr, digne de confiance","douteux, incertain"],
+["prudent","prudente","avisé, circonspect","téméraire, imprudent"],
+["minime","mínimo","infime, négligeable","considérable, majeur"],
+["bienveillant","benevolente","attentionné, indulgent","hostile, malveillant"],
+["brusquement","bruscamente","soudainement, subitement","progressivement, graduellement"],
+["volontiers","de bom grado","de bon cœur, avec plaisir","à contrecœur, à regret"],
+["évasif","evasivo","vague, flou","catégorique, précis"],
+["fastidieux","tedioso","ennuyeux, laborieux","passionnant, captivant"],
+["pertinent","pertinente","judicieux, approprié","hors sujet, inapproprié"]
+];
+const QUIZ=[
+["Le projet a connu un succès ___ : personne ne s’attendait à de tels résultats.",["modeste","retentissant","discret","passager"],1,"« Retentissant » = muito grande, que faz barulho (sucesso estrondoso)."],
+["Cette mesure est ___ : elle ne fait pas l’unanimité et soulève de nombreux débats.",["unanime","controversée","anodine","évidente"],1,"« Controversé » = polêmico."],
+["Il a ___ refusé notre offre, sans même l’examiner.",["légèrement","catégoriquement","éventuellement","rarement"],1,"« Catégoriquement » = de forma categórica, sem margem de negociação."],
+["Quel est le contraire de « éphémère » ?",["fugace","durable","bref","soudain"],1,"Éphémère (que dura pouco) ≠ durable. « Fugace » é sinônimo."],
+["Les prix ont augmenté ___ ce mois-ci : seulement 0,5 %.",["considérablement","légèrement","brutalement","exagérément"],1,"O dado (0,5 %) indica um aumento fraco: « légèrement »."],
+["Quel mot est un synonyme de « néfaste » ?",["nuisible","bénéfique","anodin","fiable"],0,"Néfaste = nuisible (prejudicial)."],
+["Elle est très ___ : elle réfléchit avant d’agir et évite les risques.",["téméraire","prudente","impulsive","insouciante"],1,"« Prudente » combina com « évite les risques »."],
+["Le ministre a répondu de façon ___, sans vraiment s’engager.",["franche","évasive","catégorique","détaillée"],1,"« Évasif » = que não responde claramente."],
+["Les résultats sont ___ : certains indicateurs progressent, d’autres reculent.",["mitigés","éclatants","désastreux","unanimes"],0,"« Mitigé » = misto, nem bom nem ruim."],
+["L’écart entre les deux chiffres est ___ : impossible de ne pas le remarquer.",["infime","flagrant","discret","négligeable"],1,"« Flagrant » = evidente, que salta aos olhos."],
+["Il vient ___ à nos réunions : environ une fois par an.",["systématiquement","rarement","fréquemment","constamment"],1,"Uma vez por ano = « rarement »."],
+["Quel est le contraire de « bienveillant » ?",["hostile","attentionné","indulgent","aimable"],0,"Bienveillant ≠ hostile / malveillant."]
+];
+const WRITE=[
+"Décrivez un projet récent en utilisant trois adverbes d’intensité différents (légèrement, fortement, extrêmement…).",
+"Donnez votre opinion sur le télétravail en nuançant avec : plutôt, sans doute, éventuellement.",
+"Comparez deux villes en employant deux paires d’antonymes (ex. : durable / éphémère, discret / flagrant).",
+"Racontez une situation difficile en utilisant : délicat, ardu, insurmontable (du plus faible au plus fort).",
+"Écrivez un court avis sur un film : favorable, mitigé ou hostile ? Justifiez avec des adjectifs précis.",
+"Parlez de vos habitudes avec trois adverbes de fréquence (rarement, souvent, systématiquement…)."
+];
+const $=s=>document.querySelector(s);
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+const TABS=[["fiches","📚 Fiches"],["cartes","🃏 Cartes"],["quiz","✅ Quiz"],["ecrire","✍️ Écrire"]];
+let tab="fiches";
+function nav(){ $("#nav").innerHTML=TABS.map(([k,l])=>`<button class="${k===tab?"on":""}" onclick="go('${k}')">${l}</button>`).join("") }
+function go(k){tab=k;nav();({fiches,cartes,quiz,ecrire})[k]()}
+
+function fiches(){
+  $("#main").innerHTML=SCALES.map(s=>`<div class="card"><h2>${s.t}</h2><div class="pt">${s.pt} · do mais fraco ao mais forte</div>`+
+   s.w.map((w,i)=>`<div class="row"><div><b>${w[0]}</b><div class="bar" style="width:${Math.round(((i+1)/s.w.length)*100)}%"></div></div><span class="pt">${w[1]}</span></div>`).join("")+
+   `<p class="ex">${s.ex}</p>${s.note?`<div class="note">${s.note}</div>`:""}</div>`).join("");
+}
+
+let deck=[],ci=0,back=false;
+function cartes(){deck=sh(CARDS);ci=0;back=false;drawCard()}
+function drawCard(){
+  const c=deck[ci];
+  $("#main").innerHTML=`<div class="prog">Carte ${ci+1} / ${deck.length} · toque para virar</div>
+  <div class="card flash" onclick="back=!back;drawCard()">`+(back?
+   `<div class="tag">Pt</div><div>${c[1]}</div><div class="tag">Synonymes</div><div>${c[2]}</div><div class="tag">Antonymes</div><div>${c[3]}</div>`:
+   `<div class="tag">Mot</div><div class="w">${c[0]}</div><div class="pt">Quels sont ses synonymes et ses antonymes ?</div>`)+
+  `</div><div class="ctl"><button class="btn ghost" onclick="ci=(ci+deck.length-1)%deck.length;back=false;drawCard()">← Précédent</button>
+  <button class="btn" onclick="ci=(ci+1)%deck.length;back=false;drawCard()">Suivant →</button>
+  <button class="btn ghost" onclick="cartes()">Mélanger</button></div>`;
+}
+
+let qs=[],qi=0,score=0,done=false;
+function quiz(){qs=sh(QUIZ).map(q=>{const o=q[1].map((t,i)=>({t,ok:i===q[2]}));return{p:q[0],o:sh(o),e:q[3]}});qi=0;score=0;drawQ()}
+function drawQ(){
+  if(qi>=qs.length){
+    const best=Math.max(score,+(store.get("tcf_best")||0));store.set("tcf_best",best);
+    $("#main").innerHTML=`<div class="card"><h2>Résultat : ${score} / ${qs.length}</h2><p>Meilleur score : ${best} / ${qs.length}</p>
+    <p class="pt">${score>=10?"Très bien ! Vous maîtrisez bien les nuances.":score>=7?"Bon travail. Revoyez les fiches pour les erreurs.":"Continuez : relisez les fiches puis refaites le quiz."}</p>
+    <button class="btn" onclick="quiz()">Recommencer</button></div>`;return}
+  const q=qs[qi];
+  $("#main").innerHTML=`<div class="prog">Question ${qi+1} / ${qs.length} · score ${score}</div><div class="card"><p style="font-size:1.1rem;margin-top:0">${q.p}</p>`+
+   q.o.map((o,i)=>`<button class="opt" onclick="pick(${i})">${o.t}</button>`).join("")+`<div id="fb"></div></div>`;
+}
+function pick(i){
+  const q=qs[qi];if(q.done)return;q.done=true;
+  const bs=document.querySelectorAll(".opt");
+  q.o.forEach((o,k)=>{if(o.ok)bs[k].classList.add("ok");else if(k===i)bs[k].classList.add("bad")});
+  if(q.o[i].ok)score++;
+  $("#fb").innerHTML=`<div class="fb">${q.o[i].ok?"✔ Correct ! ":"✘ Pas tout à fait. "}${q.e}</div><div class="ctl"><button class="btn" onclick="qi++;drawQ()">Suivant →</button></div>`;
+}
+
+function ecrire(){
+  const p=WRITE[Math.floor(Math.random()*WRITE.length)];
+  $("#main").innerHTML=`<div class="card"><h2>Défi d’écriture</h2><p class="ex">${p}</p>
+  <textarea id="ta" placeholder="Écrivez 4 à 6 phrases…">${store.get("tcf_text")||""}</textarea>
+  <div class="ctl"><button class="btn ghost" onclick="ecrire()">Autre sujet</button>
+  <button class="btn" onclick="store.set('tcf_text',$('#ta').value);this.textContent='Enregistré ✔'">Enregistrer</button></div>
+  <p class="pt">Dica: depois, pesquise no Fiches se dá para trocar um adjetivo/advérbio por outro mais preciso.</p></div>`;
+}
+go("fiches");
+</script>
+</body>
+</html>

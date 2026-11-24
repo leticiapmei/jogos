@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Le Défi du Chef – Cours de français A1→A2</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F7F2;--card:#FFFFFF;--ink:#15243B;--mute:#5A6B80;--blue:#1F3A5F;--lemon:#F4D35E;--red:#C8283F;--mint:#2E8B63;--line:#D9E0E6;--soft:#EAF0F5;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1826;--card:#18263A;--ink:#EEF2F6;--mute:#9FB0C3;--blue:#0A1220;--lemon:#F4D35E;--red:#FF6B7F;--mint:#5FD1A0;--line:#2B3D55;--soft:#1F3049}}
+:root[data-theme="dark"]{--bg:#0F1826;--card:#18263A;--ink:#EEF2F6;--mute:#9FB0C3;--blue:#0A1220;--lemon:#F4D35E;--red:#FF6B7F;--mint:#5FD1A0;--line:#2B3D55;--soft:#1F3049}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 "DM Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque","DM Sans",sans-serif;line-height:1.1;margin:0}
+button{font:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--lemon);outline-offset:2px}
+.top{background:var(--blue);color:#fff;padding:22px 18px 18px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.top .row{max-width:880px;margin:auto;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+.top h1{font-size:clamp(26px,5vw,40px);font-weight:800}
+.top p{margin:4px 0 0;color:#BFD0E3;font-size:15px}
+.clock{font:800 34px "Bricolage Grotesque",sans-serif;background:rgba(255,255,255,.1);border-radius:12px;padding:4px 14px;min-width:108px;text-align:center}
+.clock button{display:block;margin:0 auto;border:0;background:none;color:var(--lemon);font-size:13px;font-weight:700;padding:0 0 4px}
+.hud{max-width:880px;margin:12px auto 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.xpbar{flex:1;min-width:160px;height:14px;background:rgba(255,255,255,.18);border-radius:8px;overflow:hidden}
+.xpbar i{display:block;height:100%;width:0;background:var(--lemon);transition:width .5s}
+.xptxt{font-weight:700;font-size:15px;white-space:nowrap}
+.badges{display:flex;gap:6px}
+.badges span{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.12);filter:grayscale(1) opacity(.45);font-size:18px;transition:.3s}
+.badges span.on{filter:none;background:var(--lemon);transform:scale(1.1)}
+main{max-width:880px;margin:auto;padding:18px}
+.stage{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:20px;margin:0 0 18px}
+.stage.done{border-color:var(--mint)}
+.head{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.head h2{font-size:26px;flex:1;min-width:200px}
+.time{background:var(--lemon);color:#15243B;font-weight:700;border-radius:20px;padding:3px 12px;font-size:14px}
+.tag{background:var(--soft);color:var(--ink);border-radius:20px;padding:3px 12px;font-size:14px;font-weight:500}
+.mission{background:var(--soft);border-left:6px solid var(--red);border-radius:8px;padding:10px 14px;margin:8px 0 14px}
+.btn{border:0;border-radius:12px;padding:10px 18px;font-weight:700;background:var(--blue);color:#fff}
+.btn.alt{background:var(--soft);color:var(--ink)}
+.btn.win{background:var(--mint);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{background:#2A4468}}
+.btn[disabled]{opacity:.6;cursor:default}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.fc{border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:12px 6px;text-align:center;min-height:106px}
+.fc b{display:block;font-size:34px}
+.fc.flip{background:var(--lemon);color:#15243B;border-color:var(--lemon)}
+.fc small{display:block;font-weight:700}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:10px 0}
+.rule{border-radius:14px;padding:12px;background:var(--soft)}
+.rule h3{font-size:30px;color:var(--red)}
+.rule p{margin:4px 0 0;font-size:15px}
+table{border-collapse:collapse;width:100%;font-size:16px}
+th,td{padding:7px 8px;text-align:left;border-bottom:1px solid var(--line)}
+th{font-family:"Bricolage Grotesque",sans-serif;font-size:20px;color:var(--red)}
+.scroll{overflow-x:auto}
+td b{color:var(--mint)}
+.q{font:700 22px "Bricolage Grotesque",sans-serif;margin:8px 0 12px}
+.opts{display:flex;gap:10px;flex-wrap:wrap}
+.opts button{border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:10px 18px;font-weight:700;font-size:18px}
+.opts button.ok{background:var(--mint);color:#fff;border-color:var(--mint)}
+.opts button.ko{background:var(--red);color:#fff;border-color:var(--red)}
+.fb{min-height:28px;margin:10px 0;font-weight:500}
+.big{font:800 28px "Bricolage Grotesque",sans-serif;margin:8px 0}
+.mini{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.mini .clock{background:var(--soft);color:var(--ink);font-size:28px;min-width:88px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.chips span{background:var(--soft);border-radius:20px;padding:4px 12px;font-size:15px}
+.checks label{display:block;padding:6px 0;cursor:pointer}
+.checks input{width:20px;height:20px;margin-right:10px;vertical-align:middle;accent-color:var(--mint)}
+.hide{display:none}
+.card2{border:2px dashed var(--line);border-radius:14px;padding:12px 14px;margin:10px 0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.rank{font:800 38px "Bricolage Grotesque",sans-serif;color:var(--red)}
+ul.tight{margin:6px 0;padding-left:22px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+ <div class="row">
+  <div>
+   <h1>Le Défi du Chef 👨‍🍳</h1>
+   <p>Français A1→A2 · 40 minutes · Objectif B2 TCF Canada</p>
+  </div>
+  <div class="clock"><span id="clock">40:00</span><button id="clockBtn">▶ Démarrer</button></div>
+ </div>
+ <div class="hud">
+  <div class="xpbar" aria-label="Points d’expérience"><i id="xpfill"></i></div>
+  <div class="xptxt"><span id="xp">0</span> XP</div>
+  <div class="badges" id="badges"><span id="b1" title="Marché">🛒</span><span id="b2" title="Partitifs">🧀</span><span id="b3" title="Verbes">🔥</span><span id="b4" title="Boss">⭐</span><span id="b5" title="Tâche 1">🎤</span><span id="b6" title="Tâche 2">🍽️</span></div>
+ </div>
+</header>
+
+<main>
+
+<!-- ÉTAPE 1 -->
+<section class="stage" id="s1">
+ <div class="head"><h2>🛒 Étape 1 : Au marché</h2><span class="time">0–5 min</span><span class="tag">Lexique</span></div>
+ <div class="mission"><b>Mission :</b> retourne les 12 cartes. Lis le mot à voix haute, puis découvre le partitif.</div>
+ <div class="cards" id="vocab"></div>
+ <p><span id="seen">0</span>/12 cartes retournées</p>
+ <button class="btn win" id="d1" data-xp="20" data-b="b1" disabled>Mission accomplie +20 XP</button>
+</section>
+
+<!-- ÉTAPE 2 -->
+<section class="stage" id="s2">
+ <div class="head"><h2>🧀 Étape 2 : Du, de la, de l’, des</h2><span class="time">5–12 min</span><span class="tag">Partitifs</span></div>
+ <div class="mission"><b>Mission :</b> choisis le bon partitif selon le mot. Observe l’exception de la négation.</div>
+ <div class="rules">
+  <div class="rule"><h3>du</h3><p>masculin<br>Je mange <b>du</b> pain.</p></div>
+  <div class="rule"><h3>de la</h3><p>féminin<br>Je prends <b>de la</b> viande.</p></div>
+  <div class="rule"><h3>de l’</h3><p>voyelle ou h<br>Je bois <b>de l’</b>eau.</p></div>
+  <div class="rule"><h3>des</h3><p>pluriel<br>Il mange <b>des</b> légumes.</p></div>
+  <div class="rule"><h3>pas de</h3><p>négation<br>Je ne bois <b>pas de</b> lait.</p></div>
+ </div>
+ <div class="card2"><b>Jeu éclair (1 min) :</b> le professeur dit un aliment (le riz, la soupe, l’huile, les fruits…). L’élève répond avec « Je mange / Je bois… ». Chaque bonne réponse = 1 point.</div>
+ <button class="btn win" id="d2" data-xp="20" data-b="b2">Mission accomplie +20 XP</button>
+</section>
+
+<!-- ÉTAPE 3 -->
+<section class="stage" id="s3">
+ <div class="head"><h2>🔥 Étape 3 : Vouloir, pouvoir, prendre</h2><span class="time">12–19 min</span><span class="tag">Présent</span></div>
+ <div class="mission"><b>Mission :</b> lis les trois tableaux, puis construis 3 phrases utiles pour l’examen.</div>
+ <div class="scroll"><table>
+  <tr><th></th><th>vouloir</th><th>pouvoir</th><th>prendre</th></tr>
+  <tr><td>je</td><td><b>veux</b></td><td><b>peux</b></td><td><b>prends</b></td></tr>
+  <tr><td>tu</td><td><b>veux</b></td><td><b>peux</b></td><td><b>prends</b></td></tr>
+  <tr><td>il / elle</td><td><b>veut</b></td><td><b>peut</b></td><td><b>prend</b></td></tr>
+  <tr><td>nous</td><td><b>voulons</b></td><td><b>pouvons</b></td><td><b>prenons</b></td></tr>
+  <tr><td>vous</td><td><b>voulez</b></td><td><b>pouvez</b></td><td><b>prenez</b></td></tr>
+  <tr><td>ils / elles</td><td><b>veulent</b></td><td><b>peuvent</b></td><td><b>prennent</b></td></tr>
+ </table></div>
+ <p><b>Phrases-clés pour le TCF :</b></p>
+ <div class="chips"><span>Je veux du café.</span><span>Pouvez-vous répéter ?</span><span>Nous prenons le menu du jour.</span><span>Vous voulez de l’eau ?</span><span>Est-ce que je peux payer par carte ?</span></div>
+ <div class="card2"><b>Défi mime :</b> le professeur montre une image (pizza, café, gâteau…). L’élève dit une phrase avec <i>vouloir</i>, puis une avec <i>prendre</i>, puis pose une question avec <i>pouvoir</i>.</div>
+ <button class="btn win" id="d3" data-xp="20" data-b="b3">Mission accomplie +20 XP</button>
+</section>
+
+<!-- BOSS -->
+<section class="stage" id="s4">
+ <div class="head"><h2>⭐ Boss : Le quiz du Chef</h2><span class="time">19–24 min</span><span class="tag">8 questions · 10 XP chacune</span></div>
+ <div class="mission"><b>Mission :</b> réponds sans regarder les tableaux. Une erreur = on corrige à voix haute.</div>
+ <div id="quiz"></div>
+</section>
+
+<!-- TÂCHE 1 -->
+<section class="stage" id="s5">
+ <div class="head"><h2>🎤 Tâche 1 : Entretien dirigé</h2><span class="time">24–30 min</span><span class="tag">TCF Canada · 2 min, sans préparation</span></div>
+ <div class="mission"><b>Mission :</b> tire une carte. Réponds en continu pendant 2 minutes : l’examinateur te pose des questions sur toi.</div>
+ <button class="btn" id="draw1">🎴 Tirer une carte</button>
+ <div class="big" id="card1">Clique pour tirer une question.</div>
+ <div class="mini"><div class="clock" id="t1">2:00</div><button class="btn alt" id="t1b">▶ Lancer le chrono</button></div>
+ <div class="card2"><b>Pour aller vers le B2 :</b> ne réponds jamais avec un seul mot. Utilise la formule <i>réponse + exemple + détail</i>.<br>
+ <i>« Le matin, je prends du café et du pain. Parfois, je mange des fruits parce que je veux manger sain. »</i></div>
+ <div class="checks"><b>Grille du professeur (1 point chacun) :</b>
+  <label><input type="checkbox" class="c1"> Je me présente clairement (nom, ville, travail ou études)</label>
+  <label><input type="checkbox" class="c1"> J’utilise au moins 3 partitifs corrects</label>
+  <label><input type="checkbox" class="c1"> J’utilise vouloir, pouvoir ou prendre correctement</label>
+  <label><input type="checkbox" class="c1"> Je parle au moins 90 secondes sans m’arrêter</label>
+ </div>
+ <button class="btn win" id="d5" data-xp="30" data-b="b5">Mission accomplie</button>
+</section>
+
+<!-- TÂCHE 2 -->
+<section class="stage" id="s6">
+ <div class="head"><h2>🍽️ Tâche 2 : Exercice en interaction</h2><span class="time">30–38 min</span><span class="tag">TCF Canada · jeu de rôle, 5 min 30</span></div>
+ <div class="mission"><b>Mission :</b> tu veux obtenir des informations. Pose au moins 6 questions différentes. En classe, version courte : 3 minutes. À l’examen : 2 min de préparation + 5 min 30.</div>
+ <div class="opts" id="scen"></div>
+ <div id="scBox" class="hide">
+  <div class="grid2">
+   <div class="card2"><b>🧑‍🎓 Carte de l’élève</b><p id="scStu"></p><div class="checks" id="scChecks"></div></div>
+   <div class="card2"><b>🧑‍🏫 Carte du professeur</b><p><button class="btn alt" id="reveal">Révéler les informations</button></p><div id="scProf" class="hide"></div></div>
+  </div>
+  <p><b>Outils de l’élève :</b></p>
+  <div class="chips"><span>Je voudrais savoir…</span><span>Pouvez-vous me dire…?</span><span>Est-ce que vous avez…?</span><span>Combien coûte… ?</span><span>Est-ce que je peux… ?</span><span>Qu’est-ce que vous prenez… ?</span></div>
+  <div class="mini"><div class="clock" id="t2">3:00</div><button class="btn alt" id="t2b">▶ Lancer le chrono</button></div>
+ </div>
+ <button class="btn win" id="d6" data-xp="40" data-b="b6">Mission accomplie</button>
+</section>
+
+<!-- BILAN -->
+<section class="stage" id="s7">
+ <div class="head"><h2>🏆 Bilan : ton rang</h2><span class="time">38–40 min</span></div>
+ <div class="rank" id="rank">Apprenti(e)</div>
+ <p>Total : <b id="xp2">0</b> XP. Rangs : Commis dès 50 · Sous-chef dès 110 · Chef étoilé dès 170.</p>
+ <p><b>Aujourd’hui, j’ai appris à :</b> nommer des aliments, utiliser les partitifs, conjuguer <i>vouloir, pouvoir, prendre</i>, me présenter et poser des questions.</p>
+ <div class="card2"><b>🎒 Devoirs (15 min par jour)</b>
+  <ul class="tight">
+   <li>Enregistrer sur le téléphone une réponse de 2 minutes : « Qu’est-ce que vous mangez dans une journée ? »</li>
+   <li>Écrire 6 questions pour réserver une table ou commander un repas.</li>
+   <li>Apprendre 10 nouveaux aliments avec leur partitif (du, de la, de l’, des).</li>
+  </ul></div>
+</section>
+
+</main>
+
+<script>
+const $=s=>document.querySelector(s);
+let xp=0;
+const MAX=210;
+function upd(){
+  $('#xp').textContent=xp;$('#xp2').textContent=xp;
+  $('#xpfill').style.width=Math.min(100,xp/MAX*100)+'%';
+  $('#rank').textContent=xp>=170?'Chef étoilé ⭐':xp>=110?'Sous-chef 🍳':xp>=50?'Commis 🥕':'Apprenti(e) 🥄';
+}
+function award(btn,pts){
+  if(btn.dataset.done)return;
+  btn.dataset.done=1;xp+=pts;
+  $('#'+btn.dataset.b).classList.add('on');
+  btn.closest('.stage').classList.add('done');
+  btn.textContent='✔ +'+pts+' XP';btn.disabled=true;
+  upd();
+}
+['d2','d3'].forEach(id=>$('#'+id).onclick=e=>award(e.target,+e.target.dataset.xp));
+$('#d1').onclick=e=>award(e.target,20);
+
+/* Horloge générale et minuteurs */
+function fmt(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+let gl=2400,gi=null;
+$('#clockBtn').onclick=()=>{
+  if(gi){clearInterval(gi);gi=null;$('#clockBtn').textContent='▶ Reprendre';return}
+  $('#clockBtn').textContent='⏸ Pause';
+  gi=setInterval(()=>{gl=Math.max(0,gl-1);$('#clock').textContent=fmt(gl);if(!gl){clearInterval(gi);gi=null}},1000);
+};
+function timer(el,btn,secs){
+  let t=secs,i=null;
+  $(btn).onclick=()=>{
+    if(i){clearInterval(i);i=null;t=secs;$(el).textContent=fmt(t);$(btn).textContent='▶ Lancer le chrono';return}
+    $(btn).textContent='↺ Arrêter';
+    i=setInterval(()=>{t--;$(el).textContent=fmt(Math.max(t,0));if(t<=0){clearInterval(i);i=null;$(btn).textContent='▶ Lancer le chrono';t=secs}},1000);
+  };
+}
+timer('#t1','#t1b',120);timer('#t2','#t2b',180);
+
+/* Étape 1 : cartes */
+const V=[['🥖','le pain','du pain'],['🧀','le fromage','du fromage'],['🥛','le lait','du lait'],['🥩','la viande','de la viande'],['🐟','le poisson','du poisson'],['🥦','les légumes','des légumes'],['🍎','les fruits','des fruits'],['💧','l’eau','de l’eau'],['🍚','le riz','du riz'],['🍝','les pâtes','des pâtes'],['🧈','le beurre','du beurre'],['☕','le café','du café']];
+let seen=new Set();
+V.forEach((v,i)=>{
+  const b=document.createElement('button');b.className='fc';
+  b.innerHTML='<b>'+v[0]+'</b><small>'+v[1]+'</small>';
+  b.onclick=()=>{
+    b.classList.toggle('flip');
+    b.innerHTML=b.classList.contains('flip')?'<b>'+v[0]+'</b><small>'+v[2]+'</small>':'<b>'+v[0]+'</b><small>'+v[1]+'</small>';
+    seen.add(i);$('#seen').textContent=seen.size;
+    if(seen.size===12)$('#d1').disabled=false;
+  };
+  $('#vocab').appendChild(b);
+});
+
+/* Quiz */
+const Q=[
+ ['Je mange ___ pain.',['du','de la','des'],0,'Pain est masculin : du pain.'],
+ ['Elle boit ___ eau.',['du','de l’','des'],1,'Eau commence par une voyelle : de l’eau.'],
+ ['Nous prenons ___ pâtes.',['du','de la','des'],2,'Pâtes est pluriel : des pâtes.'],
+ ['Je ne veux pas ___ lait.',['de','du','de la'],0,'Après une négation : pas de lait.'],
+ ['Vous ___ un café ? (vouloir)',['veut','voulez','veulent'],1,'vous voulez'],
+ ['Tu ___ passer le sel ? (pouvoir)',['peux','peut','pouvons'],0,'tu peux'],
+ ['Elles ___ du poisson. (prendre)',['prenons','prend','prennent'],2,'elles prennent'],
+ ['Nous ___ commander. (vouloir)',['voulons','voulez','veulent'],0,'nous voulons']
+];
+let qi=0,score=0;
+function showQ(){
+  const box=$('#quiz');
+  if(qi>=Q.length){
+    const pts=score*10;
+    box.innerHTML='<div class="big">Score : '+score+'/'+Q.length+' → +'+pts+' XP</div>';
+    xp+=pts;$('#b4').classList.add('on');$('#s4').classList.add('done');upd();return;
+  }
+  const q=Q[qi];
+  box.innerHTML='<div class="q">'+(qi+1)+'/'+Q.length+' · '+q[0]+'</div><div class="opts"></div><div class="fb" aria-live="polite"></div>';
+  q[1].forEach((o,i)=>{
+    const b=document.createElement('button');b.textContent=o;
+    b.onclick=()=>{
+      box.querySelectorAll('button').forEach(x=>x.disabled=true);
+      const ok=i===q[2];
+      b.classList.add(ok?'ok':'ko');
+      if(!ok)box.querySelectorAll('button')[q[2]].classList.add('ok');
+      if(ok)score++;
+      box.querySelector('.fb').textContent=(ok?'Bravo ! ':'Pas tout à fait. ')+q[3];
+      setTimeout(()=>{qi++;showQ()},1600);
+    };
+    box.querySelector('.opts').appendChild(b);
+  });
+}
+showQ();
+
+/* Tâche 1 */
+const T1=['Présentez-vous : votre nom, votre ville, votre travail ou vos études.','Qu’est-ce que vous mangez le matin ?','Quel est votre plat préféré ? Pourquoi ?','Qu’est-ce que vous ne mangez pas ? Pourquoi ?','Avec qui est-ce que vous prenez vos repas ?','Qu’est-ce que vous voulez manger au Canada ?','Est-ce que vous cuisinez ? Qu’est-ce que vous pouvez préparer ?'];
+let last=-1;
+$('#draw1').onclick=()=>{let n;do{n=Math.floor(Math.random()*T1.length)}while(n===last);last=n;$('#card1').textContent='« '+T1[n]+' »'};
+let c1=0;
+document.querySelectorAll('.c1').forEach(c=>c.onchange=()=>{
+  const n=document.querySelectorAll('.c1:checked').length;
+  const b=$('#d5');
+  if(!b.dataset.done){b.textContent='Mission accomplie +'+n*7.5+' XP'}
+});
+$('#d5').onclick=e=>{const n=document.querySelectorAll('.c1:checked').length;award(e.target,Math.round(Math.max(n,1)*7.5))};
+
+/* Tâche 2 */
+const S=[
+ {t:'🎂 Traiteur pour un anniversaire',stu:'Tu organises un anniversaire pour 12 personnes. Tu appelles un traiteur pour obtenir des informations.',q:['Prix par personne','Menu végétarien','Boissons comprises','Livraison à domicile','Date et heure possibles','Paiement et acompte'],prof:'Menu : 18 € par personne. Oui, plat végétarien disponible. Boissons en supplément (3 €). Livraison gratuite à partir de 10 personnes. Commande 3 jours avant. Acompte de 30 %.'},
+ {t:'🍴 Réserver au restaurant',stu:'Tu veux dîner samedi soir avec ta famille. Tu appelles le restaurant « Chez Léa ».',q:['Table disponible samedi','Nombre de personnes','Menu du jour','Plat sans gluten','Prix du menu','Paiement par carte'],prof:'Table libre à 19 h 30 ou 21 h. Menu du jour : 24 €. Plat sans gluten disponible. Carte acceptée. Réservation jusqu’à 8 personnes.'},
+ {t:'👩‍🍳 Cours de cuisine',stu:'Tu veux t’inscrire à un cours de cuisine française. Tu demandes des informations à l’école.',q:['Jours et horaires','Durée du cours','Prix','Ingrédients fournis','Niveau débutant','Comment s’inscrire'],prof:'Cours le mardi et jeudi à 18 h, 2 heures. 45 € par cours. Ingrédients fournis. Groupe débutant le jeudi. Inscription en ligne ou sur place.'}
+];
+S.forEach((s,i)=>{
+  const b=document.createElement('button');b.className='btn alt';b.textContent=s.t;
+  b.onclick=()=>{
+    $('#scBox').classList.remove('hide');$('#scProf').classList.add('hide');
+    $('#scStu').textContent=s.stu;
+    $('#scChecks').innerHTML='<b>Questions à poser :</b>'+s.q.map(x=>'<label><input type="checkbox"> '+x+'</label>').join('');
+    $('#scProf').textContent=s.prof;
+  };
+  $('#scen').appendChild(b);
+});
+$('#reveal').onclick=()=>$('#scProf').classList.toggle('hide');
+$('#d6').onclick=e=>{
+  const n=document.querySelectorAll('#scChecks input:checked').length;
+  award(e.target,Math.min(40,Math.max(10,n*7)));
+};
+upd();
+</script>
+</body>
+</html>

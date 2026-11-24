@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rizoma – Le droit en jeu</title>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f6f1e7;--card:#fffdf8;--ink:#1a1410;--red:#e03a24;--yel:#f4b41a;--blue:#1b3a9c;--ok:#1f7a4a;--bad:#c4281a;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#171310;--card:#241e19;--ink:#f6f1e7;--red:#ee5a44;--yel:#f6c141;--blue:#7d97f2;--ok:#5cc189;--bad:#ff7d6e;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#171310;--card:#241e19;--ink:#f6f1e7;--red:#ee5a44;--yel:#f6c141;--blue:#7d97f2;--ok:#5cc189;--bad:#ff7d6e;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Josefin Sans","Futura","Century Gothic","Trebuchet MS",sans-serif;font-size:18px;line-height:1.45}
+.wrap{max-width:720px;margin:0 auto;padding:18px 16px 40px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:26px;letter-spacing:.5px}
+.caju{position:relative;width:32px;height:32px;border-radius:50%;background:linear-gradient(150deg,var(--yel),var(--red));border:3px solid var(--ink)}
+.caju i{position:absolute;top:-9px;right:-12px;width:18px;height:11px;background:var(--ink);border-radius:11px 11px 11px 2px;transform:rotate(-24deg)}
+.hud{display:flex;gap:8px;flex-wrap:wrap;font-weight:700;font-size:15px}
+.hud span{border:3px solid var(--ink);padding:2px 10px;background:var(--card)}
+.hud #rk{background:var(--yel);color:#1a1410}
+.hud #st:empty{display:none}
+.hud #st{background:var(--red);color:#fff}
+.steps{display:flex;gap:10px;margin:0 0 18px}
+.s{width:30px;height:30px;border:3px solid var(--ink);background:transparent;display:block}
+.s.c{border-radius:50%}
+.s.t{border:0;background:var(--ink);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.s.on.c{background:var(--red)}.s.on.q{background:var(--yel)}.s.on.t{background:var(--blue)}
+.card{background:var(--card);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:22px 20px}
+h1{font-size:40px;line-height:1.05;margin:0 0 12px;font-weight:700}
+.tag{margin:0 0 14px;font-weight:700;font-size:16px;color:var(--blue)}
+.q{font-size:23px;font-weight:600;line-height:1.3;margin:0 0 18px}
+.gap{display:inline-block;min-width:80px;border-bottom:4px solid var(--red);text-align:center;color:var(--red)}
+.opts{display:grid;gap:10px}
+.opt,.go{font:inherit;font-weight:600;color:var(--ink);background:var(--card);border:3px solid var(--ink);padding:11px 14px;text-align:left;cursor:pointer;box-shadow:3px 3px 0 var(--ink);min-height:48px}
+.opt:hover:not(:disabled),.go:hover{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.opt:focus-visible,.go:focus-visible{outline:4px solid var(--blue);outline-offset:2px}
+.opt.ok{background:var(--ok);color:#fff;border-color:var(--ink)}
+.opt.bad{background:var(--bad);color:#fff;animation:sh .35s}
+.opt.sel{background:var(--yel);color:#1a1410}
+.opt:disabled{cursor:default}
+.go{background:var(--red);color:#fff;margin-top:18px;text-align:center;padding:12px 26px;font-size:19px}
+.go[hidden]{display:none}
+.fb{min-height:1.5em;margin:14px 0 0;font-weight:600}
+.mt{display:grid;grid-template-columns:1fr 1.5fr;gap:12px}
+.mt>div{display:grid;gap:10px;align-content:start}
+.mt .opt{font-size:16px;padding:9px 10px}
+.big{font-size:56px;font-weight:700;line-height:1;margin:0 0 14px;color:var(--red)}
+.miss{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0 0 16px;list-style:none}
+.miss li{border:3px solid var(--ink);background:var(--yel);color:#1a1410;padding:2px 10px;font-weight:700}
+.end h1{color:var(--blue)}
+footer{margin-top:26px;font-size:14px;opacity:.7}
+@keyframes sh{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+@media (max-width:520px){.mt{grid-template-columns:1fr}h1{font-size:34px}.q{font-size:21px}}
+@media (prefers-reduced-motion:reduce){.opt.bad{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand"><span class="caju"><i></i></span>Rizoma</div>
+  <div class="hud"><span id="rk">Stagiaire</span><span id="xp">0 XP</span><span id="st"></span></div>
+</header>
+<div class="steps" aria-hidden="true"><i class="s c"></i><i class="s q"></i><i class="s t"></i></div>
+<main id="v"></main>
+<footer>Rizoma, école de langues. Vocabulaire juridique, niveau B2/C1.</footer>
+</div>
+<script>
+const $=s=>document.querySelector(s);
+const sh=a=>[...a].sort(()=>Math.random()-.5);
+const D=["droit civil","droit pénal","droit du travail","droit administratif","droit commercial","droit international","droit constitutionnel","droit fiscal"];
+const Q1=[
+["Un salarié conteste son licenciement devant le conseil de prud’hommes.","droit du travail","Les relations entre employeur et salarié relèvent du droit du travail."],
+["Deux voisins se disputent la limite de leur terrain.","droit civil","Propriété, famille, contrats entre particuliers : c’est le droit civil."],
+["Un automobiliste est jugé pour conduite en état d’ivresse.","droit pénal","Le droit pénal définit les infractions et les peines."],
+["Un citoyen attaque une décision du préfet.","droit administratif","Les litiges avec l’administration relèvent du droit administratif."],
+["Deux sociétés rompent un contrat de distribution.","droit commercial","Le droit commercial régit les relations entre commerçants et entreprises."],
+["Deux États s’opposent sur le tracé d’une frontière maritime.","droit international","Le droit international régit les rapports entre les États."],
+["Le Conseil constitutionnel vérifie qu’une loi respecte la Constitution.","droit constitutionnel","Le droit constitutionnel organise les pouvoirs publics et protège les droits fondamentaux."],
+["Un contribuable conteste un redressement d’impôts.","droit fiscal","Impôts et taxes : c’est le droit fiscal."]
+].map(([q,a,w])=>({q,a,w,o:[a,...sh(D.filter(d=>d!==a)).slice(0,3)]}));
+const Q3=[
+["Le juge a ___ le prévenu à six mois de prison.","condamné",["relaxé","assigné","légiféré"],"Condamner, c’est prononcer une peine."],
+["Faute de preuves, le tribunal a ___ le prévenu.","relaxé",["condamné","assigné","promulgué"],"Relaxer, c’est déclarer non coupable devant un tribunal correctionnel."],
+["Avant le procès, ils ont tenté de régler le litige à ___.","l’amiable",["l’audience","la barre","l’appel"],"À l’amiable : sans passer par un juge."],
+["Son avocat va ___ l’entreprise devant le tribunal.","assigner",["abroger","plaider","promulguer"],"Assigner, c’est citer quelqu’un à comparaître devant un tribunal."],
+["Le Parlement a ___ une nouvelle loi sur le télétravail.","voté",["plaidé","verbalisé","relaxé"],"Voter une loi, c’est l’adopter par un vote."],
+["Cette ancienne disposition a été ___ : elle n’a plus aucune valeur légale.","abrogée",["promulguée","plaidée","relaxée"],"Abroger, c’est supprimer une loi pour l’avenir."]
+].map(([q,a,d,w])=>({q:q.replace("___",'<span class="gap">&nbsp;</span>'),a,w,o:[a,...d]}));
+const P=[
+["un tribunal","juridiction qui rend la justice"],
+["un plaignant","personne qui dépose une plainte"],
+["un prévenu","personne poursuivie devant un tribunal correctionnel"],
+["une loi","règle générale votée par le Parlement"],
+["un jugement","décision rendue par un tribunal"],
+["un contrat","accord qui crée des obligations entre les parties"]
+];
+const R=[[0,"Stagiaire"],[90,"Clerc"],[180,"Juriste"],[250,"Magistrat"]];
+let xp=0,streak=0,stage=0;const miss=new Set();
+const rank=()=>R.filter(r=>xp>=r[0]).pop()[1];
+function hud(){
+  $("#rk").textContent=rank();$("#xp").textContent=xp+" XP";
+  $("#st").textContent=streak>1?"série ×"+streak:"";
+  document.querySelectorAll(".s").forEach((e,i)=>e.classList.toggle("on",i<=stage));
+}
+const good=()=>{streak++;xp+=10+(streak>=3?5:0);hud()};
+const bad=l=>{streak=0;miss.add(l);hud()};
+function view(h){$("#v").innerHTML=h;window.scrollTo(0,0)}
+function intro(){
+  stage=-1;hud();
+  view('<section class="card"><h1>Le droit en jeu</h1><p>Prépare-toi pour le cours en trois étapes : reconnaître les domaines du droit, associer les mots à leur définition, puis compléter des phrases.</p><p>Chaque bonne réponse rapporte des XP. Trois réussites de suite lancent une série et des points en plus.</p><button class="go" id="go">Commencer</button></section>');
+  $("#go").onclick=()=>run(0);
+}
+const flow=[()=>mcq("Étape 1 : quel domaine du droit ?",Q1),match,()=>mcq("Étape 3 : complète la phrase",Q3),end];
+function run(n){stage=n;hud();flow[n]()}
+function mcq(t,set){
+  let i=0;
+  (function q(){
+    const it=set[i],last=i+1===set.length;
+    view('<section class="card"><p class="tag">'+t+' ('+(i+1)+' sur '+set.length+')</p><p class="q">'+it.q+'</p><div class="opts" id="o"></div><p class="fb" id="fb" aria-live="polite"></p><button class="go" id="nx" hidden>'+(last?"Continuer":"Suivant")+'</button></section>');
+    sh(it.o).forEach(x=>{
+      const b=document.createElement("button");b.className="opt";b.textContent=x;
+      b.onclick=()=>{
+        document.querySelectorAll(".opt").forEach(o=>{o.disabled=true;if(o.textContent===it.a)o.classList.add("ok")});
+        const r=x===it.a;
+        if(r)good();else{b.classList.add("bad");bad(it.a)}
+        $("#fb").textContent=(r?"Bravo ! ":"Pas tout à fait. ")+it.w;
+        $("#nx").hidden=false;$("#nx").focus();
+      };
+      $("#o").append(b);
+    });
+    $("#nx").onclick=()=>{i++;last?run(stage+1):q()};
+  })();
+}
+function match(){
+  let sel=null,n=0;
+  view('<section class="card"><p class="tag">Étape 2 : associe chaque mot à sa définition</p><div class="mt"><div id="l"></div><div id="r"></div></div><p class="fb" id="fb" aria-live="polite"></p><button class="go" id="nx" hidden>Continuer</button></section>');
+  const mk=(arr,box,side)=>arr.forEach(([t,i])=>{
+    const b=document.createElement("button");b.className="opt";b.textContent=t;b.dataset.i=i;
+    b.onclick=()=>{
+      if(b.classList.contains("ok"))return;
+      if(side==="l"){document.querySelectorAll("#l .opt").forEach(x=>x.classList.remove("sel"));sel=b;b.classList.add("sel");$("#fb").textContent="";return}
+      if(!sel){$("#fb").textContent="Choisis d’abord un mot dans la colonne de gauche.";return}
+      if(sel.dataset.i===b.dataset.i){
+        sel.classList.remove("sel");sel.classList.add("ok");b.classList.add("ok");sel=null;good();
+        if(++n===P.length){$("#fb").textContent="Toutes les paires sont trouvées !";$("#nx").hidden=false}
+      }else{
+        bad(sel.textContent);b.classList.add("bad");setTimeout(()=>b.classList.remove("bad"),500);
+      }
+    };
+    $(box).append(b);
+  });
+  mk(P.map((p,i)=>[p[0],i]),"#l","l");
+  mk(sh(P.map((p,i)=>[p[1],i])),"#r","r");
+  $("#nx").onclick=()=>run(stage+1);
+}
+function end(){
+  const m=[...miss];
+  view('<section class="card end"><h1>'+rank()+'</h1><p class="big">'+xp+' XP</p><p>'+(m.length?"À revoir avant le cours :":"Aucune erreur. Beau travail !")+'</p>'+(m.length?'<ul class="miss">'+m.map(x=>"<li>"+x+"</li>").join("")+"</ul>":"")+'<p>Note tes questions et apporte-les en classe.</p><button class="go" id="re">Rejouer</button></section>');
+  $("#re").onclick=()=>{xp=0;streak=0;miss.clear();intro()};
+}
+intro();
+</script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cabinet Mind & Co — Français A1</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F3FF;--card:#FFFFFF;--ink:#1E1B4B;--soft:#5B5788;--pink:#FF5C8A;--sun:#FFD23F;--teal:#17A89B;--violet:#7C5CFF;--line:#E3DDFB;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17143A;--card:#231F55;--ink:#F4F1FF;--soft:#B9B3E6;--line:#3A3480;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#17143A;--card:#231F55;--ink:#F4F1FF;--soft:#B9B3E6;--line:#3A3480;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Nunito,system-ui,sans-serif}
+h1,h2,h3{font-family:Fredoka,system-ui,sans-serif;margin:0;line-height:1.15}
+main{max-width:820px;margin:0 auto;padding:20px 18px 60px}
+.hero{background:var(--violet);color:#fff;border-radius:28px;padding:34px 26px;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(2rem,7vw,3.2rem);font-weight:700}
+.hero p{margin:12px 0 0;max-width:34ch;font-size:1.1rem}
+.blob{position:absolute;border-radius:50%}
+.b1{width:150px;height:150px;background:var(--pink);right:-40px;top:-40px}
+.b2{width:90px;height:90px;background:var(--sun);right:70px;bottom:-35px}
+.b3{width:50px;height:50px;background:var(--teal);right:20px;bottom:50px}
+.hero>*:not(.blob){position:relative;z-index:1}
+section{margin-top:26px;background:var(--card);border:2px solid var(--line);border-radius:24px;padding:24px 22px}
+.tag{display:inline-block;font:700 .95rem Fredoka,sans-serif;padding:4px 14px;border-radius:99px;color:#1E1B4B;margin-bottom:10px}
+.t1{background:var(--sun)}.t2{background:#9BE5DC}.t3{background:#FFB3C9}.t4{background:#C9BBFF}
+h2{font-size:1.7rem}
+.sub{color:var(--soft);margin:6px 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;padding:0;list-style:none}
+.chips li{background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:8px 12px;font-weight:700}
+.chips small{display:block;font-weight:400;color:var(--soft)}
+button{font:700 1rem Fredoka,sans-serif;border:0;border-radius:16px;padding:12px 20px;cursor:pointer;color:#1E1B4B;background:var(--sun)}
+button:hover{filter:brightness(1.05)}
+button:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
+button.alt{background:var(--pink);color:#fff}
+button.ghost{background:transparent;border:2px solid var(--line);color:var(--ink)}
+.stage{margin-top:16px;border-radius:20px;padding:20px;background:var(--bg);border:2px dashed var(--line);min-height:120px}
+.big{font:700 1.6rem/1.25 Fredoka,sans-serif}
+.who{color:var(--soft);font-weight:700;margin-bottom:4px}
+.ans{margin-top:12px;padding:12px 14px;border-radius:14px;background:#DDF6F2;color:#0B4A44;display:none;font-weight:700}
+.ans.on{display:block}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ans{background:#0F4A45;color:#D5FFF8}}
+.dlg p{margin:6px 0;padding:10px 14px;border-radius:16px;max-width:90%}
+.dlg .a{background:#FFE9A8;color:#1E1B4B}
+.dlg .b{background:#E4DDFF;color:#1E1B4B;margin-left:auto}
+.dlg .hide{filter:blur(6px);cursor:pointer;user-select:none}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.dice{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.die{background:var(--violet);color:#fff;border-radius:14px;padding:8px 14px;font:700 1.2rem Fredoka,sans-serif}
+.die.p{background:var(--pink)}.die.g{background:var(--teal)}
+.tip{background:var(--bg);border-left:6px solid var(--teal);border-radius:12px;padding:10px 14px;margin:14px 0 0;font-size:.97rem}
+.missions{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:10px}
+.missions label{display:flex;gap:12px;align-items:flex-start;background:var(--bg);border:2px solid var(--line);border-radius:16px;padding:12px 14px;cursor:pointer}
+.missions input{width:22px;height:22px;accent-color:var(--pink);margin-top:3px;flex:none}
+.missions input:checked+span{text-decoration:line-through;opacity:.55}
+.win{display:none;margin-top:16px;text-align:center;font:700 1.5rem Fredoka,sans-serif;color:var(--pink)}
+.win.on{display:block}
+@media (prefers-reduced-motion:no-preference){.pop{animation:pop .35s ease-out}@keyframes pop{from{transform:scale(.94);opacity:.4}to{transform:none;opacity:1}}}
+</style>
+</head>
+<body>
+<main>
+<header class="hero">
+<span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+<h1>Cabinet Mind &amp; Co</h1>
+<p>Tu es psychologue à Paris. Le téléphone sonne… Aujourd’hui, tu parles français !</p>
+</header>
+
+<section>
+<span class="tag t1">Mission 1 · Le téléphone</span>
+<h2>Prendre rendez-vous</h2>
+<p class="sub">Clique sur les phrases floues pour les révéler. Puis lis le dialogue à voix haute.</p>
+<ul class="chips">
+<li>Je voudrais un rendez-vous.<small>Quero marcar uma consulta</small></li>
+<li>Quel jour ?<small>Que dia?</small></li>
+<li>À quelle heure ?<small>A que horas?</small></li>
+<li>Vous êtes libre lundi ?<small>Está livre na segunda?</small></li>
+<li>Ça me convient.<small>Serve para mim</small></li>
+<li>Ça ne me convient pas.<small>Não serve</small></li>
+<li>À bientôt !<small>Até logo!</small></li>
+</ul>
+<div class="dlg" id="dlg"></div>
+</section>
+
+<section>
+<span class="tag t2">Mission 2 · Le divan</span>
+<h2>Les conseils du psy</h2>
+<p class="sub">Un client arrive avec un problème. Donne-lui deux conseils à l’impératif.</p>
+<div class="stage" id="cl"><p class="who">Appuie sur le bouton pour accueillir un client.</p></div>
+<div class="row"><button id="bCl">Un client !</button><button class="ghost" id="bClA">Voir des idées</button></div>
+<p class="tip"><b>Rappel :</b> tu parles → Parle ! · tu écoutes → Écoute ! · tu fais → Fais ! · Pour dire non : Ne mange pas tard ! · Avec « vous » : Respirez ! Reposez-vous !</p>
+</section>
+
+<section>
+<span class="tag t3">Mission 3 · Le journal</span>
+<h2>Qu’est-ce que tu as fait ?</h2>
+<p class="sub">Lance les dés et raconte. Marqueur de temps + verbe + détail = une phrase !</p>
+<div class="stage" id="pc"><p class="who">Lance les dés pour commencer.</p></div>
+<div class="row"><button class="alt" id="bPc">Lancer les dés</button><button class="ghost" id="bPcA">Voir une réponse</button></div>
+<p class="tip"><b>Rappel :</b> j’ai + participe passé (j’ai mangé, j’ai fait, j’ai vu) · je suis + participe pour aller, sortir, arriver (je suis allé·e).</p>
+</section>
+
+<section>
+<span class="tag t4">Boss final · Jeu de rôle</span>
+<h2>Une vraie séance !</h2>
+<p class="sub">Tu es la psy. Ton prof est le client. Ensuite, on inverse.</p>
+<div class="stage" id="rp"><p class="who">Tire ta carte « client » pour commencer.</p></div>
+<div class="row"><button class="alt" id="bRp">Tirer ma carte</button></div>
+<ul class="missions" id="ms" hidden>
+<li><label><input type="checkbox"><span><b>Allô :</b> « Cabinet Mind &amp; Co, bonjour ! » et fixe le rendez-vous (jour + heure).</span></label></li>
+<li><label><input type="checkbox"><span><b>Rendez-vous :</b> le client arrive. Demande : « Qu’est-ce que vous avez fait hier ? »</span></label></li>
+<li><label><input type="checkbox"><span><b>Écoute :</b> le client répond au passé composé. Pose une question de plus.</span></label></li>
+<li><label><input type="checkbox"><span><b>Conseils :</b> donne trois conseils à l’impératif, avec « vous ».</span></label></li>
+<li><label><input type="checkbox"><span><b>Au revoir :</b> « À bientôt ! Prenez soin de vous. »</span></label></li>
+</ul>
+<div class="win" id="win">Bravo, docteur·e ! Séance réussie 🎉</div>
+</section>
+</main>
+
+<script>
+const $=id=>document.getElementById(id),pick=a=>a[Math.floor(Math.random()*a.length)];
+// Dialogue
+const D=[["a","Cabinet Mind & Co, bonjour !"],["b","Bonjour, je voudrais prendre rendez-vous, s’il vous plaît."],["a","Bien sûr. Quel jour ?",1],["b","Vous êtes libre mardi ?"],["a","Mardi à 10 h, ça vous convient ?",1],["b","Oui, ça me convient. Merci !"],["a","Votre nom, s’il vous plaît ?"],["b","Je m’appelle Camille Martin."],["a","Très bien. À mardi, à bientôt !"]];
+$("dlg").innerHTML=D.map(d=>`<p class="${d[0]}${d[2]?" hide":""}" ${d[2]?'title="Clique pour révéler" tabindex="0"':""}>${d[1]}</p>`).join("");
+document.querySelectorAll(".hide").forEach(e=>{const r=()=>e.classList.remove("hide");e.onclick=r;e.onkeydown=ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();r()}}});
+// Clients
+const C=[{n:"Léa",p:"Je suis très stressée avant mes examens.",a:["Respire profondément.","Fais une pause.","Dors huit heures."]},
+{n:"Marc",p:"Je dors mal la nuit.",a:["Éteins ton téléphone.","Bois une tisane.","Ne mange pas tard."]},
+{n:"Inès",p:"Je suis triste, je me sens seule.",a:["Appelle une amie.","Sors un peu.","Parle avec quelqu’un."]},
+{n:"Paul",p:"Je travaille trop.",a:["Prends des vacances.","Ne travaille pas le soir.","Fais du sport."]},
+{n:"Chloé",p:"Je n’ai pas confiance en moi.",a:["Écris trois qualités.","Parle doucement à toi-même.","Souris !"]}];
+let cl=null;
+$("bCl").onclick=()=>{cl=pick(C);$("cl").innerHTML=`<div class="pop"><p class="who">${cl.n} entre dans ton cabinet…</p><p class="big">« ${cl.p} »</p><div class="ans" id="clA">${cl.a.join("<br>")}</div></div>`};
+$("bClA").onclick=()=>{const e=$("clA");if(e)e.classList.toggle("on")};
+// Passé composé
+const P=[["Hier soir","regarder","une série","j’ai regardé une série"],["Ce matin","prendre","un café","j’ai pris un café"],["Samedi dernier","sortir","avec des amis","je suis sorti(e) avec des amis"],["Hier","aller","à l’université","je suis allé(e) à l’université"],["Cette nuit","dormir","bien ou mal ?","j’ai bien dormi"],["Dimanche","faire","du sport","j’ai fait du sport"],["Hier midi","manger","quoi ?","j’ai mangé une salade"],["Le week-end dernier","voir","un ami","j’ai vu un ami"],["Ce matin","arriver","à quelle heure ?","je suis arrivé(e) à 8 h"],["Hier","parler","avec qui ?","j’ai parlé avec ma mère"]];
+let pc=null;
+$("bPc").onclick=()=>{pc=pick(P);$("pc").innerHTML=`<div class="pop dice"><span class="die">${pc[0]}</span><span class="die p">${pc[1]}</span><span class="die g">${pc[2]}</span></div><div class="ans" id="pcA">${pc[0]}, ${pc[3]}.</div>`};
+$("bPcA").onclick=()=>{const e=$("pcA");if(e)e.classList.toggle("on")};
+// Jeu de rôle
+$("bRp").onclick=()=>{const c=pick(C),d=pick(["lundi","mardi","mercredi","jeudi","vendredi","samedi"]),h=pick(["9 h","10 h 30","14 h","16 h 45"]);
+$("rp").innerHTML=`<div class="pop"><p class="who">Ton client</p><p class="big">${c.n} : « ${c.p} »</p><p class="who" style="margin-top:12px">Ton agenda est libre :</p><div class="dice"><span class="die">${d}</span><span class="die p">${h}</span></div></div>`;
+$("ms").hidden=false;$("win").classList.remove("on");document.querySelectorAll("#ms input").forEach(i=>i.checked=false)};
+document.querySelectorAll("#ms input").forEach(i=>i.onchange=()=>{$("win").classList.toggle("on",[...document.querySelectorAll("#ms input")].every(x=>x.checked))});
+</script>
+</body>
+</html>
