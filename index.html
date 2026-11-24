@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rizoma · Jogos</title>
-<meta name="description" content="Todos os jogos e atividades da Rizoma, escola de linguagem, num só lugar.">
+<meta name="description" content="Todos os jogos e atividades da Rizoma, Ateliê de Linguagem, num só lugar.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -78,15 +78,15 @@ footer{margin:64px 0 0;padding:28px 0 40px;border-top:2px solid var(--line);font
     </svg>
     <div class="brand">
       <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="var(--red)"/><path d="M20 20 L8 10 M20 20 L32 9 M20 20 L12 32 M20 20 L31 30" stroke="#FFF8E8" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="20" r="4" fill="#FFF8E8"/></svg>
-      Rizoma · escola de linguagem
+      Rizoma · Ateliê de Linguagem
     </div>
     <h1>Jogos para<br>aprender <em>brincando</em></h1>
     <p class="lead">Escolha uma atividade e comece por onde quiser. Como num rizoma, todo caminho leva a algum lugar.</p>
 
     <div class="filters" role="group" aria-label="Filtrar por língua">
       <button class="chip lg" data-f="all" aria-pressed="true">Todos</button>
-      <button class="chip lg" data-f="fr" aria-pressed="false">🇫🇷 Francês</button>
-      <button class="chip lg" data-f="ru" aria-pressed="false">🇷🇺 Russo</button>
+      <button class="chip lg" data-f="fr" aria-pressed="false">Francês</button>
+      <button class="chip lg" data-f="ru" aria-pressed="false">Russo</button>
     </div>
     <div class="filters" role="group" aria-label="Filtrar por nível" style="margin-top:0">
       <button class="chip lv" data-l="all" aria-pressed="true">Todos os níveis</button>
@@ -95,15 +95,16 @@ footer{margin:64px 0 0;padding:28px 0 40px;border-top:2px solid var(--line);font
       <button class="chip lv" data-l="B1" aria-pressed="false">B1</button>
       <button class="chip lv" data-l="B2" aria-pressed="false">B2</button>
       <button class="chip lv" data-l="C1" aria-pressed="false">C1</button>
+      <button class="chip lv" data-l="C2" aria-pressed="false">C2</button>
       <input class="search" type="search" placeholder="Procurar (ex.: B2, verbos, TCF)" aria-label="Procurar jogo">
     </div>
   </header>
 
   <main id="list"></main>
-  <p class="empty" id="empty">Nenhum jogo encontrado. Tente outra palavra.</p>
+  <p class="empty" id="empty">Ainda não há jogos aqui. Em breve!</p>
 
   <footer>
-    <span>Rizoma · escola de linguagem</span>
+    <span>Rizoma · Ateliê de Linguagem</span>
     <span id="total"></span>
   </footer>
 </div>
@@ -148,8 +149,8 @@ function render(){
     const items = JOGOS.filter(j => j.lang === code && (level === "all" || levels(j).includes(level)) && (!q || (j.title+" "+j.level+" "+j.desc).toLowerCase().includes(q)));
     if (!items.length) continue;
     shown += items.length;
-    html += `<section><h2 class="lang-title">${code==="fr"?"🇫🇷":"🇷🇺"} ${name} <span class="count">${items.length}</span></h2><div class="grid">` +
-      items.map(j => `<a class="card c-${j.color}" href="jogos/${j.file}">
+    html += `<section><h2 class="lang-title">${name} <span class="count">${items.length}</span></h2><div class="grid">` +
+      items.map(j => `<a class="card c-${j.color}" href="${j.file}">
         <div class="top"><span class="emoji" aria-hidden="true">${j.emoji}</span><span class="level">${esc(j.level)}</span></div>
         <h3>${esc(j.title)}</h3><p>${esc(j.desc)}</p><span class="play">Jogar →</span></a>`).join("") +
       `</div></section>`;
