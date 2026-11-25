@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rizoma Langues</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: coluna única, blocos geométricos Bauhaus, faixa preta grossa como divisor */
+:root {
+  --ink: #151515;
+  --paper: #F4F0E6;
+  --caju: #E8452C;
+  --caju-sol: #F5B223;
+  --azul: #1E4B9B;
+  --font-display: "Jost", "Futura", "Century Gothic", Arial, sans-serif;
+  --font-body: "Jost", "Futura", "Century Gothic", Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 17px; line-height: 1.45; }
+body { min-height: 100%; }
+.wrap { max-width: 640px; margin: 0 auto; padding: 0 16px 48px; }
+header { display: flex; align-items: center; gap: 14px; padding: 20px 0 16px; border-bottom: 6px solid var(--ink); }
+.mark { flex: none; }
+.brand { font-family: var(--font-display); font-weight: 800; font-size: 28px; letter-spacing: .04em; text-transform: uppercase; line-height: 1; }
+.brand small { display: block; font-weight: 500; font-size: 13px; letter-spacing: .12em; margin-top: 6px; }
+h1, h2 { font-family: var(--font-display); font-weight: 800; line-height: 1.1; text-wrap: balance; margin: 0; }
+h1 { font-size: 40px; margin: 28px 0 12px; }
+h2 { font-size: 26px; }
+p { margin: 0 0 12px; }
+.lead { font-size: 19px; max-width: 34em; }
+label.field { display: block; font-weight: 700; margin: 24px 0 6px; }
+input[type=text] { width: 100%; font: inherit; padding: 14px; border: 3px solid var(--ink); background: #fff; border-radius: 0; }
+input[type=text]:focus-visible, button:focus-visible, .opt:focus-visible { outline: 4px solid var(--azul); outline-offset: 2px; }
+.btn { font: inherit; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; border: 3px solid var(--ink); background: var(--caju); color: #fff; padding: 14px 22px; cursor: pointer; border-radius: 0; box-shadow: 5px 5px 0 var(--ink); }
+.btn:active { transform: translate(3px,3px); box-shadow: 2px 2px 0 var(--ink); }
+.btn.alt { background: var(--caju-sol); color: var(--ink); }
+.btn.ghost { background: #fff; color: var(--ink); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; box-shadow: 5px 5px 0 var(--ink); }
+.row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 24px; }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 24px 0; }
+.fact { border: 3px solid var(--ink); padding: 10px; background: #fff; }
+.fact b { display: block; font-size: 26px; font-family: var(--font-display); font-weight: 800; }
+.fact span { font-size: 14px; }
+.progress { display: flex; gap: 4px; margin: 20px 0 6px; }
+.progress i { flex: 1; height: 10px; background: #fff; border: 2px solid var(--ink); }
+.progress i.done { background: var(--ink); }
+.progress i.now { background: var(--caju); }
+.meta { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.q { font-family: var(--font-display); font-weight: 700; font-size: 26px; line-height: 1.25; margin: 22px 0 20px; text-wrap: balance; }
+.q .gap { display: inline-block; min-width: 3.2em; border-bottom: 4px solid var(--caju); text-align: center; color: var(--caju); }
+.opts { display: grid; gap: 12px; }
+.opt { text-align: left; font: inherit; font-size: 19px; font-weight: 500; padding: 14px 16px; border: 3px solid var(--ink); background: #fff; cursor: pointer; border-radius: 0; display: flex; gap: 12px; align-items: center; min-height: 54px; }
+.opt .k { flex: none; width: 30px; height: 30px; display: grid; place-items: center; font-weight: 800; font-size: 15px; border: 3px solid var(--ink); background: var(--paper); }
+.opt[aria-pressed=true] { background: var(--caju-sol); }
+.opt[aria-pressed=true] .k { background: var(--ink); color: #fff; }
+.hero { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; border: 3px solid var(--ink); background: #fff; padding: 18px; margin: 24px 0; }
+.badge { width: 104px; height: 104px; border-radius: 50%; background: var(--caju); color: #fff; display: grid; place-items: center; font-family: var(--font-display); font-weight: 800; font-size: 40px; border: 3px solid var(--ink); }
+.hero p { margin: 4px 0 0; }
+.bars { display: grid; gap: 10px; margin: 8px 0 24px; }
+.bar { display: grid; grid-template-columns: 34px 1fr 40px; gap: 10px; align-items: center; font-weight: 700; }
+.bar .track { height: 20px; border: 3px solid var(--ink); background: #fff; position: relative; }
+.bar .fill { position: absolute; inset: 0 auto 0 0; background: var(--azul); }
+.bar.ok .fill { background: var(--caju); }
+.review { display: grid; gap: 12px; margin-top: 12px; }
+.card { border: 3px solid var(--ink); background: #fff; padding: 14px; border-left-width: 12px; border-left-color: var(--caju); }
+.card .s { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.card .why { font-size: 15px; margin-top: 8px; }
+.no { text-decoration: line-through; text-decoration-thickness: 2px; }
+.good { font-weight: 800; }
+.note { font-size: 14px; border-top: 3px solid var(--ink); margin-top: 32px; padding-top: 12px; }
+.toast { font-weight: 700; margin-top: 12px; min-height: 1.4em; }
+.copybox { width: 100%; font: inherit; font-size: 15px; padding: 12px; border: 3px solid var(--ink); background: #fff; min-height: 150px; border-radius: 0; margin-top: 12px; }
+.tabs { display: flex; gap: 0; border-bottom: 3px solid var(--ink); margin-top: 0; }
+.tab { flex: 1; font: inherit; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; font-size: 15px; padding: 14px 8px; border: 0; border-right: 3px solid var(--ink); background: var(--paper); color: var(--ink); cursor: pointer; border-radius: 0; }
+.tab:last-child { border-right: 0; }
+@media (max-width: 420px) { .tab { font-size: 12px; letter-spacing: .02em; padding: 14px 4px; } }
+.tab[aria-selected=true] { background: var(--ink); color: #fff; }
+.tab:focus-visible { outline: 4px solid var(--azul); outline-offset: -4px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 8px; }
+.chip { font: inherit; font-weight: 700; padding: 8px 14px; border: 3px solid var(--ink); background: #fff; cursor: pointer; border-radius: 0; }
+.chip[aria-pressed=true] { background: var(--caju-sol); }
+.chip:focus-visible { outline: 4px solid var(--azul); outline-offset: 2px; }
+.decade { margin-top: 28px; }
+.decade h2 { display: inline-block; background: var(--ink); color: #fff; padding: 4px 14px; font-size: 24px; }
+.songs { display: grid; gap: 12px; margin-top: 14px; }
+.song { border: 3px solid var(--ink); background: #fff; padding: 14px; border-left-width: 12px; }
+.song:nth-child(3n+1) { border-left-color: var(--caju); }
+.song:nth-child(3n+2) { border-left-color: var(--caju-sol); }
+.song:nth-child(3n) { border-left-color: var(--azul); }
+.song .t { font-family: var(--font-display); font-weight: 800; font-size: 21px; line-height: 1.2; }
+.song .who { font-weight: 500; margin: 2px 0 8px; }
+.song .lv { display: inline-block; font-weight: 800; font-size: 13px; letter-spacing: .06em; border: 2px solid var(--ink); padding: 1px 8px; margin-right: 8px; background: var(--paper); }
+.song .obs { font-size: 16px; margin: 8px 0 12px; }
+.song a { display: inline-block; font-weight: 800; font-size: 14px; letter-spacing: .05em; text-transform: uppercase; color: #fff; background: var(--ink); padding: 9px 14px; text-decoration: none; }
+.song a:focus-visible { outline: 4px solid var(--azul); outline-offset: 2px; }
+.home { margin-left: auto; font-weight: 800; font-size: 14px; letter-spacing: .04em; color: var(--ink); text-decoration: none; border: 3px solid var(--ink); background: #fff; padding: 8px 12px; white-space: nowrap; }
+.home:focus-visible { outline: 4px solid var(--azul); outline-offset: 2px; }
+@media (max-width: 420px) { .home { font-size: 12px; padding: 6px 8px; } .brand { font-size: 22px; } }
+[hidden] { display: none !important; }
+@media (max-width: 420px) { h1 { font-size: 34px; } .hero { grid-template-columns: 1fr; justify-items: start; } .q { font-size: 23px; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="mark" width="58" height="58" viewBox="0 0 58 58" aria-hidden="true">
+      <rect x="0" y="0" width="58" height="58" fill="#F5B223"/>
+      <circle cx="29" cy="31" r="19" fill="#E8452C"/>
+      <path d="M29 0 L58 0 L58 29 Z" fill="#151515"/>
+    </svg>
+    <div class="brand">Rizoma<small>Atelier de langage</small></div>
+    <a class="home" href="./">← Portal do Aluno</a>
+  </header>
+  <div class="chips" id="langbar" role="group" aria-label="Langue · Язык · Língua"></div>
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button class="tab" role="tab" id="tab-teste" aria-selected="true" aria-controls="app">Test de niveau</button>
+    <button class="tab" role="tab" id="tab-musica" aria-selected="false" aria-controls="music">Musique</button>
+    <button class="tab" role="tab" id="tab-une" aria-selected="false" aria-controls="news">À la une</button>
+  </nav>
+  <main id="app"></main>
+  <section id="music" hidden aria-labelledby="tab-musica"></section>
+  <section id="news" hidden aria-labelledby="tab-une"></section>
+</div>
+
+<script>
+var LEVELS = ["A1","A2","B1","B2","C1","C2"];
+var FR_DESC = {
+  "Pré-A1": "Vous débutez, et c'est très bien. Nous allons construire les bases : se présenter, les verbes essentiels et le vocabulaire du quotidien.",
+  "A1": "Vous comprenez et utilisez des expressions simples du quotidien et vous savez vous présenter. Prochaine étape : le passé, la description et les conversations courtes.",
+  "A2": "Vous communiquez dans des situations courantes et parlez du passé simplement. Prochaine étape : les pronoms, l'imparfait et le passé composé, l'opinion.",
+  "B1": "Vous vous débrouillez en voyage et racontez vos expériences avec une certaine autonomie. Prochaine étape : le subjonctif, l'hypothèse, l'argumentation.",
+  "B2": "Vous échangez avec aisance sur des sujets variés. Prochaine étape : les nuances, les registres de langue et la précision.",
+  "C1": "Vous utilisez la langue avec souplesse et précision, y compris dans un registre formel. Prochaine étape : raffinement et style.",
+  "C2": "Vous maîtrisez la langue avec naturel, nuances et constructions soignées comprises. Prochaine étape : style, variation de registre et précision lexicale."
+};
+/* t: frase com ___ ; o: opções; a: índice da resposta; e: explication en français */
+var FR_QS = [
+ {l:"A1", t:"Je ___ brésilienne.", o:["suis","es","êtes","sont"], a:0, e:"Verbe être avec « je » : je suis."},
+ {l:"A1", t:"Nous ___ au cinéma ce soir.", o:["vont","allons","allez","vais"], a:1, e:"Verbe aller avec « nous » : nous allons."},
+ {l:"A1", t:"Comment tu ___ ?", o:["m'appelle","s'appelle","t'appelles","vous appelez"], a:2, e:"Verbe pronominal avec « tu » : tu t'appelles."},
+ {l:"A1", t:"Il y a ___ livre sur la table.", o:["une","un","du","de"], a:1, e:"« Livre » est masculin : un livre."},
+ {l:"A1", t:"Elle ___ deux enfants.", o:["ai","ont","est","a"], a:3, e:"Verbe avoir avec « elle » : elle a."},
+ {l:"A2", t:"Hier, nous ___ au marché.", o:["avons allé","allions","sommes allés","allons"], a:2, e:"Aller se conjugue avec être au passé composé et s'accorde avec le sujet : nous sommes allés."},
+ {l:"A2", t:"Ma sœur est plus grande ___ moi.", o:["de","que","comme","à"], a:1, e:"Comparatif de supériorité : plus … que."},
+ {l:"A2", t:"Tu connais Paul ? Je ___ vois demain.", o:["lui","la","le","leur"], a:2, e:"« Voir quelqu'un » prend un COD : je le vois."},
+ {l:"A2", t:"Quand j'étais petit, je ___ au foot tous les week-ends.", o:["jouerai","ai joué","joue","jouais"], a:3, e:"Habitude dans le passé : imparfait (je jouais)."},
+ {l:"A2", t:"Il fait froid : mets ___ manteau !", o:["ta","tes","leur","ton"], a:3, e:"Adjectif possessif masculin singulier avec « tu » : ton manteau."},
+ {l:"B1", t:"Si j'avais le temps, je ___ voyager.", o:["pourrai","pourrais","peux","pouvais"], a:1, e:"Hypothèse irréelle : si + imparfait → conditionnel présent (je pourrais voyager)."},
+ {l:"B1", t:"Le livre ___ je t'ai parlé est sorti.", o:["que","qui","dont","où"], a:2, e:"Parler de → pronom relatif « dont »."},
+ {l:"B1", t:"Il faut que tu ___ à l'heure.", o:["es","seras","étais","sois"], a:3, e:"« Il faut que » exige le subjonctif : que tu sois."},
+ {l:"B1", t:"Quand je suis arrivé, le film ___ déjà commencé.", o:["a","avait","est","aurait"], a:1, e:"Action antérieure à une autre au passé : plus-que-parfait (avait commencé)."},
+ {l:"B1", t:"Tu as des frères ? — Oui, j'___ ai deux.", o:["y","les","le","en"], a:3, e:"Le pronom « en » remplace une quantité : j'en ai deux."},
+ {l:"B2", t:"Bien qu'il ___ fatigué, il a continué à travailler.", o:["est","sera","soit","serait"], a:2, e:"« Bien que » exige le subjonctif : qu'il soit."},
+ {l:"B2", t:"Les lettres que j'ai ___ hier sont arrivées.", o:["écrit","écrites","écrire","écrits"], a:1, e:"Avec avoir, le participe s'accorde avec le COD placé avant : lettres → écrites."},
+ {l:"B2", t:"Il m'a demandé ___ je voulais.", o:["ce qui","qu'est-ce que","ce que","quoi"], a:2, e:"Interrogation indirecte avec COD : ce que."},
+ {l:"B2", t:"Je doute qu'il ___ la vérité.", o:["dit","dira","disait","dise"], a:3, e:"Les verbes de doute exigent le subjonctif : qu'il dise."},
+ {l:"B2", t:"Il parle comme s'il ___ tout.", o:["sait","saura","savait","sache"], a:2, e:"« Comme si » est suivi de l'imparfait : comme s'il savait."},
+ {l:"C1", t:"À peine ___-il arrivé qu'il a dû repartir.", o:["fut","était","sera","serait"], a:1, e:"« À peine » avec inversion + plus-que-parfait : à peine était-il arrivé."},
+ {l:"C1", t:"Je vous prie de bien vouloir ___ mes salutations distinguées.", o:["prendre","avoir","agréer","donner"], a:2, e:"Formule de politesse d'une lettre formelle : agréer mes salutations distinguées."},
+ {l:"C1", t:"Quoi qu'il ___, nous maintiendrons notre décision.", o:["arrivera","arrive","est arrivé","arrivait"], a:1, e:"« Quoi que » + subjonctif : quoi qu'il arrive."},
+ {l:"C1", t:"Elle a agi ___ de ses collègues, sans en informer personne.", o:["au su","à l'instar","en dépit","à l'insu"], a:3, e:"« À l'insu de » = sans que la personne le sache."},
+ {l:"C1", t:"Le ministre a été ___ de ses fonctions après le scandale.", o:["élevé","enlevé","relevé","prélevé"], a:2, e:"Expression : relever quelqu'un de ses fonctions (le démettre)."},
+ {l:"C2", t:"Pour peu qu'il ___ de la chance, il réussira.", o:["a","aura","avait","ait"], a:3, e:"« Pour peu que » exige le subjonctif : pour peu qu'il ait."},
+ {l:"C2", t:"Si tant est qu'il ___ capable de le faire, il ne le fera jamais.", o:["est","soit","sera","serait"], a:1, e:"« Si tant est que » exige le subjonctif : qu'il soit."},
+ {l:"C2", t:"Quelque ___ que soient vos raisons, nous ne pouvons pas accepter.", o:["bon","bonne","bonnes","bons"], a:2, e:"« Quelque + adjectif + que » + subjonctif : l'adjectif s'accorde avec le nom (raisons → bonnes)."},
+ {l:"C2", t:"Force ___ de reconnaître que nous avons échoué.", o:["fait","est","reste","vaut"], a:1, e:"Locution figée : force est de + infinitif (il faut bien reconnaître)."},
+ {l:"C2", t:"Ce n'est pas que je ___ contre ton idée, mais elle me semble risquée.", o:["suis","serais","étais","sois"], a:3, e:"« Ce n'est pas que » + subjonctif : ce n'est pas que je sois contre."}
+];
+
+var RU_DESC = {
+  "Pré-A1": "Você está começando agora, e isso é ótimo. Vamos construir a base: alfabeto cirílico, apresentações e vocabulário do dia a dia.",
+  "A1": "Você reconhece o alfabeto e usa frases simples do cotidiano. Próximo passo: casos básicos, verbos no passado e conversas curtas.",
+  "A2": "Você se comunica em situações rotineiras. Próximo passo: casos (genitivo, dativo, instrumental), aspecto verbal e verbos de movimento.",
+  "B1": "Você se vira em viagem e conta experiências com alguma autonomia. Próximo passo: aspecto verbal, condicional e orações relativas.",
+  "B2": "Você discute temas variados com fluência. Próximo passo: particípios, gerúndios, verbos de movimento prefixados e nuances.",
+  "C1": "Você usa a língua com flexibilidade e precisão, inclusive em registros formais. Próximo passo: refinamento, expressões fixas e estilo.",
+  "C2": "Você domina a língua com naturalidade, inclusive expressões idiomáticas e construções refinadas. Próximo passo: estilo e variação de registro."
+};
+var RU_QS = [
+ {l:"A1", t:"Меня ___ Анна.", o:["зовёт","зовут","зову","зовёшь"], a:1, e:"Em «меня зовут…» o verbo fica na 3ª pessoa do plural: меня зовут Анна."},
+ {l:"A1", t:"Это ___ дом.", o:["моя","мой","моё","мои"], a:1, e:"«Дом» é masculino, então o possessivo é «мой»."},
+ {l:"A1", t:"Я живу в ___.", o:["Москва","Москву","Москве","Москвы"], a:2, e:"Depois de «в» para lugar onde se está, usa-se o caso preposicional: в Москве."},
+ {l:"A1", t:"Вы ___ по-русски?", o:["говорю","говоришь","говорит","говорите"], a:3, e:"Com «вы», o verbo vai para «говорите»."},
+ {l:"A1", t:"Сколько вам ___?", o:["год","года","лет","годов"], a:2, e:"Para idade, com 5 ou mais usa-se «лет»: сколько вам лет?"},
+ {l:"A2", t:"Вчера я ___ в кино.", o:["ходит","пойду","ходил","иду"], a:2, e:"Ação já realizada, no passado: я ходил (masculino)."},
+ {l:"A2", t:"Я не знаю ___ человека.", o:["этот","этому","этим","этого"], a:3, e:"Objeto direto animado, e ainda negado: usa-se o genitivo (этого человека)."},
+ {l:"A2", t:"Мы живём ___ центре города.", o:["к","из","в","с"], a:2, e:"Lugar onde se está: в + preposicional (в центре)."},
+ {l:"A2", t:"Это подарок для ___.", o:["мама","маме","маму","мамы"], a:3, e:"«Для» pede genitivo: для мамы."},
+ {l:"A2", t:"Сегодня ___ погода.", o:["хороший","хорошее","хорошая","хорошие"], a:2, e:"«Погода» é feminino, então o adjetivo concorda: хорошая."},
+ {l:"B1", t:"Вчера весь вечер я ___ книгу.", o:["прочитал","читал","прочту","читаю"], a:1, e:"«Весь вечер» indica duração: usa-se o aspecto imperfectivo (читал)."},
+ {l:"B1", t:"Если бы у меня ___ время, я бы поехал в Италию.", o:["будет","есть","был","было"], a:3, e:"Condicional irreal: «если бы» + passado. «Время» é neutro: было."},
+ {l:"B1", t:"Это человек, ___ я говорил вчера.", o:["который","которого","о котором","котором"], a:2, e:"Говорить о ком? → о котором (preposicional)."},
+ {l:"B1", t:"Я хочу, чтобы ты ___ ко мне.", o:["придёшь","приходишь","пришёл","придти"], a:2, e:"Depois de «чтобы» o verbo vai para a forma do passado: ты пришёл."},
+ {l:"B1", t:"У меня две ___.", o:["сестра","сестёр","сестрам","сестры"], a:3, e:"Com 2, 3 e 4 usa-se o genitivo singular: две сестры."},
+ {l:"B2", t:"Книга, ___ мной вчера, очень интересная.", o:["читающая","прочитанная","читавшая","прочитавшая"], a:1, e:"Particípio passivo passado, concordando com «книга»: прочитанная мной."},
+ {l:"B2", t:"Он вёл себя так, ___ ничего не случилось.", o:["потому что","пока","как будто","хотя"], a:2, e:"«Как будто» introduz comparação irreal: como se nada tivesse acontecido."},
+ {l:"B2", t:"Несмотря ___ дождь, мы пошли гулять.", o:["в","на","за","про"], a:1, e:"Expressão fixa: несмотря на + acusativo."},
+ {l:"B2", t:"Я привык ___ рано.", o:["встану","вставал","вставая","вставать"], a:3, e:"«Привыкнуть» + infinitivo imperfectivo: привык вставать."},
+ {l:"B2", t:"Чем больше он читал, ___ больше он понимал.", o:["тот","то","тем","так"], a:2, e:"Estrutura correlativa: чем … тем …"},
+ {l:"C1", t:"___ домой, я встретил друга.", o:["Возвращённый","Возвращаясь","Возвращающийся","Возвратив"], a:1, e:"Gerúndio imperfectivo para ação simultânea: возвращаясь домой."},
+ {l:"C1", t:"Он сделал это ___ моего ведома, поэтому я был удивлён.", o:["по","при","без","через"], a:2, e:"Expressão: без моего ведома (sem o meu conhecimento)."},
+ {l:"C1", t:"Если бы не твоя помощь, я ___ не справился.", o:["ли","бы","же","ведь"], a:1, e:"A partícula «бы» forma o condicional irreal: я бы не справился."},
+ {l:"C1", t:"Он слыл ___ человеком.", o:["честный","честного","честен","честным"], a:3, e:"«Слыть» pede instrumental: слыл честным человеком."},
+ {l:"C1", t:"Что бы ни ___, я тебя не брошу.", o:["случится","случалось","случилось","случается"], a:2, e:"Estrutura «что бы ни» + verbo no passado: что бы ни случилось."},
+ {l:"C2", t:"Мы вынуждены ___ к крайним мерам.", o:["припасть","приняться","прилепиться","прибегнуть"], a:3, e:"Colocação fixa: прибегнуть к крайним мерам."},
+ {l:"C2", t:"Ему было не до ___: работа горела.", o:["смех","смеху","смехом","смеха"], a:3, e:"Expressão: не до + genitivo (не до смеха = sem clima para rir)."},
+ {l:"C2", t:"Не успел он войти, ___ зазвонил телефон.", o:["что","пока","чтобы","как"], a:3, e:"Estrutura «не успел … как …»: mal entrou, o telefone tocou."},
+ {l:"C2", t:"В комнате не было ни ___.", o:["душа","душу","души","душой"], a:2, e:"Expressão: ни души (nem uma alma), com genitivo."},
+ {l:"C2", t:"Кто бы что ни ___, я останусь при своём мнении.", o:["говорит","говорить","говорю","говорил"], a:3, e:"Estrutura «кто бы что ни» + passado: кто бы что ни говорил."}
+];
+
+var T_FR = {
+  title:"Test de niveau de français", lead:"30 questions à choix multiple, de A1 à C2. Répondez sans rien consulter : le résultat n’aide que s’il montre ce que vous savez aujourd’hui.",
+  qs:"questions", min:"minutes", lv:"niveaux", nameLabel:"Votre prénom", ph:"Comment vous appelez-vous ?", start:"Commencer",
+  introNote:"À la fin, vous voyez votre niveau et le corrigé commenté. Dans cette version, le résultat reste sur votre écran : utilisez le bouton de copie pour l’envoyer à la professeure.",
+  qWord:"Question", of:"sur", back:"Retour", next:"Suivante", see:"Voir le résultat",
+  resultTitle:function(n){ return (n ? n + ", votre" : "Votre") + " résultat"; }, levelEst:"Niveau estimé", byLevel:"Réussite par niveau",
+  total:function(t){ return "Total : <b>" + t + " sur 30</b>. Le niveau estimé est le plus élevé où vous avez réussi au moins 4 questions sur 5, sans échec aux niveaux précédents."; },
+  copy:"Copier le résultat", again:"Recommencer", review:"Corrigé commenté", mine:"Votre réponse :", right:"Bonne réponse :", allRight:"Tout est juste. Impressionnant !",
+  note:"C’est une estimation rapide, sans test d’écriture ni d’oral. La professeure confirme le niveau au premier cours.",
+  selectCopy:"Sélectionnez et copiez le texte ci-dessous.", copied:"Copié ! Collez-le dans la conversation avec la professeure.",
+  sumTitle:"Test de niveau Rizoma (français)", pupil:"Élève : ", noName:"(sans nom)", lvlEst:"Niveau estimé : ", score:"Réussite : "
+};
+var T_RU = {
+  title:"Teste de nível de russo", lead:"30 perguntas de múltipla escolha, do A1 ao C2. Responda sem consultar nada: o resultado só ajuda se mostrar o que você sabe hoje.",
+  qs:"perguntas", min:"minutos", lv:"níveis", nameLabel:"Seu nome", ph:"Como devo te chamar?", start:"Começar",
+  introNote:"Ao terminar, você vê seu nível e as respostas comentadas. Nesta versão o resultado fica só na sua tela: use o botão de copiar para enviá-lo à professora.",
+  qWord:"Pergunta", of:"de", back:"Voltar", next:"Próxima", see:"Ver resultado",
+  resultTitle:function(n){ return (n ? n + ", seu" : "Seu") + " resultado"; }, levelEst:"Nível estimado", byLevel:"Acertos por nível",
+  total:function(t){ return "Total: <b>" + t + " de 30</b>. O nível estimado é o mais alto em que você acertou pelo menos 4 de 5 perguntas, sem falhar nos níveis anteriores."; },
+  copy:"Copiar resultado", again:"Refazer", review:"Respostas comentadas", mine:"Você marcou:", right:"Certo:", allRight:"Você acertou tudo. Impressionante!",
+  note:"É uma estimativa rápida, sem teste de escrita nem de fala. A professora confirma o nível na primeira aula.",
+  selectCopy:"Selecione e copie o texto abaixo.", copied:"Copiado! Cole na conversa com a professora.",
+  sumTitle:"Teste de nível Rizoma (russo)", pupil:"Aluna: ", noName:"(sem nome)", lvlEst:"Nível estimado: ", score:"Acertos: "
+};
+var LANGS = { fr:{QS:FR_QS, DESC:FR_DESC, T:T_FR}, ru:{QS:RU_QS, DESC:RU_DESC, T:T_RU} };
+function L(){ return LANGS[state.lang]; }
+
+var state = { step: "intro", lang: "fr", name: "", i: 0, answers: [] };
+var app = document.getElementById("app");
+
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function sentence(t, fill){ return esc(t).replace("___", '<span class="gap">' + (fill ? esc(fill) : "&nbsp;&nbsp;&nbsp;") + '</span>'); }
+
+function renderIntro(){
+  var T = L().T;
+  app.innerHTML =
+    '<h1>' + T.title + '</h1>' +
+    '<p class="lead">' + T.lead + '</p>' +
+    '<div class="facts"><div class="fact"><b>30</b><span>' + T.qs + '</span></div><div class="fact"><b>~15</b><span>' + T.min + '</span></div><div class="fact"><b>A1–C2</b><span>' + T.lv + '</span></div></div>' +
+    '<label class="field" for="nome">' + T.nameLabel + '</label>' +
+    '<input type="text" id="nome" autocomplete="given-name" placeholder="' + T.ph + '" value="' + esc(state.name) + '">' +
+    '<div class="row"><button class="btn" id="go">' + T.start + '</button></div>' +
+    '<p class="note">' + T.introNote + '</p>';
+  var inp = document.getElementById("nome");
+  inp.addEventListener("input", function(){ state.name = inp.value.trim(); });
+  document.getElementById("go").addEventListener("click", function(){
+    state.name = inp.value.trim(); state.i = 0; state.answers = []; state.step = "quiz"; render(); window.scrollTo(0, 0);
+  });
+}
+
+function renderQuiz(){
+  var QS = L().QS, T = L().T;
+  var q = QS[state.i], picked = state.answers[state.i];
+  var bars = "";
+  for (var n = 0; n < QS.length; n++) bars += '<i class="' + (n < state.i ? "done" : n === state.i ? "now" : "") + '"></i>';
+  var opts = q.o.map(function(o, k){
+    return '<button class="opt" data-k="' + k + '" aria-pressed="' + (picked === k) + '"><span class="k">' + "ABCD"[k] + '</span><span>' + esc(o) + '</span></button>';
+  }).join("");
+  app.innerHTML =
+    '<div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="30" aria-valuenow="' + (state.i + 1) + '">' + bars + '</div>' +
+    '<div class="meta"><span>' + T.qWord + ' ' + (state.i + 1) + ' ' + T.of + ' ' + QS.length + '</span></div>' +
+    '<div class="q">' + sentence(q.t) + '</div>' +
+    '<div class="opts">' + opts + '</div>' +
+    '<div class="row">' +
+      (state.i > 0 ? '<button class="btn ghost" id="back">' + T.back + '</button>' : '') +
+      '<button class="btn" id="next"' + (picked === undefined ? " disabled" : "") + '>' + (state.i === QS.length - 1 ? T.see : T.next) + '</button>' +
+    '</div>';
+  Array.prototype.forEach.call(app.querySelectorAll(".opt"), function(b){
+    b.addEventListener("click", function(){
+      state.answers[state.i] = Number(b.getAttribute("data-k"));
+      renderQuiz();
+      var nx = document.getElementById("next"); if (nx) nx.focus();
+    });
+  });
+  var back = document.getElementById("back");
+  if (back) back.addEventListener("click", function(){ state.i--; renderQuiz(); });
+  document.getElementById("next").addEventListener("click", function(){
+    if (state.answers[state.i] === undefined) return;
+    if (state.i === QS.length - 1) { state.step = "result"; render(); } else { state.i++; renderQuiz(); }
+    window.scrollTo(0, 0);
+  });
+}
+
+function compute(){
+  var QS = L().QS;
+  var per = {}; LEVELS.forEach(function(l){ per[l] = 0; });
+  QS.forEach(function(q, n){ if (state.answers[n] === q.a) per[q.l]++; });
+  var level = "Pré-A1";
+  for (var k = 0; k < LEVELS.length; k++) {
+    if (per[LEVELS[k]] >= 4) level = LEVELS[k]; else break;
+  }
+  var total = 0; LEVELS.forEach(function(l){ total += per[l]; });
+  return { per: per, level: level, total: total };
+}
+
+function summaryText(r){
+  var T = L().T;
+  var lines = [T.sumTitle, T.pupil + (state.name || T.noName), T.lvlEst + r.level, T.score + r.total + "/30"];
+  LEVELS.forEach(function(l){ lines.push(l + ": " + r.per[l] + "/5"); });
+  return lines.join("\n");
+}
+
+function renderResult(){
+  var QS = L().QS, T = L().T, DESC = L().DESC;
+  var r = compute();
+  var bars = LEVELS.map(function(l){
+    return '<div class="bar ' + (r.per[l] >= 4 ? "ok" : "") + '"><span>' + l + '</span><div class="track"><div class="fill" style="width:' + (r.per[l] / 5 * 100) + '%"></div></div><span>' + r.per[l] + '/5</span></div>';
+  }).join("");
+  var wrong = [];
+  QS.forEach(function(q, n){ if (state.answers[n] !== q.a) wrong.push(n); });
+  var review = wrong.length ? wrong.map(function(n){
+    var q = QS[n], mine = state.answers[n];
+    return '<div class="card"><div class="s">' + q.l + ' · ' + sentence(q.t, q.o[q.a]) + '</div>' +
+      '<div>' + T.mine + ' <span class="no">' + esc(q.o[mine]) + '</span> &nbsp; ' + T.right + ' <span class="good">' + esc(q.o[q.a]) + '</span></div>' +
+      '<div class="why">' + esc(q.e) + '</div></div>';
+  }).join("") : '<p>' + T.allRight + '</p>';
+  app.innerHTML =
+    '<h1>' + T.resultTitle(esc(state.name)) + '</h1>' +
+    '<div class="hero"><div class="badge">' + esc(r.level) + '</div><div><h2>' + T.levelEst + ' ' + esc(r.level) + '</h2><p>' + esc(DESC[r.level]) + '</p></div></div>' +
+    '<h2>' + T.byLevel + '</h2><div class="bars" style="margin-top:14px">' + bars + '</div>' +
+    '<p>' + T.total(r.total) + '</p>' +
+    '<div class="row"><button class="btn alt" id="copy">' + T.copy + '</button><button class="btn ghost" id="again">' + T.again + '</button></div>' +
+    '<div class="toast" id="toast" role="status"></div>' +
+    '<h2 style="margin-top:32px">' + T.review + '</h2><div class="review">' + review + '</div>' +
+    '<p class="note">' + T.note + '</p>';
+  document.getElementById("again").addEventListener("click", function(){ state.step = "intro"; render(); window.scrollTo(0,0); });
+  document.getElementById("copy").addEventListener("click", function(){
+    var txt = summaryText(r), toast = document.getElementById("toast");
+    function fallback(){
+      toast.textContent = T.selectCopy;
+      if (!document.getElementById("cb")) {
+        var ta = document.createElement("textarea"); ta.id = "cb"; ta.className = "copybox"; ta.readOnly = true; ta.value = txt;
+        toast.after(ta); ta.focus(); ta.select();
+      }
+    }
+    try {
+      navigator.clipboard.writeText(txt).then(function(){ toast.textContent = T.copied; }, fallback);
+    } catch (e) { fallback(); }
+  });
+}
+
+function render(){
+  if (state.step === "intro") renderIntro();
+  else if (state.step === "quiz") renderQuiz();
+  else renderResult();
+}
+render();
+
+/* ---------- Onglets Musique et À la une ---------- */
+var FR_DECADES = [
+ {d:"Années 50", songs:[
+  {a:"Jacques Brel", t:"Ne me quitte pas", y:1959, l:"B1–B2", n:"Impératif négatif avec pronom et futur simple. Tempo lent : idéal pour une dictée et pour entendre l'émotion dans la voix."},
+  {a:"Édith Piaf", t:"Milord", y:1959, l:"B1", n:"Récit avec personnages et décor de port. Excellente pour travailler le « r » français et les liaisons."},
+  {a:"Boris Vian", t:"Le Déserteur", y:1954, l:"B1–B2", n:"Forme de lettre et ton de protestation. Utile pour le registre formel et le contexte historique."}
+ ]},
+ {d:"Années 60", songs:[
+  {a:"Édith Piaf", t:"Non, je ne regrette rien", y:1960, l:"A2–B1", n:"Négation avec « rien » et passé composé. Refrain répété, facile à retenir."},
+  {a:"Françoise Hardy", t:"Tous les garçons et les filles", y:1962, l:"A2", n:"Articles, pluriel et vocabulaire des relations et des sentiments. Voix douce et diction très claire."},
+  {a:"Serge Gainsbourg", t:"La Javanaise", y:1963, l:"B2", n:"Jeu sur les sonorités : la chanson joue avec le « javanais », un code de langage. Bon pour l'oreille et l'humour."},
+  {a:"Charles Aznavour", t:"La Bohème", y:1965, l:"B1", n:"Imparfait descriptif des souvenirs. Vocabulaire de l'art et de Montmartre."}
+ ]},
+ {d:"Années 70", songs:[
+  {a:"Joe Dassin", t:"L'Été indien", y:1975, l:"B1", n:"Récit nostalgique, idéal pour le contraste entre imparfait et passé composé."},
+  {a:"Nino Ferrer", t:"Le Sud", y:1975, l:"B1", n:"Mémoire et description des lieux et de l'enfance. Beaucoup de vocabulaire de la nature."},
+  {a:"Claude François", t:"Alexandrie Alexandra", y:1977, l:"A2", n:"Refrain répétitif et vocabulaire des lieux. Facile à chanter en chœur."}
+ ]},
+ {d:"Années 80", songs:[
+  {a:"Indochine", t:"L'Aventurier", y:1982, l:"A2", n:"Narration à la troisième personne et vocabulaire de l'action. Pop-rock facile à comprendre."},
+  {a:"Étienne Daho", t:"Week-end à Rome", y:1984, l:"B1", n:"Vocabulaire du voyage et des lieux. Utile pour parler de ses week-ends."},
+  {a:"Daniel Balavoine", t:"L'Aziza", y:1985, l:"B1–B2", n:"Message social, impératifs et pronoms. Bonne pour un débat après l'écoute."}
+ ]},
+ {d:"Années 90", songs:[
+  {a:"MC Solaar", t:"Bouge de là", y:1991, l:"B2", n:"Rap avec jeux de mots et registre familier. Utile pour le rythme et le vocabulaire courant."},
+  {a:"Zazie", t:"Zen", y:1995, l:"B1", n:"Expressions du quotidien et impératifs. Vocabulaire du stress et du calme."},
+  {a:"Céline Dion", t:"Pour que tu m'aimes encore", y:1995, l:"B1–B2", n:"Le titre contient déjà « pour que » + subjonctif. Idéale pour montrer la structure en contexte."}
+ ]},
+ {d:"Années 2000", songs:[
+  {a:"Bénabar", t:"Le Dîner", y:2001, l:"B2", n:"Scène sociale pleine d'ironie et de langage familier. Bon pour la compréhension de situations."},
+  {a:"Carla Bruni", t:"Quelqu'un m'a dit", y:2002, l:"A2–B1", n:"Le titre montre le discours indirect (« quelqu'un m'a dit que… »). Voix lente et claire."},
+  {a:"Cœur de pirate", t:"Comme des enfants", y:2008, l:"A2–B1", n:"Comparaison avec « comme » et vocabulaire de la relation amoureuse. Piano et diction nette."}
+ ]},
+ {d:"Années 2010", songs:[
+  {a:"Zaz", t:"Je veux", y:2010, l:"A2–B1", n:"Expression du désir avec « je veux » et énumération. Facile à réutiliser à l'oral."},
+  {a:"Stromae", t:"Papaoutai", y:2013, l:"B1", n:"Jeu de mots dans le titre (« Papa, où t'es ? ») et question avec « où ». Bon pour l'homophonie et la liaison."},
+  {a:"Christine and the Queens", t:"Saint Claude", y:2014, l:"B2", n:"Vocabulaire intime et émotionnel. Utile pour saisir les nuances."}
+ ]},
+ {d:"Années 2020", songs:[
+  {a:"Angèle", t:"Bruxelles je t'aime", y:2021, l:"A2–B1", n:"Vocabulaire de la ville et accent belge. Utile pour parler des lieux qu'on aime."},
+  {a:"Stromae", t:"Santé", y:2022, l:"B1", n:"Le titre est le toast (« santé »). Thème social du travail invisible : bon pour un débat."},
+  {a:"Aya Nakamura", t:"Pookie", y:2022, l:"B2", n:"Argot urbain et expressions actuelles. Utile pour découvrir le français parlé aujourd'hui."}
+ ]}
+];
+var FR_SOURCES = [
+ {n:"RFI · Le Journal en français facile", l:"A2–B1", u:"https://francaisfacile.rfi.fr", d:"L’actualité internationale avec un débit plus lent et un vocabulaire accessible, sur le site « Le français facile avec RFI »."},
+ {n:"TV5MONDE · Apprendre le français", l:"A1–B2", u:"https://apprendre.tv5monde.com/fr", d:"Exercices interactifs à partir de vidéos, d’émissions et de reportages, classés par niveau."},
+ {n:"1jour1actu", l:"A2–B1", u:"https://www.1jour1actu.com", d:"L’actualité expliquée simplement, à l’origine pour les jeunes lecteurs. Bon point de départ pour lire un article court."},
+ {n:"franceinfo", l:"B1–B2", u:"https://www.franceinfo.fr", d:"Info en continu en texte, audio et vidéo. Choisissez les formats courts pour commencer."},
+ {n:"France Inter", l:"B2–C1", u:"https://www.franceinter.fr", d:"Radio généraliste. Cherchez les chroniques courtes, comme « Le Zoom de France Inter », de quelques minutes."},
+ {n:"TV5MONDE Info", l:"B1–C1", u:"https://information.tv5monde.com", d:"Actualité de la francophonie : bon pour découvrir des accents et des réalités variés."},
+ {n:"Les Idées claires", l:"B2–C1", u:"https://www.youtube.com/results?search_query=" + encodeURIComponent("Les Idées claires franceinfo France Culture"), d:"Série vidéo d’environ 10 minutes de France Culture et franceinfo contre les fausses informations. Ouvre la recherche YouTube."},
+ {n:"Le Monde", l:"C1–C2", u:"https://www.lemonde.fr", d:"Presse écrite de référence. Une partie des articles est réservée aux abonnés."}
+];
+var FR_STEPS = ["Lire ou écouter seulement le titre et faire une hypothèse sur le sujet.","Relever 3 mots-clés, puis vérifier leur sens dans le texte.","Résumer l’information en deux phrases, à l’oral ou à l’écrit.","Donner son avis en une phrase avec « selon moi » ou « à mon avis »."];
+var RU_DECADES = [
+ {d:"1950-е", songs:[
+  {a:"Владимир Трошин", t:"Подмосковные вечера", y:1956, l:"A1–A2", n:"Медленный темп и простые слова: ночь, река, вечер. Хорошо слышны гласные и ударения."}
+ ]},
+ {d:"1960-е", songs:[
+  {a:"Юрий Никулин", t:"Песенка о медведях", y:1966, l:"A2", n:"Песня из фильма «Кавказская пленница». Весёлая, с повторами: легко запомнить."},
+  {a:"Андрей Миронов", t:"Остров невезения", y:1968, l:"B1", n:"Песня из фильма «Бриллиантовая рука». Ирония и шутки. Хорошо для темы «судьба и везение»."},
+  {a:"Владимир Высоцкий", t:"Охота на волков", y:1968, l:"B2–C1", n:"Поэтический текст с образами и метафорами. Трудная, но очень известная песня."}
+ ]},
+ {d:"1970-е", songs:[
+  {a:"Алла Пугачёва", t:"Арлекино", y:1975, l:"B1", n:"Песня о клоуне. Выразительный голос и чёткая дикция. Хорошо для темы «чувства»."}
+ ]},
+ {d:"1980-е", songs:[
+  {a:"Алла Пугачёва", t:"Миллион алых роз", y:1982, l:"B1", n:"История о художнике и актрисе. Хорошо для рассказа в прошедшем времени и для слов о цвете."},
+  {a:"Наутилус Помпилиус", t:"Скованные одной цепью", y:1986, l:"B2", n:"Русский рок. Короткие фразы и сильные образы. Хорошо для разговора об обществе."},
+  {a:"Кино", t:"Группа крови", y:1988, l:"B1–B2", n:"Классика русского рока. Простой ритм, много повторов, легко слушать."}
+ ]},
+ {d:"1990-е", songs:[
+  {a:"Любэ", t:"Конь", y:1994, l:"B1", n:"Народный стиль и сильный припев. Хорошо для слов о природе и дороге."},
+  {a:"Сплин", t:"Выхода нет", y:1998, l:"B1", n:"Рок-песня с ясной дикцией. Много коротких предложений."},
+  {a:"Земфира", t:"Ариведерчи", y:1999, l:"B1", n:"Рок-баллада. Простые слова и много эмоций. Хорошо для темы «прощание»."}
+ ]},
+ {d:"2000-е", songs:[
+  {a:"Мумий Тролль", t:"Владивосток 2000", y:2000, l:"B1–B2", n:"Поп-рок с названием города. Хорошо для разговора о городах и местах."},
+  {a:"Би-2", t:"Полковнику никто не пишет", y:2000, l:"B2", n:"Рок-баллада с литературным названием. Образный язык и медленный ритм."},
+  {a:"t.A.T.u.", t:"Нас не догонят", y:2002, l:"A2–B1", n:"Короткие фразы, глаголы движения и повторы в припеве."}
+ ]},
+ {d:"2010-е", songs:[
+  {a:"Баста", t:"Сансара", y:2013, l:"B1", n:"Слово «сансара» из философии. Хорошо для разговора о жизни и времени."},
+  {a:"Монеточка", t:"Каждый раз", y:2018, l:"B1–B2", n:"Современная поп-песня с разговорным языком. Хорошо для слов о чувствах и отношениях."}
+ ]}
+];
+var RU_SOURCES = [
+ {n:"DW на русском", l:"B1–B2", u:"https://www.dw.com/ru", d:"Новости Германии и мира: тексты и короткие видео."},
+ {n:"BBC News Русская служба", l:"B1–B2", u:"https://www.bbc.com/russian", d:"Международные новости, репортажи и видео на русском языке."},
+ {n:"Meduza", l:"B2–C1", u:"https://meduza.io", d:"Издание на русском языке. Есть короткие новости и длинные тексты."},
+ {n:"Вокруг света", l:"B1–B2", u:"https://www.vokrugsveta.ru", d:"Журнал о путешествиях и науке. Красивые тексты и фотографии."},
+ {n:"Наука и жизнь", l:"B2", u:"https://www.nkj.ru", d:"Научно-популярный журнал. Много терминов, хорошо для словаря."}
+];
+var RU_STEPS = ["Прочитайте только заголовок и угадайте тему.","Выпишите 3 ключевых слова и проверьте их значение.","Перескажите новость в двух предложениях.","Скажите своё мнение одним предложением: «По-моему, …»."];
+
+var MUI = {
+ fr:{h:"La chanson française, décennie par décennie", lead:"De l’après-guerre à aujourd’hui : des chansons par décennie, avec un niveau suggéré et ce qu’il faut observer. Le bouton ouvre la recherche YouTube, où vous choisissez le clip ou la version audio.", all:"Toutes", btn:"Chercher sur YouTube", aria:"Filtrer par décennie", note:"Les niveaux sont des suggestions, valables pour une écoute accompagnée par la professeure. Vérifiez les paroles avant d’apporter une chanson en classe.", short:function(d){ return d.replace("Années ", ""); }},
+ ru:{h:"Русская песня: десятилетие за десятилетием", lead:"Песни из России и СССР по десятилетиям: с уровнем и советом, на что обратить внимание. Кнопка открывает поиск на YouTube: там можно выбрать клип или аудио.", all:"Все", btn:"Искать на YouTube", aria:"Фильтр по десятилетиям", note:"Уровни — это советы для прослушивания с преподавателем. Проверьте текст песни перед уроком.", short:function(d){ return d.replace("-е", ""); }}
+};
+var NUI = {
+ fr:{h:"À la une", lead:"Des sources d’actualité en français, classées par niveau. Chaque lien ouvre le site : choisissez un contenu court et récent.", open:"Ouvrir le site", steps:"Routine en 4 étapes", note:"Les niveaux sont indicatifs. Les sites évoluent : vérifiez le contenu avant de le proposer en classe."},
+ ru:{h:"Новости", lead:"Источники новостей на русском языке по уровням. Каждая ссылка открывает сайт: выберите короткий и свежий материал.", open:"Открыть сайт", steps:"Порядок работы: 4 шага", note:"Уровни примерные. Сайты меняются, а точки зрения у разных изданий разные: проверьте материал перед уроком."}
+};
+var DEC = { fr:FR_DECADES, ru:RU_DECADES }, SRC = { fr:FR_SOURCES, ru:RU_SOURCES }, STP = { fr:FR_STEPS, ru:RU_STEPS };
+var TABLABELS = { fr:["Test de niveau","Musique","À la une"], ru:["Тест уровня","Музыка","Новости"] };
+var musicEl = document.getElementById("music"), newsEl = document.getElementById("news");
+var decade = "ALL", currentTab = "teste";
+function ytLink(a, t){ return "https://www.youtube.com/results?search_query=" + encodeURIComponent(a + " " + t); }
+
+function renderMusic(){
+  var U = MUI[state.lang], data = DEC[state.lang];
+  var chips = [["ALL", U.all]].concat(data.map(function(x){ return [x.d, U.short(x.d)]; })).map(function(c){
+    return '<button class="chip" data-d="' + esc(c[0]) + '" aria-pressed="' + (c[0] === decade) + '">' + esc(c[1]) + '</button>';
+  }).join("");
+  var blocks = data.filter(function(x){ return decade === "ALL" || x.d === decade; }).map(function(x){
+    return '<div class="decade"><h2>' + esc(x.d) + '</h2><div class="songs">' + x.songs.map(function(m){
+      return '<div class="song"><div class="t">' + esc(m.t) + '</div><div class="who">' + esc(m.a) + ' · ' + m.y + '</div>' +
+        '<div><span class="lv">' + esc(m.l) + '</span></div><div class="obs">' + esc(m.n) + '</div>' +
+        '<a href="' + ytLink(m.a, m.t) + '" target="_blank" rel="noopener noreferrer">' + U.btn + '</a></div>';
+    }).join("") + '</div></div>';
+  }).join("");
+  musicEl.innerHTML = '<h1>' + U.h + '</h1><p class="lead">' + U.lead + '</p>' +
+    '<div class="chips" role="group" aria-label="' + U.aria + '">' + chips + '</div>' + blocks + '<p class="note">' + U.note + '</p>';
+  Array.prototype.forEach.call(musicEl.querySelectorAll(".chip"), function(b){
+    b.addEventListener("click", function(){ decade = b.getAttribute("data-d"); renderMusic(); });
+  });
+}
+
+function renderNews(){
+  var U = NUI[state.lang];
+  newsEl.innerHTML =
+    '<h1>' + U.h + '</h1><p class="lead">' + U.lead + '</p>' +
+    '<div class="songs">' + SRC[state.lang].map(function(x){
+      return '<div class="song"><div class="t">' + esc(x.n) + '</div><div style="margin-top:6px"><span class="lv">' + esc(x.l) + '</span></div>' +
+        '<div class="obs">' + esc(x.d) + '</div><a href="' + esc(x.u) + '" target="_blank" rel="noopener noreferrer">' + U.open + '</a></div>';
+    }).join("") + '</div>' +
+    '<div class="decade"><h2>' + U.steps + '</h2></div>' +
+    '<ol class="obs" style="padding-left:22px;margin-top:14px">' + STP[state.lang].map(function(t){ return '<li>' + esc(t) + '</li>'; }).join("") + '</ol>' +
+    '<p class="note">' + U.note + '</p>';
+}
+
+var TABS = {teste:"tab-teste", musica:"tab-musica", une:"tab-une"};
+function showTab(t){
+  if (!TABS[t]) t = "teste";
+  currentTab = t;
+  app.hidden = t !== "teste"; musicEl.hidden = t !== "musica"; newsEl.hidden = t !== "une";
+  Object.keys(TABS).forEach(function(k){ document.getElementById(TABS[k]).setAttribute("aria-selected", String(k === t)); });
+  if (t === "teste") render();
+  if (t === "musica") renderMusic();
+  if (t === "une") renderNews();
+  try { history.replaceState(null, "", "#" + t); } catch (e) {}
+  window.scrollTo(0, 0);
+}
+function renderLangbar(){
+  document.getElementById("langbar").innerHTML = [["fr","Français"],["ru","Русский"]].map(function(x){
+    return '<button class="chip" data-lang="' + x[0] + '" aria-pressed="' + (state.lang === x[0]) + '">' + x[1] + '</button>';
+  }).join("");
+  Array.prototype.forEach.call(document.querySelectorAll("#langbar [data-lang]"), function(b){
+    b.addEventListener("click", function(){ setLang(b.getAttribute("data-lang")); });
+  });
+  var lab = TABLABELS[state.lang];
+  ["tab-teste","tab-musica","tab-une"].forEach(function(id, i){ document.getElementById(id).textContent = lab[i]; });
+  document.documentElement.lang = state.lang === "ru" ? "ru" : "fr";
+}
+function setLang(x){
+  if (x === state.lang) return;
+  state.lang = x; state.step = "intro"; state.i = 0; state.answers = []; decade = "ALL";
+  renderLangbar();
+  showTab(currentTab);
+}
+document.getElementById("tab-teste").addEventListener("click", function(){ showTab("teste"); });
+document.getElementById("tab-musica").addEventListener("click", function(){ showTab("musica"); });
+document.getElementById("tab-une").addEventListener("click", function(){ showTab("une"); });
+renderLangbar();
+if (location.hash === "#musica" || location.hash === "#une") showTab(location.hash.slice(1));
+</script>
+</body>
+</html>

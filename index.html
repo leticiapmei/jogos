@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rizoma · Jogos</title>
-<meta name="description" content="Todos os jogos e atividades da Rizoma, Ateliê de Linguagem, num só lugar.">
+<title>Portal do Aluno · Rizoma</title>
+<meta name="description" content="Portal do Aluno da Rizoma, Ateliê de Linguagem: jogos e atividades de francês e russo, todos ligados entre si.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -14,52 +14,99 @@
   --red:#E5401B; --yel:#F4B323; --grn:#2E6B4E; --blu:#1F4E9C;
 }
 @media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#171513; --card:#221F1B; --ink:#F3EAD7; --muted:#B9B0A0; --line:#F3EAD7;
-  }
+  :root:not([data-theme="light"]){ --bg:#171513; --card:#221F1B; --ink:#F3EAD7; --muted:#B9B0A0; --line:#F3EAD7; }
 }
 :root[data-theme="dark"]{ --bg:#171513; --card:#221F1B; --ink:#F3EAD7; --muted:#B9B0A0; --line:#F3EAD7; }
 
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+body{background:var(--bg);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+a{color:inherit}
+button{font:inherit;color:inherit}
 
-header{padding:56px 0 28px;position:relative;overflow:hidden}
+/* Cabeçalho */
+header{padding:48px 0 20px;position:relative;overflow:hidden;margin:0 -16px;padding-left:16px;padding-right:16px}
 .brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:13px}
-.brand svg{width:34px;height:34px}
-h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(42px,8vw,88px);line-height:.95;margin:18px 0 14px;letter-spacing:-.02em}
+.brand svg{width:34px;height:34px;flex:none}
+h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(44px,9vw,92px);line-height:.95;margin:18px 0 14px;letter-spacing:-.02em;position:relative}
 h1 em{font-style:normal;color:var(--red)}
-.lead{font-size:clamp(17px,2.2vw,20px);max-width:620px;color:var(--muted);margin:0}
+.lead{font-size:clamp(17px,2.2vw,20px);max-width:600px;color:var(--muted);margin:0;position:relative}
+.blob{position:absolute;right:-40px;top:10px;width:320px;height:320px;pointer-events:none}
+@media (max-width:760px){.blob{width:190px;height:190px;right:-90px;top:-20px;opacity:.25} header{padding-top:32px}}
 
-.filters{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 8px}
-.chip{font:inherit;font-weight:700;font-size:15px;padding:9px 16px;border-radius:999px;border:2px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;transition:transform .12s}
+/* Portas de entrada */
+.doors{margin:26px 0 0;display:grid;gap:10px}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0}
+.doors>*{min-width:0}
+.row-label{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);min-width:64px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-weight:700;font-size:15px;padding:8px 15px;border-radius:999px;border:2px solid var(--line);background:transparent;cursor:pointer;transition:transform .12s;white-space:nowrap;min-height:42px}
 .chip:hover{transform:translateY(-2px)}
 .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
-.search{flex:1 1 220px;min-width:0;font:inherit;font-size:15px;padding:9px 16px;border-radius:999px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
+.chip:focus-visible,.search:focus-visible,.surprise:focus-visible{outline:3px solid var(--blu);outline-offset:2px}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.search{flex:1 1 260px;min-width:0;font:inherit;font-size:16px;padding:10px 16px;border-radius:999px;border:2px solid var(--line);background:var(--card);color:var(--ink);min-height:46px}
 .search::placeholder{color:var(--muted)}
+.surprise{font-weight:700;font-size:15px;padding:10px 18px;border-radius:999px;border:2px solid var(--line);background:var(--yel);color:#1A1A1A;cursor:pointer;box-shadow:3px 3px 0 var(--line);min-height:46px}
+.surprise:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line)}
+.reset{background:none;border:0;padding:6px 4px;font-weight:700;font-size:14px;text-decoration:underline;cursor:pointer;color:var(--muted)}
 
-.lang-title{font-family:"Bricolage Grotesque",sans-serif;font-size:28px;font-weight:800;margin:40px 0 16px;display:flex;align-items:center;gap:12px}
-.lang-title .count{font-family:"DM Sans";font-size:14px;font-weight:700;padding:2px 10px;border-radius:999px;background:var(--yel);color:#1A1A1A}
+/* No celular, cada fileira de botões rola para o lado em vez de ocupar a tela toda */
+@media (max-width:640px){
+  .row{flex-wrap:nowrap;align-items:flex-start;flex-direction:column;gap:6px}
+  .chips{flex-wrap:nowrap;overflow-x:auto;width:calc(100% + 16px);max-width:calc(100% + 16px);margin-right:-16px;padding:2px 16px 6px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{font-size:14px;padding:7px 13px;min-height:40px}
+  .surprise{flex:1 1 auto}
+}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
-.card{position:relative;display:flex;flex-direction:column;background:var(--card);border:2px solid var(--line);border-radius:18px;padding:20px;text-decoration:none;color:inherit;box-shadow:5px 5px 0 var(--line);transition:transform .15s, box-shadow .15s}
-.card:hover,.card:focus-visible{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--line);outline:none}
-.card .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
-.emoji{font-size:34px;line-height:1;width:58px;height:58px;display:grid;place-items:center;border-radius:14px;border:2px solid var(--line)}
-.level{font-weight:700;font-size:13px;padding:4px 10px;border-radius:999px;border:2px solid var(--line);white-space:nowrap}
-.card h3{font-family:"Bricolage Grotesque",sans-serif;font-size:21px;line-height:1.15;margin:0 0 8px;font-weight:700}
-.card p{margin:0 0 16px;color:var(--muted);font-size:15px;flex:1}
-.play{font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:6px}
+/* Destaque Rizoma Langues */
+.feature{display:flex;align-items:center;gap:18px;margin:28px 0 0;background:var(--yel);color:#1A1A1A;border:2px solid var(--line);border-radius:18px;padding:20px;text-decoration:none;box-shadow:5px 5px 0 var(--line);transition:transform .15s, box-shadow .15s}
+.feature:hover,.feature:focus-visible{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--line);outline:none}
+.feature .emoji{background:#FFF8E8;border-color:#1A1A1A;flex:none}
+.feature .ftxt{flex:1;display:flex;flex-direction:column;gap:4px}
+.feature .ftag{font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.feature strong{font-family:"Bricolage Grotesque",sans-serif;font-size:24px;line-height:1.1}
+.feature .go{flex:none;font-weight:700}
+@media (max-width:560px){.feature{flex-wrap:wrap;padding:16px}.feature .go{width:100%}}
+
+/* Lista */
+.status{margin:30px 0 14px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.status h2{font-family:"Bricolage Grotesque",sans-serif;font-size:26px;margin:0;font-weight:800}
+.status span{color:var(--muted);font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px}
+@media (max-width:600px){.grid{grid-template-columns:1fr;gap:14px}}
+.card{position:relative;display:flex;flex-direction:column;background:var(--card);border:2px solid var(--line);border-radius:18px;padding:18px;box-shadow:5px 5px 0 var(--line);transition:transform .15s, box-shadow .15s}
+.card:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--line)}
+.card.flash{animation:flash 1.4s ease}
+@keyframes flash{0%,40%{box-shadow:0 0 0 6px var(--red)}100%{box-shadow:5px 5px 0 var(--line)}}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:12px}
+.emoji{font-size:32px;line-height:1;width:56px;height:56px;display:grid;place-items:center;border-radius:14px;border:2px solid var(--line)}
+.badges{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.badge{font-weight:700;font-size:12px;padding:3px 9px;border-radius:999px;border:2px solid var(--line);white-space:nowrap}
+.card h3{font-family:"Bricolage Grotesque",sans-serif;font-size:21px;line-height:1.15;margin:0 0 6px;font-weight:700}
+.card h3 a{text-decoration:none}
+.card h3 a::after{content:"";position:absolute;inset:0;border-radius:16px;z-index:0}
+.card h3 a:focus-visible{outline:none}
+.card:has(h3 a:focus-visible){outline:3px solid var(--blu);outline-offset:3px}
+.card p{margin:0 0 12px;color:var(--muted);font-size:15px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px;position:relative;z-index:1}
+.tag{font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;border:1.5px dashed var(--line);background:transparent;cursor:pointer;min-height:30px}
+.tag:hover{background:var(--ink);color:var(--bg);border-style:solid}
+.links{margin-top:auto;border-top:2px dashed var(--line);padding-top:10px;position:relative;z-index:1}
+.links b{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.links button{display:flex;align-items:center;gap:8px;width:100%;text-align:left;background:none;border:0;padding:6px 0;cursor:pointer;font-size:15px;font-weight:500;min-height:36px}
+.links button span.dot{flex:none;width:10px;height:10px;border-radius:50%;border:2px solid var(--line)}
+.links button:hover .t{text-decoration:underline}
+.links button:focus-visible{outline:3px solid var(--blu);outline-offset:1px;border-radius:6px}
+.play{display:inline-block;margin-top:12px;font-weight:700;font-size:15px;position:relative;z-index:1;text-decoration:none}
 .card:hover .play{color:var(--red)}
+.c-red .emoji,.dot.c-red{background:var(--red)} .c-yel .emoji,.dot.c-yel{background:var(--yel)} .c-grn .emoji,.dot.c-grn{background:var(--grn)} .c-blu .emoji,.dot.c-blu{background:var(--blu)}
 
-.c-red .emoji{background:var(--red)} .c-yel .emoji{background:var(--yel)} .c-grn .emoji{background:var(--grn)} .c-blu .emoji{background:var(--blu)}
-
-.empty{display:none;padding:40px 0;color:var(--muted);font-size:18px}
+.empty{display:none;padding:30px 0;color:var(--muted);font-size:18px}
 footer{margin:64px 0 0;padding:28px 0 40px;border-top:2px solid var(--line);font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
-
-.blob{position:absolute;right:-60px;top:20px;width:300px;height:300px;opacity:.9;pointer-events:none}
-@media (max-width:700px){.blob{width:180px;height:180px;right:-70px;top:0;opacity:.5} header{padding-top:36px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
@@ -70,6 +117,7 @@ footer{margin:64px 0 0;padding:28px 0 40px;border-top:2px solid var(--line);font
         <path d="M100 100 C70 60 40 70 25 40"/><path d="M100 100 C140 70 150 40 180 30"/>
         <path d="M100 100 C90 140 60 150 40 180"/><path d="M100 100 C140 130 160 160 175 175"/>
         <path d="M60 68 C70 50 80 40 75 18"/><path d="M146 58 C160 70 175 80 195 82"/>
+        <path d="M25 40 C60 20 140 10 180 30" stroke-dasharray="4 7"/><path d="M40 180 C90 195 140 190 175 175" stroke-dasharray="4 7"/>
       </g>
       <circle cx="100" cy="100" r="14" fill="var(--red)"/><circle cx="25" cy="40" r="9" fill="var(--yel)"/>
       <circle cx="180" cy="30" r="9" fill="var(--grn)"/><circle cx="40" cy="180" r="9" fill="var(--blu)"/>
@@ -80,96 +128,161 @@ footer{margin:64px 0 0;padding:28px 0 40px;border-top:2px solid var(--line);font
       <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="var(--red)"/><path d="M20 20 L8 10 M20 20 L32 9 M20 20 L12 32 M20 20 L31 30" stroke="#FFF8E8" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="20" r="4" fill="#FFF8E8"/></svg>
       Rizoma · Ateliê de Linguagem
     </div>
-    <h1>Jogos para<br>aprender <em>brincando</em></h1>
-    <p class="lead">Escolha uma atividade e comece por onde quiser. Como num rizoma, todo caminho leva a algum lugar.</p>
+    <h1>Portal do <em>Aluno</em></h1>
+    <p class="lead">Aqui não tem começo nem fim. Entre pela língua, pelo nível ou pelo tema que te interessa, e siga os fios: cada jogo leva a outros.</p>
 
-    <div class="filters" role="group" aria-label="Filtrar por língua">
-      <button class="chip lg" data-f="all" aria-pressed="true">Todos</button>
-      <button class="chip lg" data-f="fr" aria-pressed="false">Francês</button>
-      <button class="chip lg" data-f="ru" aria-pressed="false">Russo</button>
-    </div>
-    <div class="filters" role="group" aria-label="Filtrar por nível" style="margin-top:0">
-      <button class="chip lv" data-l="all" aria-pressed="true">Todos os níveis</button>
-      <button class="chip lv" data-l="A1" aria-pressed="false">A1</button>
-      <button class="chip lv" data-l="A2" aria-pressed="false">A2</button>
-      <button class="chip lv" data-l="B1" aria-pressed="false">B1</button>
-      <button class="chip lv" data-l="B2" aria-pressed="false">B2</button>
-      <button class="chip lv" data-l="C1" aria-pressed="false">C1</button>
-      <button class="chip lv" data-l="C2" aria-pressed="false">C2</button>
-      <input class="search" type="search" placeholder="Procurar (ex.: B2, verbos, TCF)" aria-label="Procurar jogo">
+    <div class="doors">
+      <div class="row"><span class="row-label">Língua</span>
+        <div class="chips" id="f-lang" role="group" aria-label="Escolher língua"></div></div>
+      <div class="row"><span class="row-label">Nível</span>
+        <div class="chips" id="f-level" role="group" aria-label="Escolher nível"></div></div>
+      <div class="row"><span class="row-label">Tema</span>
+        <div class="chips" id="f-tag" role="group" aria-label="Escolher tema"></div></div>
+      <div class="tools">
+        <input class="search" type="search" placeholder="Procurar (ex.: verbos, música, TCF)" aria-label="Procurar jogo">
+        <button class="surprise" id="surprise" type="button">🎲 Me leve a algum lugar</button>
+      </div>
     </div>
   </header>
 
-  <main id="list"></main>
-  <p class="empty" id="empty">Ainda não há jogos aqui. Em breve!</p>
+  <a class="feature" href="rizoma-langues.html">
+    <span class="emoji" aria-hidden="true">🧭</span>
+    <span class="ftxt"><span class="ftag">Bom ponto de partida · Francês e Russo</span>
+    <strong>Rizoma Langues</strong>
+    <span>Faça o teste de nível (A1 a C2), descubra músicas por década e encontre notícias para o seu nível.</span></span>
+    <span class="go">Abrir →</span>
+  </a>
+
+  <div class="status"><h2 id="status-title">Todos os caminhos</h2><span id="status-count"></span><button class="reset" id="reset" type="button" hidden>Ver tudo de novo</button></div>
+  <main class="grid" id="list"></main>
+  <p class="empty" id="empty">Nenhum jogo com essa combinação ainda. Tente outro tema ou nível.</p>
 
   <footer>
-    <span>Rizoma · Ateliê de Linguagem</span>
+    <span>Portal do Aluno · Rizoma · Ateliê de Linguagem</span>
     <span id="total"></span>
   </footer>
 </div>
 
 <script>
-// Para adicionar um jogo novo: copie uma linha, troque os dados e coloque o arquivo na pasta "jogos".
+// Para adicionar um jogo novo: copie uma linha, troque os dados e suba o arquivo .html junto.
+// "tags" são os temas: verbos, vocabulário, dia a dia, cultura, trabalho, TCF (pode inventar outros).
 const JOGOS = [
   // Francês
-  {lang:"fr", file:"cabinet-mind-a1.html",      title:"Cabinet Mind & Co",              level:"A1",    emoji:"🛋️", color:"yel", desc:"Você é psicólogo em Paris e o telefone toca. Marque consultas e converse em francês."},
-  {lang:"fr", file:"defi-du-chef-a1-a2.html",   title:"Le Défi du Chef",                level:"A1→A2", emoji:"👨‍🍳", color:"red", desc:"Uma aula-jogo de 40 minutos na cozinha: mercado, partitivo, receitas e muito XP."},
-  {lang:"fr", file:"conjugaison-b1.html",       title:"La conjugaison jusqu'au B1",     level:"B1",    emoji:"🌱", color:"grn", desc:"Lições, quiz e jogos do presente ao subjuntivo. Suba de nível conjugando."},
-  {lang:"fr", file:"tcf-nuances-b2.html",       title:"Nuances en français",            level:"B2",    emoji:"🎨", color:"blu", desc:"Adjetivos, advérbios, sinônimos e antônimos para o TCF Canada. 15 minutos por dia."},
-  {lang:"fr", file:"tcf-administration.html",   title:"Le Rhizome de l'administration", level:"B2–C1", emoji:"🏛️", color:"grn", desc:"Vocabulário da administração para o TCF Canada. Entre por qualquer nó e crie pontes."},
-  {lang:"fr", file:"droit-en-jeu.html",         title:"Le droit en jeu",                level:"B2–C1", emoji:"⚖️", color:"red", desc:"Vocabulário jurídico: comece como estagiário e ganhe XP até virar especialista."},
-  {lang:"fr", file:"francais-familier.html",    title:"Le jeu du français familier",    level:"B1+",   emoji:"💬", color:"yel", desc:"Gírias e expressões do francês do dia a dia, para entender os franceses de verdade."},
-  {lang:"fr", file:"temps-du-passe-c1.html",    title:"Les temps du passé",             level:"C1",    emoji:"⏳", color:"blu", desc:"Guia visual dos oito tempos do passado, do imparfait ao passé surcomposé, com quiz."},
-  {lang:"fr", file:"lexique-maya.html",         title:"Le lexique de Maya à la poupée", level:"C1",    emoji:"🖼️", color:"red", desc:"Vocabulário avançado para falar do quadro de Picasso (1938), com três exercícios."},
-  {lang:"fr", file:"carnet-equitation.html",    title:"Carnet d'équitation",            level:"B1",    emoji:"🐎", color:"grn", desc:"Andaduras, equipamento, corpo do cavalo e as ordens do instrutor, antes de entrar no picadeiro."},
+  {lang:"fr", file:"cabinet-mind-a1.html",      title:"Cabinet Mind & Co",              level:"A1",    emoji:"🛋️", color:"yel", tags:["dia a dia","trabalho"], desc:"Você é psicólogo em Paris e o telefone toca. Marque consultas e converse em francês."},
+  {lang:"fr", file:"defi-du-chef-a1-a2.html",   title:"Le Défi du Chef",                level:"A1→A2", emoji:"👨‍🍳", color:"red", tags:["dia a dia","vocabulário"], desc:"Uma aula-jogo de 40 minutos na cozinha: mercado, partitivo, receitas e muito XP."},
+  {lang:"fr", file:"conjugaison-b1.html",       title:"La conjugaison jusqu'au B1",     level:"B1",    emoji:"🌱", color:"grn", tags:["verbos"], desc:"Lições, quiz e jogos do presente ao subjuntivo. Suba de nível conjugando."},
+  {lang:"fr", file:"tcf-nuances-b2.html",       title:"Nuances en français",            level:"B2",    emoji:"🎨", color:"blu", tags:["vocabulário","TCF"], desc:"Adjetivos, advérbios, sinônimos e antônimos para o TCF Canada. 15 minutos por dia."},
+  {lang:"fr", file:"tcf-administration.html",   title:"Le Rhizome de l'administration", level:"B2–C1", emoji:"🏛️", color:"grn", tags:["vocabulário","TCF","trabalho"], desc:"Vocabulário da administração para o TCF Canada. Entre por qualquer nó e crie pontes."},
+  {lang:"fr", file:"droit-en-jeu.html",         title:"Le droit en jeu",                level:"B2–C1", emoji:"⚖️", color:"red", tags:["vocabulário","trabalho"], desc:"Vocabulário jurídico: comece como estagiário e ganhe XP até virar especialista."},
+  {lang:"fr", file:"francais-familier.html",    title:"Le jeu du français familier",    level:"B1+",   emoji:"💬", color:"yel", tags:["dia a dia","cultura"], desc:"Gírias e expressões do francês do dia a dia, para entender os franceses de verdade."},
+  {lang:"fr", file:"temps-du-passe-c1.html",    title:"Les temps du passé",             level:"C1",    emoji:"⏳", color:"blu", tags:["verbos"], desc:"Guia visual dos oito tempos do passado, do imparfait ao passé surcomposé, com quiz."},
+  {lang:"fr", file:"lexique-maya.html",         title:"Le lexique de Maya à la poupée", level:"C1",    emoji:"🖼️", color:"red", tags:["cultura","vocabulário"], desc:"Vocabulário avançado para falar do quadro de Picasso (1938), com três exercícios."},
+  {lang:"fr", file:"carnet-equitation.html",    title:"Carnet d'équitation",            level:"B1",    emoji:"🐎", color:"grn", tags:["vocabulário","dia a dia"], desc:"Andaduras, equipamento, corpo do cavalo e as ordens do instrutor, antes de entrar no picadeiro."},
   // Russo
-  {lang:"ru", file:"vid-glagola.html",          title:"Вид глагола",                    level:"A2",    emoji:"🔁", color:"red", desc:"Processo ou resultado? Quatro exercícios sobre o aspecto verbal e uma tarefa com a música «Наше лето»."},
-  {lang:"ru", file:"odezhda-a1.html",           title:"Одежда · слова и фразы",         level:"A1+",   emoji:"👕", color:"yel", desc:"Roupas em russo: palavras e frases para descrever o que você veste."},
-  {lang:"ru", file:"kino-a1.html",              title:"КИНО",                           level:"A1",    emoji:"🎸", color:"blu", desc:"Conheça a banda de Viktor Tsoi e o rock de Leningrado dos anos 80, com exercícios A1."},
+  {lang:"ru", file:"vid-glagola.html",          title:"Вид глагола",                    level:"A2",    emoji:"🔁", color:"red", tags:["verbos","cultura"], desc:"Processo ou resultado? Quatro exercícios sobre o aspecto verbal e uma tarefa com a música «Наше лето»."},
+  {lang:"ru", file:"odezhda-a1.html",           title:"Одежда · слова и фразы",         level:"A1+",   emoji:"👕", color:"yel", tags:["vocabulário","dia a dia"], desc:"Roupas em russo: palavras e frases para descrever o que você veste."},
+  {lang:"ru", file:"kino-a1.html",              title:"КИНО",                           level:"A1",    emoji:"🎸", color:"blu", tags:["cultura"], desc:"Conheça a banda de Viktor Tsoi e o rock de Leningrado dos anos 80, com exercícios A1."},
 ];
 
 const LANGS = {fr:"Francês", ru:"Russo"};
-const list = document.getElementById("list");
-const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-let filter = "all", query = "", level = "all";
 const ORDER = ["A1","A2","B1","B2","C1","C2"];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+const id = j => j.file.replace(/\.html$/, "");
 function levels(j){ // "B2–C1" -> [B2,C1]; "A1→A2" -> [A1,A2]; "B1+" -> [B1]
   const m = j.level.match(/[ABC][12]/g) || [];
   if (m.length === 2){ const a = ORDER.indexOf(m[0]), b = ORDER.indexOf(m[1]); return ORDER.slice(a, b+1); }
   return m;
 }
+const TAGS = [...new Set(JOGOS.flatMap(j => j.tags))].sort((a,b) => a.localeCompare(b, "pt"));
 
-function render(){
-  const q = query.trim().toLowerCase();
-  let shown = 0, html = "";
-  for (const [code, name] of Object.entries(LANGS)){
-    if (filter !== "all" && filter !== code) continue;
-    const items = JOGOS.filter(j => j.lang === code && (level === "all" || levels(j).includes(level)) && (!q || (j.title+" "+j.level+" "+j.desc).toLowerCase().includes(q)));
-    if (!items.length) continue;
-    shown += items.length;
-    html += `<section><h2 class="lang-title">${name} <span class="count">${items.length}</span></h2><div class="grid">` +
-      items.map(j => `<a class="card c-${j.color}" href="${j.file}">
-        <div class="top"><span class="emoji" aria-hidden="true">${j.emoji}</span><span class="level">${esc(j.level)}</span></div>
-        <h3>${esc(j.title)}</h3><p>${esc(j.desc)}</p><span class="play">Jogar →</span></a>`).join("") +
-      `</div></section>`;
-  }
-  list.innerHTML = html;
-  document.getElementById("empty").style.display = shown ? "none" : "block";
+// Fios do rizoma: para cada jogo, os 3 mais próximos (tema em comum, nível vizinho, e às vezes a outra língua)
+function near(j){
+  const lj = levels(j).map(l => ORDER.indexOf(l));
+  return JOGOS.filter(k => k !== j).map(k => {
+    const shared = k.tags.filter(t => j.tags.includes(t)).length;
+    const lk = levels(k).map(l => ORDER.indexOf(l));
+    const gap = Math.min(...lk.flatMap(a => lj.map(b => Math.abs(a - b))));
+    const score = shared * 3 + (gap === 0 ? 2 : gap === 1 ? 1 : 0) + (k.lang !== j.lang && shared ? 0.5 : 0);
+    return {k, score};
+  }).filter(x => x.score >= 3).sort((a,b) => b.score - a.score).slice(0, 3).map(x => x.k);
 }
-document.querySelectorAll(".chip.lg").forEach(b => b.addEventListener("click", () => {
-  filter = b.dataset.f;
-  document.querySelectorAll(".chip.lg").forEach(x => x.setAttribute("aria-pressed", x === b));
-  render();
-}));
-document.querySelectorAll(".chip.lv").forEach(b => b.addEventListener("click", () => {
-  level = b.dataset.l;
-  document.querySelectorAll(".chip.lv").forEach(x => x.setAttribute("aria-pressed", x === b));
-  render();
-}));
-document.querySelector(".search").addEventListener("input", e => { query = e.target.value; render(); });
-document.getElementById("total").textContent = JOGOS.length + " jogos e atividades";
-render();
+const NEAR = new Map(JOGOS.map(j => [j, near(j)]));
+
+const state = {lang:"all", level:"all", tag:"all", q:""};
+
+function chipRow(el, key, items){
+  el.innerHTML = items.map(([v, label]) => `<button class="chip" data-v="${esc(v)}" aria-pressed="${state[key] === v}">${esc(label)}</button>`).join("");
+  el.querySelectorAll(".chip").forEach(b => b.addEventListener("click", () => { state[key] = b.dataset.v; renderAll(); }));
+}
+function renderChips(){
+  chipRow(document.getElementById("f-lang"), "lang", [["all","Todas"], ...Object.entries(LANGS)]);
+  chipRow(document.getElementById("f-level"), "level", [["all","Todos"], ...ORDER.map(l => [l, l])]);
+  chipRow(document.getElementById("f-tag"), "tag", [["all","Todos"], ...TAGS.map(t => [t, cap(t)])]);
+}
+
+function card(j){
+  const links = NEAR.get(j);
+  return `<article class="card c-${j.color}" id="${id(j)}">
+    <div class="top"><span class="emoji" aria-hidden="true">${j.emoji}</span>
+      <span class="badges"><span class="badge">${LANGS[j.lang]}</span><span class="badge">${esc(j.level)}</span></span></div>
+    <h3><a href="${j.file}">${esc(j.title)}</a></h3>
+    <p>${esc(j.desc)}</p>
+    <div class="tags">${j.tags.map(t => `<button class="tag" data-tag="${esc(t)}" aria-label="Ver jogos do tema ${esc(t)}">#${esc(t)}</button>`).join("")}</div>
+    ${links.length ? `<div class="links"><b>Daqui você pode ir para</b>${links.map(k =>
+      `<button data-go="${id(k)}"><span class="dot c-${k.color}" aria-hidden="true"></span><span class="t">${esc(k.title)}</span></button>`).join("")}</div>` : ""}
+    <a class="play" href="${j.file}" tabindex="-1" aria-hidden="true">Jogar →</a>
+  </article>`;
+}
+
+function matches(j){
+  const q = state.q.trim().toLowerCase();
+  return (state.lang === "all" || j.lang === state.lang)
+      && (state.level === "all" || levels(j).includes(state.level))
+      && (state.tag === "all" || j.tags.includes(state.tag))
+      && (!q || (j.title + " " + j.level + " " + j.desc + " " + j.tags.join(" ") + " " + LANGS[j.lang]).toLowerCase().includes(q));
+}
+
+function renderList(){
+  const items = JOGOS.filter(matches);
+  document.getElementById("list").innerHTML = items.map(card).join("");
+  document.getElementById("empty").style.display = items.length ? "none" : "block";
+  const filtered = state.lang !== "all" || state.level !== "all" || state.tag !== "all" || state.q.trim();
+  const parts = [];
+  if (state.lang !== "all") parts.push(LANGS[state.lang]);
+  if (state.level !== "all") parts.push(state.level);
+  if (state.tag !== "all") parts.push("#" + state.tag);
+  if (state.q.trim()) parts.push("“" + state.q.trim() + "”");
+  document.getElementById("status-title").textContent = filtered ? "Caminho: " + parts.join(" · ") : "Todos os caminhos";
+  document.getElementById("status-count").textContent = items.length + (items.length === 1 ? " jogo" : " jogos");
+  document.getElementById("reset").hidden = !filtered;
+}
+function renderAll(){ renderChips(); renderList(); }
+
+// Seguir um fio: se o jogo estiver escondido pelos filtros, mostra tudo; depois rola até ele e pisca
+function goTo(key){
+  const j = JOGOS.find(x => id(x) === key);
+  if (!j) return;
+  if (!matches(j)){ state.lang = "all"; state.level = "all"; state.tag = "all"; state.q = ""; document.querySelector(".search").value = ""; renderAll(); }
+  const el = document.getElementById(key);
+  el.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"center"});
+  el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash");
+  el.querySelector("h3 a").focus({preventScroll:true});
+}
+
+document.getElementById("list").addEventListener("click", e => {
+  const t = e.target.closest(".tag"), g = e.target.closest("[data-go]");
+  if (t){ state.tag = t.dataset.tag; renderAll(); document.querySelector(".status").scrollIntoView({behavior:"smooth", block:"start"}); }
+  if (g) goTo(g.dataset.go);
+});
+document.querySelector(".search").addEventListener("input", e => { state.q = e.target.value; renderList(); });
+document.getElementById("reset").addEventListener("click", () => { state.lang = state.level = state.tag = "all"; state.q = ""; document.querySelector(".search").value = ""; renderAll(); });
+document.getElementById("surprise").addEventListener("click", () => {
+  const pool = JOGOS.filter(matches).length ? JOGOS.filter(matches) : JOGOS;
+  goTo(id(pool[Math.floor(Math.random() * pool.length)]));
+});
+document.getElementById("total").textContent = JOGOS.length + " jogos e atividades, todos ligados entre si";
+renderAll();
 </script>
 </body>
 </html>
